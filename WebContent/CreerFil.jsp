@@ -21,11 +21,11 @@
  </div>
 <br><br>
 <span class="ttl">Creer une filiere</span><br><br>
-<form action="Controle?act=ajouteremp" method="POST">
-<span>Nom de la filiere</span> &nbsp <input class="inpt" type="text" name="nom" />
+<form action="#" method="POST">
+<span>Nom de la filiere</span> &nbsp <input class="inpt" type="text" name="nomFil" />
 <br><br>
 <span>Responsable de filiere</span> &nbsp
-        <select class="selectfilter filterSrch"  id="filtersh">
+        <select class="selectfilter filterSrch"  id="respFil">
                <option value="nom">Nom Prenom</option>
         </select> &nbsp &nbsp &nbsp &nbsp &nbsp
 <img alt="Ajouter un responsable" src="CSS/add.png" class="addResp"/>&nbsp<a href="#" >Ajouter un responsable de filiere</a>

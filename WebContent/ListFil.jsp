@@ -27,7 +27,8 @@
            <tr>
                <td>Nom de la filiere</td>
                <td>Responsable de la filiere</td>
-               <td>modifier la filiere</td>
+               <td>Modifier la filiere</td>
+               <td>Consulter la filiere</td>
                <td>Supprimer la filiere</td>
            </tr>
            </thead>
@@ -36,6 +37,7 @@
                             <td></td>
                             <td></td>
                             <td><img alt="modify" class="modifyicone" src="CSS/modify.png"></td>
+                            <td><img alt="detail" class="deleteicone" src="CSS/detail.png"></td>
                             <td><img alt="delete" class="deleteicone" src="CSS/delete.png"></td>
                            </tr>          
            </tbody>
