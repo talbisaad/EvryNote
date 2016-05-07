@@ -6,7 +6,7 @@
 <script type="text/javascript" src="JS/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="JS/jquery-ui.js"></script>
 <script type="text/javascript" src="JS/script.js"></script>
-<title>Creer une Filiere</title>
+<title>Creer une Filiere1</title>
 </head>
 
 <body>
