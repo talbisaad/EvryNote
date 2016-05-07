@@ -17,35 +17,22 @@
 </div>
  <div class="inner">
  <div class="opr">
-      <ul class="listop">
-          <li><div class="titleitm">Filiere<span class="togl">[ - ]</span></div>
-             <ul class="subItm">
-                 <li><a href="?page=">Creer une filiere</a></li>
-                 <li><a href="?page=">Lister les filieres</a></li>
-                 <li><a href="?page=">Gerer une filiere</a></li>
-             </ul>
-          </li>
-          <li><div class="titleitm">Classe<span class="togl">[ - ]</span></div>
-           <ul class="subItm">
-                 <li><a href="?page=">Creer une classe</a></li>
-                 <li><a href="?page=">Lister les classes</a></li>
-                 <li><a href="?page=">Gerer une classe</a></li>
-           </ul>
-          </li>
-          <li><div class="titleitm">Enseignant<span class="togl">[ - ]</span></div>
-           <ul class="subItm">
-                 <li><a href="?page=">Creer un enseignant</a></li>
-                 <li><a href="?page=">Lister les enseignants</a></li>
-           </ul>
-          </li>
-      </ul>
+<jsp:include page="menuAdmin.jsp"></jsp:include>
  </div>
- <div class="addClient">
-<br>
+<br><br>
 <span class="ttl">Creer une filiere</span><br><br>
+<form action="Controle?act=ajouteremp" method="POST">
+<span>Nom de la filiere</span> &nbsp <input class="inpt" type="text" name="nom" />
+<br><br>
+<span>Responsable de filiere</span> &nbsp
+        <select class="selectfilter filterSrch"  id="filtersh">
+               <option value="nom">Nom Prenom</option>
+        </select> &nbsp &nbsp &nbsp &nbsp &nbsp
+<img alt="Ajouter un responsable" src="CSS/add.png" class="addResp"/>&nbsp<a href="#" >Ajouter un responsable de filiere</a>
+<br><br>
+<input type="submit" value="Valider" class="submit" />
+</form>
 
-
-</div>
 </div>
  
  </body>
