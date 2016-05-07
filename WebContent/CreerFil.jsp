@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="style.css"/>
-<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="jquery-ui.js"></script>
-<script type="text/javascript" src="script.js"></script>
+<link rel="stylesheet" href="CSS/style.css"/>
+<script type="text/javascript" src="JS/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="JS/jquery-ui.js"></script>
+<script type="text/javascript" src="JS/script.js"></script>
 <title>Creer une Filiere</title>
 </head>
 
