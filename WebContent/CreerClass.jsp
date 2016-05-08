@@ -21,43 +21,45 @@
 		<div class="opr">
 			<jsp:include page="menuAdmin.jsp"></jsp:include>
 		</div>
-		<br> <br> <span class="ttl">Creer une classe</span><br>
-		<br>
+		<br><br><span class="ttl">Creer une classe</span><br><br>
+
+
 		<form action="Controle?act=ajouteremp" method="POST">
-			<table>
+			 
+				<table width="70%">
+	
+					<tr >
+						<td>Nom classe</td>
+						<td>:</td>
+						<td><input type="text" name="classname" size="20"></td>
 
-				<tr>
-					<td>Nom classe</td>
-					<td>:</td>
-					<td><input type="text" name="classname" size="20"></td>
+						<td>Filière</td>
+						<td>:</td>
+						<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+					</tr>
+					<tr>
+						<td>Niveau</td>
+						<td>:</td>
+						<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+						<td>Année Universitaire</td>
+						<td>:</td>
+						<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+					</tr>
 
-					<td>Filière</td>
-					<td>:</td>
-					<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
-				</tr>
-				<tr>
-					<td>Niveau</td>
-					<td>:</td>
-					<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
-					<td>Année Universitaire</td>
-					<td>:</td>
-					<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
-				</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td><input type="submit" name="submit" value="Valider"
+							class="submit"> <input type="reset" value="Réinitialiser"
+							class="submit"></td>
+					</tr>
 
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td><input type="submit" name="submit" value="Valider"
-						class="submit"> <input type="reset" value="Réinitialiser"
-						class="submit"></td>
-				</tr>
-
-			</table>
+				</table>
 		</form>
 
 	</div>
