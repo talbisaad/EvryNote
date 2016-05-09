@@ -27,7 +27,7 @@
 		i--;
 	}
 </script>
-<title>Liste des Filieres</title>
+<title>Gerer une filiere</title>
 </head>
 
 <body>
@@ -86,31 +86,34 @@
 
 				<br> <br>
 
+				<div class="tables">
+					<table border="1" cellpadding="0" cellspacing="0" class="tabs">
+						<caption class="ttl">LISTE DES MATIERES</caption>
 
-				<table border="1">
-					<caption>LISTE DES MATIERES</caption>
-					<tr>
-						<th>Code matiere</th>
-						<th>Coefficient matiere</th>
-						<th>Nombre d'heure</th>
-						<th>Enseignant</th>
-					</tr>
-					<tbody id="kids1">
-						<tr>
-							<td><input type="text" name="idMatiere"></td>
-							<td><input type="text" name="coeffMatiere"></td>
-							<td><input type="text" name="heureMatiere"></td>
-							<td><select class="selectfilter filterSrch" id="enseignant">
-									<option value="enseignant1">enseignant 1</option>
-									<option value="enseignant2">enseignant 2</option>
-							</select></td>
-							<td><input type="button" id="add_kid1()" onClick="addKid1()"
-								value="+" /></td>
-						</tr>
-
-					</tbody>
-				</table><br>
-				<input type="submit" value="Valider" class="submit" />
+						<thead>
+							<tr>
+								<td>Code matiere</td>
+								<td>Coefficient matiere</td>
+								<td>Nombre d'heure</td>
+								<td>Enseignant</td>
+							</tr>
+						</thead>
+						<tbody id="kids1">
+							<tr>
+								<td><input type="text" name="idMatiere"></td>
+								<td><input type="text" name="coeffMatiere"></td>
+								<td><input type="text" name="heureMatiere"></td>
+								<td><select class="selectfilter filterSrch" id="enseignant">
+										<option value="enseignant1">enseignant 1</option>
+										<option value="enseignant2">enseignant 2</option>
+								</select></td>
+								<td><input type="button" id="add_kid1()"
+									onClick="addKid1()" value="+" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br> <input type="submit" value="Valider" class="submit" />
 			</fieldset>
 		</div>
 

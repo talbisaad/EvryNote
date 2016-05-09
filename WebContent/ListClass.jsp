@@ -30,13 +30,13 @@
 						<td>Filière</td>
 						<td>Niveau</td>
 						<td>Année universitaire</td>
-						<td>Modifier classe</td>
-						<td>Supprimer classe</td>
+						<td>Modifier</td>
+						<td>Supprimer</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td></td>
+						<td><a></a></td>
 						<td></td>
 						<td></td>
 						<td></td>
