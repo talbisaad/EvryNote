@@ -17,7 +17,7 @@
            </ul>
           <li><div class="titleitm">Enseignant<span class="togl">[ - ]</span></div>
            <ul class="subItm">
-                 <li><a href="/EvryNote/ListEns.jsp">Gerer les enseignants </a></li>
+                 <li><a href="/EvryNote/ListEns.jsp">Gerer les enseignants</a></li>
            </ul>
           </li>
           <li><div class="titleitm">Saisie des notes<span class="togl">[ - ]</span></div>
