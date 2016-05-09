@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -6,9 +8,8 @@
 <script type="text/javascript" src="JS/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="JS/jquery-ui.js"></script>
 <script type="text/javascript" src="JS/script.js"></script>
-<title>Liste des Filieres</title>
+<title>Liste des classes</title>
 </head>
-
 <body>
 	<div class="header">
 		<ul>
@@ -19,15 +20,16 @@
 		<div class="opr">
 			<jsp:include page="menuAdmin.jsp"></jsp:include>
 		</div>
-		<br>
-		<br> <span class="ttl">Liste des filieres</span><br>
+		<br> <br> <span class="ttl">Liste des classes</span><br>
 		<br>
 		<div class="tables">
 			<table cellpadding="0" cellspacing="0" class="tabs">
 				<thead>
 					<tr>
-						<td>Nom de la filiere</td>
-						<td>Responsable</td>
+						<td>Nom classe</td>
+						<td>Filière</td>
+						<td>Niveau</td>
+						<td>Année universitaire</td>
 						<td>Modifier</td>
 						<td>Supprimer</td>
 					</tr>
@@ -36,10 +38,12 @@
 					<tr>
 						<td><a></a></td>
 						<td></td>
+						<td></td>
+						<td></td>
 						<td><a><img alt="modify" class="modifyicone"
-								src="CSS/modify.png"></a></td>
+							src="CSS/modify.png"></a></td>
 						<td><a><img alt="delete" class="deleteicone"
-								src="CSS/delete.png"></a></td>
+							src="CSS/delete.png"></a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -47,4 +51,3 @@
 	</div>
 </body>
 </html>
-
