@@ -40,10 +40,10 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td><a><img alt="modify" class="modifyicone"
-							src="CSS/modify.png"></a></td>
-						<td><a><img alt="delete" class="deleteicone"
-							src="CSS/delete.png"></a></td>
+						<td><img alt="modify" class="modifyicone"
+							src="CSS/modify.png"></td>
+						<td><img alt="delete" class="deleteicone"
+							src="CSS/delete.png"></td>
 					</tr>
 				</tbody>
 			</table>
