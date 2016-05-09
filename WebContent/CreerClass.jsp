@@ -51,7 +51,7 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<tr>
+					<tr id="lign">
 						<td></td>
 						<td></td>
 						<td><input type="submit" name="submit" value="Valider"
