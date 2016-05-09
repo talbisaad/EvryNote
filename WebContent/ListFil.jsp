@@ -26,7 +26,7 @@
 			<table cellpadding="0" cellspacing="0" class="tabs">
 				<thead>
 					<tr>
-						<td>Nom de la filiere</td>
+						<td>Nom de la filiere </td>
 						<td>Responsable</td>
 						<td>Modifier</td>
 						<td>Supprimer</td>
