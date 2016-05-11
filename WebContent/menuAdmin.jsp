@@ -12,7 +12,7 @@
            <ul class="subItm">
                  <li><a href="/EvryNote/CreerClass.jsp">Creer une classe</a></li>
                  <li><a href="/EvryNote/ListClass.jsp">Lister les classes</a></li>
-                 <li><a href="?page=">Gerer une classe</a></li>
+                 <li><a href="/EvryNote/GestionClass.jsp">Gerer une classe</a></li>
                  <li><a href="?page=">Reporting de la classe</a></li>
            </ul>
           <li><div class="titleitm">Enseignant<span class="togl">[ - ]</span></div>
