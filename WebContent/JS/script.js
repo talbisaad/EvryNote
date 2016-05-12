@@ -30,7 +30,7 @@
 		  $(".shadow").fadeIn();
 		  return false;
 	  });
-	  $(".ajouteragd").on("click",function(){
+	  $(".modifNote").on("click",function(){
 		  $(".addegd").fadeIn();
 		  $(".shadow").fadeIn();
 		  return false;

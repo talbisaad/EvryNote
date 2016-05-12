@@ -81,7 +81,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td><a href="" onclick="javascript:open_infos();"><img alt="modify"
+						<td><a href="" class="ajouteragd"><img alt="modify"
 								class="modifyicone" src="CSS/modify.png"></a></td>
 					</tr>
 				</tbody>
@@ -91,4 +91,5 @@
 
 </body>
 </html>
+ <%@include file="modifNote.jsp" %>
 
