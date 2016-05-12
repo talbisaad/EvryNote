@@ -55,13 +55,6 @@
 		</div>
 		<br>
 		<br>
-		<script type="text/javascript">
-			function open_infos() {
-				window
-						.open('modif.jsp', 'modifNote',
-								'menubar=no, scrollbars=no, top=100, left=100, width=300, height=200');
-			}
-		</script>
 		<div class="tables">
 			<table cellpadding="0" cellspacing="0" class="tabs">
 				<thead>

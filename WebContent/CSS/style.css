@@ -391,3 +391,7 @@ float droite
 .rechclasse {
 	float: right;
 }
+/*width zone de recherche */
+.rechwidth {
+	width: 200px;
+}
