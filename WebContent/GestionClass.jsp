@@ -8,7 +8,7 @@
 <script type="text/javascript" src="JS/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="JS/jquery-ui.js"></script>
 <script type="text/javascript" src="JS/script.js"></script>
-<title>Création de la classe</title>
+<title>Géstion de la classe</title>
 </head>
 
 <body>
@@ -21,14 +21,16 @@
 		<div class="opr">
 			<jsp:include page="menuAdmin.jsp"></jsp:include>
 		</div>
-		<br><br><span class="ttl">Creer une classe</span><br><br>
+		<br> <br> <span class="ttl">Gestion de la classe</span><br>
+		<br>
+		<fieldset>
+		<legend>Rechercher</legend>
+		<div>
+			<form action="Controle?act=ajouteremp" method="POST">
 
-
-		<form action="Controle?act=ajouteremp" method="POST">
-			 
 				<table width="70%">
-	
-					<tr >
+
+					<tr>
 						<td>Nom classe</td>
 						<td>:</td>
 						<td><input type="text" name="classname" size="20"></td>
@@ -51,19 +53,48 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<tr id="lign">
+					<tr>
 						<td></td>
 						<td></td>
-						<td><input type="submit" name="submit" value="Valider"
+						<td><input type="submit" name="submit" value="Rechercher"
 							class="submit"> <input type="reset" value="Réinitialiser"
 							class="submit"></td>
 					</tr>
 
 				</table>
-		</form>
-
+			</form>
+		</div>
+		</fieldset>
+		<div id="lign" class="tables">
+			<table cellpadding="0" cellspacing="0" class="tabs">
+				<thead>
+					<tr>
+						<td>INE Etudiant</td>
+						<td>Nom</td>
+						<td>Prénom</td>
+						<td>Modifier</td>
+						<td>Supprimer</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><img alt="modify" class="modifyicone"
+							src="CSS/modify.png"></td>
+						<td><img alt="delete" class="deleteicone"
+							src="CSS/delete.png"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="lign">
+		<input type="submit"
+				value="Ajouter" class="submit" />
+		<input type="file" id="fichier"
+				name="fichier" value="" /> 
+		</div>
 	</div>
-
 </body>
 </html>
-
