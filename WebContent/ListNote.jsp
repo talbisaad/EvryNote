@@ -48,11 +48,20 @@
 							</select></td>
 						</tr>
 					</table>
-					<br><br>
+					<br>
+					<br>
 				</form>
 			</div>
 		</div>
-		<br><br>
+		<br>
+		<br>
+		<script type="text/javascript">
+			function open_infos() {
+				window
+						.open('modif.jsp', 'modifNote',
+								'menubar=no, scrollbars=no, top=100, left=100, width=300, height=200');
+			}
+		</script>
 		<div class="tables">
 			<table cellpadding="0" cellspacing="0" class="tabs">
 				<thead>
@@ -72,8 +81,8 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td><a href="" class="ajouteragd"><img alt="modify" class="modifyicone"
-								src="CSS/modify.png"></a></td>
+						<td><a href="" onclick="javascript:open_infos();"><img alt="modify"
+								class="modifyicone" src="CSS/modify.png"></a></td>
 					</tr>
 				</tbody>
 			</table>

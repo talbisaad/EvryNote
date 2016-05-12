@@ -249,6 +249,11 @@ body {
 	top: 3px;
 }
 
+.fieldsetfilter {
+	width: 200px;
+	float: left;
+}
+
 .selectfilter {
 	height: 25px;
 }
@@ -376,3 +381,9 @@ body {
 div#lign {
 	margin-top: 20px;
 }
+zone modification
+*/
+.modif {
+    text-align : center;
+    border-left: 50px;
+    }
