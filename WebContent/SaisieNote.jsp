@@ -36,7 +36,7 @@
 		<form action="#" method="POST">
 			<table>
 				<tr>
-					<td><span>Les matieres enseignées</span></td>
+					<td><span>Choisir une matière</span></td>
 					<td>&nbsp&nbsp&nbsp&nbsp</td>
 					<td><select class="selectfilter filterSrch" id="respFil">
 							<option value="nom">ANALDON</option>

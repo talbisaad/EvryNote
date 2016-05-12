@@ -22,15 +22,16 @@
 <br><br>
 <span class="ttl">Creer une filiere</span><br><br>
 <form action="#" method="POST">
-<span>Nom de la filiere</span> &nbsp <input class="inpt" type="text" name="nomFil" />
-<br><br>
-<span>Responsable de filiere</span> &nbsp
+<table>
+<tr><td><span>Nom de la filiere</span></td><td><input class="inpt" type="text" name="nomFil" /></td></tr>
+<tr><td><br></td></tr>
+<tr><td><span>Responsable de filiere</span></td><td>
         <select class="selectfilter filterSrch"  id="respFil">
                <option value="nom">Nom Prenom</option>
-        </select> &nbsp &nbsp &nbsp &nbsp &nbsp
-<img alt="Ajouter un responsable" src="CSS/add.png" class="addResp"/>&nbsp<a href="#" >Ajouter un responsable de filiere</a>
+        </select></td></tr>
+</table>
 <br><br>
-<input type="submit" value="Valider" class="submit" />
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Valider" class="submit" />
 </form>
 
 </div>

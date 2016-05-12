@@ -22,6 +22,13 @@
 <br><br>
 <span class="ttl">Gerer les enseignants</span><br><br>
      <div class="tables"> 
+     <br>
+     <fieldset class="fieldsetfilter">
+		<legend>Rechercher</legend>
+			<input type="text" name="rechFil" size="20" />&nbsp&nbsp<img
+				alt="Rechercher" class="submitfilter" src="CSS/search.png" />
+		</fieldset>
+		<br> <br>
            <table cellpadding="0" cellspacing="0" class="tabs">
            <thead>
            <tr>
