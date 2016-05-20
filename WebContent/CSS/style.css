@@ -291,8 +291,8 @@ body {
 	margin-left: 9px;
 }
 
-/*ajouter dept*/
-.adddept, .addegd, .addalertt {
+/*modifier note*/
+.modifnote {
 	display: none;
 	border: 1px solid #DDDDDD;
 	width: 400px;
