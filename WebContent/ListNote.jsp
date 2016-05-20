@@ -7,6 +7,14 @@
 <script type="text/javascript" src="JS/jquery-ui.js"></script>
 <script type="text/javascript" src="JS/script.js"></script>
 <title>Lister les notes d'une classe</title>
+
+<script language="javascript">
+	function activer() {
+		document.getElementById('note').disabled = false;
+		document.getElementById('boutonVal').style.display = 'block';
+		document.getElementById('boutonAnul').style.display = 'block';
+	}
+</script>
 </head>
 
 <body>
@@ -19,8 +27,8 @@
 		<div class="opr">
 			<jsp:include page="menuAdmin.jsp"></jsp:include>
 		</div>
-		<br> <br> <span class="ttl">Lister les notes d'une
-			classe</span><br> <br> <br>
+		<br> <br> <span class="ttl" hidden>Lister les notes
+			d'une classe</span><br> <br> <br>
 		<div>
 			<fieldset class="fieldsetfilter">
 				<legend>Rechercher</legend>
@@ -48,47 +56,48 @@
 							</select></td>
 						</tr>
 					</table>
-					<br>
-					<br>
+					<br> <br>
 				</form>
 			</div>
 		</div>
-		<br>
-		<br>
-		<script type="text/javascript">
-			function open_infos() {
-				window
-						.open('modif.jsp', 'modifNote',
-								'menubar=no, scrollbars=no, top=100, left=100, width=300, height=200');
-			}
-		</script>
-		<div class="tables">
-			<table cellpadding="0" cellspacing="0" class="tabs">
-				<thead>
-					<tr>
-						<td>Matière</td>
-						<td>Code etudiant</td>
-						<td>Nom</td>
-						<td>Prenom</td>
-						<td>Note</td>
-						<td>Modifier</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><a href="" onclick="javascript:open_infos();"><img alt="modify"
-								class="modifyicone" src="CSS/modify.png"></a></td>
-					</tr>
-				</tbody>
-			</table>
+		<br> <br>
+		<div class="tables" action="#" method="POST">
+			<form action="#" method="POST">
+				<table cellpadding="0" cellspacing="0" class="tabs">
+					<thead>
+						<tr>
+							<td>Matière</td>
+							<td>Code etudiant</td>
+							<td>Nom</td>
+							<td>Prenom</td>
+							<td>Note</td>
+							<td>Modifier</td>
+							<td></td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><input type="text" name="noteEtu" id="note" disabled
+								size="10"></td>
+							<td><a href="#" class="modif" id='boutonModif'
+								onclick="activer()"><img alt="modify" class="modifyicone"
+									src="CSS/modify.png"></a></td>
+							<td><input type="submit" style="display: none;"
+								name="validNote" value="Valider" class="submit" id="boutonVal" /></td>
+							<td><input type="submit" style="display: none;"
+								name="annulNote" value="Annuler" class="submit" id="boutonAnul" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 		</div>
 	</div>
-
 </body>
 </html>
+
 

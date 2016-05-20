@@ -291,8 +291,8 @@ body {
 	margin-left: 9px;
 }
 
-/*ajouter dept*/
-.adddept, .addegd, .addalertt {
+/*modifier note*/
+.modifnote {
 	display: none;
 	border: 1px solid #DDDDDD;
 	width: 400px;
@@ -361,10 +361,6 @@ body {
 	resize: none;
 }
 
-.agd {
-	display: none;
-}
-
 .timeinpt {
 	width: 93px;
 }
@@ -381,9 +377,21 @@ body {
 div#lign {
 	margin-top: 20px;
 }
-zone modification
+/*
+centrage
 */
-.modif {
-    text-align : center;
-    border-left: 50px;
-    }
+.center {
+	margin: auto;
+	width: 60%;
+	padding: 10px;
+}
+/*
+float droite
+*/
+.rechclasse {
+	float: right;
+}
+/*width zone de recherche */
+.rechwidth {
+	width: 200px;
+}

@@ -22,11 +22,14 @@
 		</div>
 		<br> <br> <span class="ttl">Liste des classes</span><br>
 		<br>
-		<fieldset class="fieldsetfilter">
-			<legend>Rechercher</legend>
-			<input type="text" name="rechFil" size="20" />&nbsp&nbsp<img
-				alt="Rechercher" class="submitfilter" src="CSS/search.png" />
-		</fieldset>
+		<div class="rechwidth">
+			<fieldset>
+				<legend>Rechercher</legend>
+				<input type="text" name="rechClass" size="20" />&nbsp&nbsp<img
+					alt="Rechercher" class="submitfilter" src="CSS/search.png" />
+			</fieldset>
+		</div>
+		<br>
 		<div class="tables">
 			<table cellpadding="0" cellspacing="0" class="tabs">
 				<thead>
