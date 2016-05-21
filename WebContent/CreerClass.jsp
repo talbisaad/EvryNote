@@ -25,26 +25,26 @@
 		<br>
 
 
-		<form action="Controle?act=ajouteremp" method="POST">
+		<form action="CreerClass" method="POST">
 
 			<table width="70%">
 
 				<tr>
 					<td>Nom classe</td>
 					<td>:</td>
-					<td><input type="text" name="classname" size="20"></td>
+					<td><input type="text" name="NomClasse" size="30"></td>
 
 					<td>Filière</td>
 					<td>:</td>
-					<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+					<td><select class="selectfilter filterSrch" name="filiere" id="filtersh"></select></td>
 				</tr>
 				<tr>
 					<td>Niveau</td>
 					<td>:</td>
-					<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+					<td><select class="selectfilter filterSrch" name="niveau" id="filtersh"></select></td>
 					<td>Année Universitaire</td>
 					<td>:</td>
-					<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+					<td><select class="selectfilter filterSrch" name="annee" id="filtersh"></select></td>
 				</tr>
 
 				<tr>
@@ -55,7 +55,7 @@
 				<tr id="lign">
 					<td></td>
 					<td></td>
-					<td><input type="submit" name="saisieFil" value="Valider"
+					<td><input type="submit" name="valider" value="Valider"
 						class="submit" /> <input type="reset" value="Réinitialiser"
 						class="submit" /></td>
 				</tr>
