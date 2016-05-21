@@ -7,32 +7,37 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Beans.Enseignant;
-import Beans.ResponsableFiliere;
+import Dao.EnseignantDao;
+import Dao.FiliereDao;
+import Dao.DAOFactory;
 import Treatment.TreatmentFiliere;
 
 public class ServletFiliere extends HttpServlet {
 	ArrayList<Enseignant> resps = new ArrayList<Enseignant>();
 	TreatmentFiliere treatmentFiliere = new TreatmentFiliere();
+	private FiliereDao filiereDao;
+	private EnseignantDao enseignantDao;
 
 	public void init() {
-		Enseignant resp1 = new Enseignant(1, "zahir", "badr");
-		Enseignant resp2 = new Enseignant(2, "talbi", "saad");
-		resps.add(resp1);
-		resps.add(resp2);
+		this.filiereDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getFiliereDao();
+		this.enseignantDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getEnseignantDao();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("resps", resps);
+		HttpSession session = request.getSession();
+		resps = enseignantDao.trouver();
+		session.setAttribute("resps", resps);
 		this.getServletContext().getRequestDispatcher("/CreerFil.jsp").forward(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nomFil = request.getParameter("nomFil");
-		ResponsableFiliere responsable = (ResponsableFiliere) request.getAttribute("respFil");
-		System.out.println(responsable.toString());
-		request.setAttribute("resps", resps);
+		HttpSession session = request.getSession();
+		String id = request.getParameter("respFil");
+		resps = enseignantDao.trouver();
+		session.setAttribute("resps", resps);
 		this.getServletContext().getRequestDispatcher("/CreerFil.jsp").forward(request, response);
 	}
 

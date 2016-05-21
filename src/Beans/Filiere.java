@@ -7,13 +7,13 @@ public class Filiere {
 	String nom;
 	ArrayList<Matiere> matieres;
 	ArrayList<Classe> classes;
-	ChefDepartement chefDep;
-	ResponsableFiliere respFil;
+	Enseignant chefDep;
+	Enseignant respFil;
 
 	public Filiere() {
 	}
 
-	public Filiere(String nom,ResponsableFiliere respFil) {
+	public Filiere(String nom,Enseignant respFil) {
 		this.nom = nom;
 		this.respFil = respFil;
 	}
@@ -42,19 +42,19 @@ public class Filiere {
 		this.classes = classes;
 	}
 
-	public ChefDepartement getChefDep() {
+	public Enseignant getChefDep() {
 		return chefDep;
 	}
 
-	public void setChefDep(ChefDepartement chefDep) {
+	public void setChefDep(Enseignant chefDep) {
 		this.chefDep = chefDep;
 	}
 
-	public ResponsableFiliere getRespFil() {
+	public Enseignant getRespFil() {
 		return respFil;
 	}
 
-	public void setRespFil(ResponsableFiliere respFil) {
+	public void setRespFil(Enseignant respFil) {
 		this.respFil = respFil;
 	}
 
