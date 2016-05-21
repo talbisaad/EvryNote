@@ -4,6 +4,10 @@
 	version="3.0">
 	<display-name>EvryNote</display-name>
 
+	<listener>
+		<listener-class>Config.InitialisationDaoFactory</listener-class>
+	</listener>
+
 	<servlet>
 		<servlet-name>ServletFiliere</servlet-name>
 		<servlet-class>Controller.ServletFiliere</servlet-class>

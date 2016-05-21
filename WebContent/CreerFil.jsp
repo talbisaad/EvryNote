@@ -37,7 +37,7 @@
 					<td><select class="selectfilter filterSrch" name="respFil"
 						id="respFil">
 							<c:forEach items="${resps}" var="resp">
-								<option value="<c:out value="${resp}"/>">${resp.nom} ${resp.prenom}
+								<option value="<c:out value="${resp.id}"/>">${resp.nom} ${resp.prenom}
 								</option>
 							</c:forEach>
 					</select></td>

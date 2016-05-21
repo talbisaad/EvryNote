@@ -12,15 +12,19 @@ public class TreatmentFiliere {
 
 	String msg;
 
-	public void creerFiliere(HttpServletRequest request, HttpServletResponse response)
+	public void creerFiliere(HttpServletRequest request)
 			throws ServletException, IOException {
 		String nomFil = request.getParameter("nomFil");
-		ResponsableFiliere responsable = (ResponsableFiliere) request.getAttribute("respFil");
-		System.out.println(responsable.toString());
-		if (nomFil != null && responsable != null) {
-
+		String responsable = request.getParameter("respFil");
+		
+		if (nomFil != null && responsable != null && nomFil == "" && responsable == "") {
+			
 		}
 
 	}
+	
+	
+	
+	
 
 }

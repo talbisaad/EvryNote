@@ -4,6 +4,8 @@ public class Enseignant {
 	
 	private int id;
 	private String nom, prenom;
+	private boolean reponsableFil;
+	private boolean chefDepart;
 	
 	public Enseignant(){
 		
@@ -14,6 +16,22 @@ public class Enseignant {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
+	}
+
+	public boolean isReponsableFil() {
+		return reponsableFil;
+	}
+
+	public void setReponsableFil(boolean reponsableFil) {
+		this.reponsableFil = reponsableFil;
+	}
+
+	public boolean isChefDepart() {
+		return chefDepart;
+	}
+
+	public void setChefDepart(boolean chefDepart) {
+		this.chefDepart = chefDepart;
 	}
 
 	public int getId() {
@@ -42,7 +60,7 @@ public class Enseignant {
 
 	@Override
 	public String toString() {
-		return "Enseignant [id=" + id + ", nom=" + nom + ", prenom=" + prenom + "]";
+		return "Enseignant [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", reponsableFil=" +reponsableFil+ ", chefDepar ="+chefDepart+"]";
 	}
 	
 	
