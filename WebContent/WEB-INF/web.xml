@@ -17,6 +17,18 @@
 		<servlet-name>ServletFiliere</servlet-name>
 		<url-pattern>/CreerFil</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ServletClass</servlet-name>
+		<servlet-class>Controller.ServletClass</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ServletClass</servlet-name>
+		<url-pattern>/CreerClass</url-pattern>
+	</servlet-mapping>
+	
+	
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

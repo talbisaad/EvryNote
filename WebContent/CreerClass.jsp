@@ -36,7 +36,15 @@
 
 					<td>Filière</td>
 					<td>:</td>
-					<td><select class="selectfilter filterSrch" name="filiere" id="filtersh"></select></td>
+					<td><select class="selectfilter filterSrch" name="filiere" id="filtersh">
+					<optgroup label="">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					</optgroup>
+					</select></td>
 				</tr>
 				<tr>
 					<td>Niveau</td>
@@ -44,7 +52,15 @@
 					<td><select class="selectfilter filterSrch" name="niveau" id="filtersh"></select></td>
 					<td>Année Universitaire</td>
 					<td>:</td>
-					<td><select class="selectfilter filterSrch" name="annee" id="filtersh"></select></td>
+					<td><select class="selectfilter filterSrch" name="annee" id="filtersh">
+					<optgroup label="">
+					<option>1000</option>
+					<option>2000</option>
+					<option>3000</option>
+					<option>4000</option>
+					<option>5000</option>
+					</optgroup>
+					</select></td>
 				</tr>
 
 				<tr>
@@ -57,7 +73,7 @@
 					<td></td>
 					<td><input type="submit" name="valider" value="Valider"
 						class="submit" /> <input type="reset" value="Réinitialiser"
-						class="submit" /></td>
+						class="submit" name="renit"/></td>
 				</tr>
 
 			</table>
