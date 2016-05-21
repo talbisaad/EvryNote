@@ -57,6 +57,12 @@ public class Filiere {
 	public void setRespFil(ResponsableFiliere respFil) {
 		this.respFil = respFil;
 	}
+
+	@Override
+	public String toString() {
+		return "Filiere [nom=" + nom + ", matieres=" + matieres + ", classes=" + classes + ", chefDep=" + chefDep
+				+ ", respFil=" + respFil + "]";
+	}
 	
 	
 

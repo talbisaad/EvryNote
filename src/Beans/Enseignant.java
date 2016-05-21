@@ -39,6 +39,11 @@ public class Enseignant {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+
+	@Override
+	public String toString() {
+		return "Enseignant [id=" + id + ", nom=" + nom + ", prenom=" + prenom + "]";
+	}
 	
 	
 
