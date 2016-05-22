@@ -49,7 +49,16 @@
 				<tr>
 					<td>Niveau</td>
 					<td>:</td>
-					<td><select class="selectfilter filterSrch" name="niveau" id="filtersh"></select></td>
+					<td><select class="selectfilter filterSrch" name="niveau" id="filtersh">
+					<optgroup label="">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					</optgroup>
+					</select></td>
+					</select></td>
 					<td>Année Universitaire</td>
 					<td>:</td>
 					<td><select class="selectfilter filterSrch" name="annee" id="filtersh">

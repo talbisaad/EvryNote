@@ -3,7 +3,7 @@
       <ul class="listop">
           <li><div class="titleitm">Filiere<span class="togl">[ - ]</span></div>
              <ul class="subItm">
-                 <li><a href="/EvryNote/CreerFil.jsp">Creer une filiere</a></li>
+                 <li><a href="/EvryNote/CreerFil">Creer une filiere</a></li>
                  <li><a href="/EvryNote/ListFil.jsp">Lister les filieres</a></li>
                  <li><a href="/EvryNote/GestionFil.jsp">Gerer une filiere</a></li>
              </ul>

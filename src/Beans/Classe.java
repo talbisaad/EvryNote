@@ -6,7 +6,7 @@ public class Classe {
 	private String Niveau;
 	private float Moyenne;
 	private String AnneeUniversitaire;
-	private int IdFiliere;
+	private String IdFiliere;
 
 	public Classe() {
 		super();
@@ -14,7 +14,7 @@ public class Classe {
 	}
 
 	public Classe( String nomClasse, String niveau, float moyenne, String anneeUniversitaire,
-			int idFiliere) {
+			String idFiliere) {
 		super();
 		NomClasse = nomClasse;
 		Niveau = niveau;
@@ -56,12 +56,18 @@ public class Classe {
 		AnneeUniversitaire = anneeUniversitaire;
 	}
 
-	public int getIdFiliere() {
+	public String getIdFiliere() {
 		return IdFiliere;
 	}
 
-	public void setIdFiliere(int idFiliere) {
+	public void setIdFiliere(String idFiliere) {
 		IdFiliere = idFiliere;
+	}
+
+	@Override
+	public String toString() {
+		return "Classe [NomClasse=" + NomClasse + ", Niveau=" + Niveau + ", Moyenne=" + Moyenne
+				+ ", AnneeUniversitaire=" + AnneeUniversitaire + ", IdFiliere=" + IdFiliere + "]";
 	}
 
 }
