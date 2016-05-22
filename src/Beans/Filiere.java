@@ -1,19 +1,19 @@
 package Beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Filiere {
+public class Filiere implements Serializable {
 
 	String nom;
 	ArrayList<Matiere> matieres;
 	ArrayList<Classe> classes;
-	Enseignant chefDep;
 	Enseignant respFil;
 
 	public Filiere() {
 	}
 
-	public Filiere(String nom,Enseignant respFil) {
+	public Filiere(String nom, Enseignant respFil) {
 		this.nom = nom;
 		this.respFil = respFil;
 	}
@@ -42,14 +42,6 @@ public class Filiere {
 		this.classes = classes;
 	}
 
-	public Enseignant getChefDep() {
-		return chefDep;
-	}
-
-	public void setChefDep(Enseignant chefDep) {
-		this.chefDep = chefDep;
-	}
-
 	public Enseignant getRespFil() {
 		return respFil;
 	}
@@ -60,10 +52,7 @@ public class Filiere {
 
 	@Override
 	public String toString() {
-		return "Filiere [nom=" + nom + ", matieres=" + matieres + ", classes=" + classes + ", chefDep=" + chefDep
-				+ ", respFil=" + respFil + "]";
+		return "Filiere [nom=" + nom + ", matieres=" + matieres + ", classes=" + classes + ", respFil=" + respFil + "]";
 	}
-	
-	
 
 }

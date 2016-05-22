@@ -1,6 +1,8 @@
 package Beans;
 
-public class Enseignant {
+import java.io.Serializable;
+
+public class Enseignant implements Serializable{
 	
 	private int id;
 	private String nom, prenom;

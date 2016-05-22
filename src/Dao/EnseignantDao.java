@@ -8,8 +8,12 @@ public interface EnseignantDao {
 
 	void creer(Enseignant enseignant) throws DAOException;
 
-	ArrayList<Enseignant> trouver() throws DAOException;
+	Enseignant trouver(int id) throws DAOException;
+
+	ArrayList<Enseignant> lister() throws DAOException;
 
 	Enseignant modifier(int id) throws DAOException;
+	
+	public void modifierDroit(int id) throws DAOException;
 
 }

@@ -103,7 +103,7 @@ public class DAOFactory {
 			/* Méthode chargée de fournir une connexion à la base de données */
 
 			/* package */ java.sql.Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(url, username, password);
+		return DriverManager.getConnection("jdbc:mysql://localhost/evrynote?user=root&password=root");
 
 	}
 
