@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -55,23 +56,23 @@
 				<table cellpadding="0" cellspacing="0" class="tabs">
 					<thead>
 						<tr>
-							<td>Code filière</td>
-							<td>Nom de la filière</td>
+							<td>Nom filière</td>
 							<td>Responsable</td>
 							<td>Modifier</td>
 							<td>Supprimer</td>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><a></a></td>
-							<td></td>
-							<td></td>
-							<td><a href="#" id="modify" onclick="afficheModif()"><img
-									alt="modify" class="modifyicone" src="CSS/modify.png"></a></td>
-							<td><a><img alt="delete" class="deleteicone"
-									src="CSS/delete.png"></a></td>
-						</tr>
+						<c:forEach items="${fils}" var="fil">
+							<tr>
+								<td><a>${fil.nom}</a></td>
+								<td>${fil.respFil.id}</td>
+								<td><a href="#" id="modify" onclick="afficheModif()"><img
+										alt="modify" class="modifyicone" src="CSS/modify.png"></a></td>
+								<td><a><img alt="delete" class="deleteicone"
+										src="CSS/delete.png"></a></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
