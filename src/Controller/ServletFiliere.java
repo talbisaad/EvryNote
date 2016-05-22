@@ -24,6 +24,10 @@ public class ServletFiliere extends HttpServlet {
 	public void init() {
 		this.filiereDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getFiliereDao();
 		this.enseignantDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getEnseignantDao();
+		resps = enseignantDao.trouver();
+		for(Enseignant resp : resps){
+			System.out.println(resp);
+		}
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

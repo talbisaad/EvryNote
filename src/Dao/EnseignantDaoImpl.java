@@ -59,7 +59,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
 			/* Récupération d'une connexion depuis la Factory */
 
 			connexion = daoFactory.getConnection();
-
+			
 			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, false);
 
 			resultSet = preparedStatement.executeQuery();

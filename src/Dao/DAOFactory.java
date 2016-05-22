@@ -103,7 +103,6 @@ public class DAOFactory {
 			/* Méthode chargée de fournir une connexion à la base de données */
 
 			/* package */ java.sql.Connection getConnection() throws SQLException {
-
 		return DriverManager.getConnection(url, username, password);
 
 	}
@@ -121,7 +120,7 @@ public class DAOFactory {
 		return new FiliereDaoImpl(this);
 
 	}
-	
+
 	public EnseignantDao getEnseignantDao() {
 
 		return new EnseignantDaoImpl(this);
