@@ -13,32 +13,42 @@ import Beans.Enseignant;
 import Beans.Filiere;
 import Dao.EnseignantDao;
 import Dao.FiliereDao;
+import Dao.MatiereDao;
 import Dao.DAOFactory;
 import Treatment.TreatmentFiliere;
 
 public class ServletFiliere extends HttpServlet {
 	ArrayList<Enseignant> resps;
+	ArrayList<Enseignant> enseignants;
 	ArrayList<Filiere> fils;
 	TreatmentFiliere treatmentFiliere;
 	private FiliereDao filiereDao;
 	private EnseignantDao enseignantDao;
+	private MatiereDao matiereDao;
 	private String page;
 
 	public void init() {
 		this.filiereDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getFiliereDao();
 		this.enseignantDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getEnseignantDao();
+		this.matiereDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getMatiereDao();
 		treatmentFiliere = new TreatmentFiliere();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// HttpSession session = request.getSession();
 		page = request.getRequestURL().substring(31);
-		if (page.equals("ListFil")) {
-			fils = filiereDao.lister();
+		if (page.equals("GestionFil")) {
+			enseignants = enseignantDao.lister();
+			fils = filiereDao.listerFilSansMat();
+			request.setAttribute("fils", fils);
+			request.setAttribute("enseignants", enseignants);
+			this.getServletContext().getRequestDispatcher("/GestionFil.jsp").forward(request, response);
+		} else if (page.equals("ListFil")) {
+			fils = filiereDao.listerFilAvecMat();
 			request.setAttribute("fils", fils);
 			this.getServletContext().getRequestDispatcher("/ListFil.jsp").forward(request, response);
 		} else {
-			resps = enseignantDao.lister();
+			resps = enseignantDao.listerEns();
 			request.setAttribute("resps", resps);
 			this.getServletContext().getRequestDispatcher("/CreerFil.jsp").forward(request, response);
 		}
@@ -47,14 +57,22 @@ public class ServletFiliere extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// HttpSession session = request.getSession();
 		page = request.getRequestURL().substring(31);
-		if (page.equals("ListFil")) {
-			fils = filiereDao.lister();
+		if (page.equals("GestionFil")) {
+			enseignants = enseignantDao.lister();
+			fils = filiereDao.listerFilSansMat();
+			treatmentFiliere.ajoutMatiere(request, matiereDao);
+			request.setAttribute("fils", fils);
+			request.setAttribute("enseignants", enseignants);
+			this.getServletContext().getRequestDispatcher("/GestionFil.jsp").forward(request, response);
+		} else if (page.equals("ListFil")) {
+			fils = filiereDao.listerFilAvecMat();
+			treatmentFiliere.modeModifMatFil(request, matiereDao, enseignantDao);
 			request.setAttribute("fils", fils);
 			this.getServletContext().getRequestDispatcher("/ListFil.jsp").forward(request, response);
 		} else {
 			System.out.println(request.getRequestURL());
 			treatmentFiliere.creerFiliere(request, filiereDao, enseignantDao);
-			resps = enseignantDao.lister();
+			resps = enseignantDao.listerEns();
 			request.setAttribute("fils", fils);
 			this.getServletContext().getRequestDispatcher("/CreerFil.jsp").forward(request, response);
 		}

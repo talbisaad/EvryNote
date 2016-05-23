@@ -41,9 +41,11 @@ public class Matiere {
 	public void setNbrHeure(int nbrHeure) {
 		this.nbrHeure = nbrHeure;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Matiere [nom=" + nom + ", coefficient=" + coefficient + ", nbrHeure=" + nbrHeure + "]";
+	}
 	
 
 }

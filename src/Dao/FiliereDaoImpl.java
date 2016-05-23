@@ -12,14 +12,19 @@ import Beans.Filiere;
 public class FiliereDaoImpl implements FiliereDao {
 
 	private DAOFactory daoFactory;
-	
+
 	private ArrayList<Filiere> filieres;
 
 	private static final String SQL_INSERT_FIL = "INSERT INTO filiere (idFiliere, idResponsable) VALUES (?, ?)";
-	
+
 	private static final String SQL_SELECT_LIST_FIL = "SELECT filiere.idFiliere, filiere.idResponsable FROM filiere , responsable WHERE filiere.idResponsable=responsable.idResponsable";
 
+	private static final String SQL_SELECT_LIST_FIL_SANS_MAT = "SELECT filiere.idFiliere, filiere.idResponsable FROM filiere, filMatEns WHERE filMatEns.idFiliere<>filiere.idFiliere";
 
+	private static final String SQL_SELECT_LIST_FIL_AVEC_MAT = "SELECT DISTINCT filiere.idFiliere, filiere.idResponsable FROM filiere, filMatEns WHERE filMatEns.idFiliere=filiere.idFiliere";
+	
+	private static final String SQL_SELECT_FIL = "SELECT filiere.idFiliere, filiere.idResponsable FROM filiere , responsable WHERE filiere.idResponsable=responsable.idResponsable AND filiere = ?";
+	
 	private static EnseignantDao enseignantDao;
 
 	FiliereDaoImpl(DAOFactory daoFactory) {
@@ -48,8 +53,8 @@ public class FiliereDaoImpl implements FiliereDao {
 
 			connexion = daoFactory.getConnection();
 
-			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_FIL, false, filiere.getNom(),
-					filiere.getRespFil().getId());
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_FIL, false,
+					filiere.getNom(), filiere.getRespFil().getId());
 
 			int statut = preparedStatement.executeUpdate();
 
@@ -94,6 +99,82 @@ public class FiliereDaoImpl implements FiliereDao {
 			connexion = daoFactory.getConnection();
 
 			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_LIST_FIL, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				filieres.add(map(resultSet));
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+
+		}
+
+		return filieres;
+	}
+
+	@Override
+	public ArrayList<Filiere> listerFilSansMat() throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		ResultSet resultSet = null;
+
+		filieres = new ArrayList<Filiere>();
+
+		try {
+
+			/* Récupération d'une connexion depuis la Factory */
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_LIST_FIL_SANS_MAT,
+					false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				filieres.add(map(resultSet));
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+
+		}
+
+		return filieres;
+	}
+
+	@Override
+	public ArrayList<Filiere> listerFilAvecMat() throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		ResultSet resultSet = null;
+
+		filieres = new ArrayList<Filiere>();
+
+		try {
+
+			/* Récupération d'une connexion depuis la Factory */
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_LIST_FIL_AVEC_MAT,
+					false);
 
 			resultSet = preparedStatement.executeQuery();
 

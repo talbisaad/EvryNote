@@ -126,5 +126,11 @@ public class DAOFactory {
 		return new EnseignantDaoImpl(this);
 
 	}
+	
+	public MatiereDao getMatiereDao() {
+
+		return new MatiereDaoImpl(this);
+
+	}
 
 }

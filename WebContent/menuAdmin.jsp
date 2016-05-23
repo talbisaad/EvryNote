@@ -5,7 +5,7 @@
              <ul class="subItm">
                  <li><a href="/EvryNote/CreerFil">Creer une filiere</a></li>
                  <li><a href="/EvryNote/ListFil">Lister les filieres</a></li>
-                 <li><a href="/EvryNote/GestionFil.jsp">Gerer une filiere</a></li>
+                 <li><a href="/EvryNote/GestionFil">Gerer une filiere</a></li>
              </ul>
           </li>
           <li><div class="titleitm">Classe<span class="togl">[ - ]</span></div>

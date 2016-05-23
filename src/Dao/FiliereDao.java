@@ -11,5 +11,9 @@ public interface FiliereDao {
 	Filiere trouver(String nom) throws DAOException;
 
 	ArrayList<Filiere> lister() throws DAOException;
+	
+	ArrayList<Filiere> listerFilSansMat() throws DAOException;
+	
+	ArrayList<Filiere> listerFilAvecMat() throws DAOException;
 
 }
