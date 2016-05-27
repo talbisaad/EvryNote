@@ -45,7 +45,7 @@
 			<br> <span>Choisir une filiere : </span> &nbsp <select
 				class="selectfilter filterSrch" id="filiere" name="filiere">
 				<c:forEach items="${fils}" var="fil">
-					<option value="<c:out value="${fil.nom}"/>">${fil.nom}</option>
+					<option value="<c:out value="${fil.id}"/>">${fil.nom}</option>
 				</c:forEach>
 			</select><br> <br> <br>&nbsp &nbsp &nbsp &nbsp &nbsp <input
 				type="radio" name="saisieFil" value="importFil" checked> <span>Importer

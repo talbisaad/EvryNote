@@ -24,7 +24,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
 	// lister tout les enseignants avec leurs droits
 	private static final String SQL_SELECT_LIST = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom, droit.CD, droit.RF FROM responsable, droit WHERE responsable.idResponsable = droit.idResponsable";
 	// selectionner l'enseignant en mettant en parametre la matiere qui enseigne
-	private static final String SQL_SELECT_ENS_MAT = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom FROM responsable, filMatEns WHERE responsable.idResponsable = filMatEns.idResponsable AND filMatEns.idMatiere= ?";
+	private static final String SQL_SELECT_ENS_MAT = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom FROM responsable, filMatEns WHERE responsable.idResponsable = filMatEns.idResponsable AND filMatEns.nomMatiere= ?";
 
 	private static Enseignant map(ResultSet resultSet) throws SQLException {
 

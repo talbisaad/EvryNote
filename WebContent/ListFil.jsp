@@ -63,7 +63,7 @@
 							<tbody id="kids1">
 								<c:forEach items="${matieres}" var="matiere">
 									<tr>
-										<td><input type="text" name="idMatiere_<%=i%>"
+										<td><input type="text" name="nomMatiere_<%=i%>"
 											value="<c:out value="${matiere.nom}"/>"></td>
 										<td><input type="text" name="coeffMatiere_<%=i%>"
 											value="<c:out value="${matiere.coefficient}"/>"></td>
@@ -126,12 +126,12 @@
 										<td><a>${fil.nom}</a></td>
 										<td>${fil.respFil.nom}</td>
 										<td><button type="submit"
-												value="<c:out value="${fil.nom}"/>" name="modify"
+												value="<c:out value="${fil.id}"/>" name="modify"
 												onclick="afficheModif()">
 												<img alt="modify" class="modifyicone" src="CSS/modify.png" />
 											</button></td>
 										<td><button type="submit"
-												value="<c:out value="${fil.nom}"/>" name="delete">
+												value="<c:out value="${fil.id}"/>" name="delete">
 												<img alt="delete" class="deleteicone" src="CSS/delete.png" />
 											</button></td>
 									</tr>

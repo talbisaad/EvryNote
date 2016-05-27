@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 public class Filiere implements Serializable {
 
-	String nom;
-	ArrayList<Matiere> matieres;
-	ArrayList<Classe> classes;
-	Enseignant respFil;
+	private int id;
+	private String nom;
+	private ArrayList<Matiere> matieres;
+	private ArrayList<Classe> classes;
+	private Enseignant respFil;
 
 	public Filiere() {
 	}
@@ -48,6 +49,14 @@ public class Filiere implements Serializable {
 
 	public void setRespFil(Enseignant respFil) {
 		this.respFil = respFil;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override

@@ -17,6 +17,7 @@ public class TreatmentFiliere {
 
 	String msg;
 
+	// Creation de la filiere
 	public void creerFiliere(HttpServletRequest request, FiliereDao filiereDao, EnseignantDao enseignantDao)
 			throws ServletException, IOException {
 		String nomFil = request.getParameter("nomFil");
@@ -33,6 +34,7 @@ public class TreatmentFiliere {
 		}
 	}
 
+	//Ajout des matieres de la filiere
 	public void ajoutMatiere(HttpServletRequest request, MatiereDao matiereDao) {
 		int i = 0;
 		Matiere matiere;
@@ -46,9 +48,9 @@ public class TreatmentFiliere {
 				matiere.setNom(request.getParameter("nomMatiere_" + i));
 				matiere.setCoefficient(Integer.parseInt(request.getParameter("coeffMatiere_" + i)));
 				matiere.setNbrHeure(Integer.parseInt(request.getParameter("heureMatiere_" + i)));
-				matiereDao.ajouter(matiere);
-				matiereDao.ajouterMatEns(matiere, request.getParameter("filiere"),
-						Integer.parseInt(request.getParameter("respFil_" + i)));
+				matiereDao.ajouter(request.getParameter("nomMatiere_" + i));
+				matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("respFil_" + i)),
+						Integer.parseInt(request.getParameter("filiere")));
 			} else {
 				System.out.println("la creation de la matiere " + i + " est echouée !!");
 			}
@@ -56,10 +58,12 @@ public class TreatmentFiliere {
 		}
 	}
 
+	
+	//Lister et gerer les filieres
 	public ArrayList<Matiere> trouverMatFil(HttpServletRequest request, MatiereDao matiereDao) {
 		ArrayList<Matiere> matieres = new ArrayList<Matiere>();
-		String filiere = request.getParameter("modify");
-		if (filiere != null && filiere != "") {
+		int filiere = Integer.parseInt(request.getParameter("modify"));
+		if (filiere != 0 ) {
 			matieres = matiereDao.trouverMatFil(filiere);
 		}
 		request.setAttribute("modification", "modification");
@@ -69,7 +73,6 @@ public class TreatmentFiliere {
 	public void modeModifMatFil(HttpServletRequest request, MatiereDao matiereDao, EnseignantDao enseignantDao) {
 		ArrayList<Matiere> matieres = new ArrayList<Matiere>();
 		ArrayList<Enseignant> enseignants = new ArrayList<Enseignant>();
-		int i = 0;
 		matieres = trouverMatFil(request, matiereDao);
 		enseignants = enseignantDao.lister();
 		request.setAttribute("enseignants", enseignants);
