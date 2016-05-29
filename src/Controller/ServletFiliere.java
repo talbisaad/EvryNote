@@ -60,7 +60,7 @@ public class ServletFiliere extends HttpServlet {
 		if (page.equals("GestionFil")) {
 			enseignants = enseignantDao.lister();
 			fils = filiereDao.listerFilSansMat();
-			treatmentFiliere.ajoutMatiere(request, matiereDao);
+			treatmentFiliere.ajoutMatiere(request, matiereDao, enseignantDao);
 			request.setAttribute("fils", fils);
 			request.setAttribute("enseignants", enseignants);
 			this.getServletContext().getRequestDispatcher("/GestionFil.jsp").forward(request, response);

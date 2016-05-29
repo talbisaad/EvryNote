@@ -6,7 +6,7 @@ public class Matiere {
 	private String nom;
 	private int coefficient;
 	private int nbrHeure;
-	private int idEns;
+	private Enseignant enseignant;
 	
 	public Matiere() {
 		super();
@@ -52,12 +52,12 @@ public class Matiere {
 		this.id = id;
 	}
 	
-	public int getIdEns() {
-		return idEns;
+	public Enseignant getEnseignant() {
+		return enseignant;
 	}
 
-	public void setIdEns(int idEns) {
-		this.idEns = idEns;
+	public void setEnseignant(Enseignant enseignant) {
+		this.enseignant = enseignant;
 	}
 
 	@Override

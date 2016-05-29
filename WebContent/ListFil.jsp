@@ -43,11 +43,37 @@
 			<br>
 			<br>
 			<span class="ttl">Liste des Matieres</span>
-			<br>
-			<br>
+
 			<div id="tableFil">
 				<div class="tables">
 					<form action="ListFil" method="POST">
+						<br> <br>
+						<table>
+							<tr>
+								<td><span>Nom de la filiere</span></td>
+								<td><input class="inpt" type="text"
+									value="<c:out value="${filiere.nom}"/>" name="nomFil" /></td>
+								<td><input class="inpt" type="text"
+									value="<c:out value="${filiere.id}"/>" name="idFil"
+									style="visibility: hidden" /></td>
+							</tr>
+							<tr>
+								<td><br></td>
+							</tr>
+							<tr>
+								<td><span>Responsable de filiere</span></td>
+								<td><select class="selectfilter filterSrch" name="respFil"
+									id="respFil">
+										<option value="<c:out value="${filiere.respFil.id}"/>">${filiere.respFil.nom}
+											${filiere.respFil.prenom}</option>
+										<c:forEach items="${resps}" var="resp">
+											<option value="<c:out value="${resp.id}"/>">${resp.nom}
+												${resp.prenom}</option>
+										</c:forEach>
+								</select></td>
+							</tr>
+						</table>
+						<br> <br>
 						<%
 							int i = 0;
 						%>
@@ -55,6 +81,7 @@
 							<thead>
 								<tr>
 									<td>Code matiere</td>
+									<td>Nom matiere</td>
 									<td>Coefficient matiere</td>
 									<td>Nombre d'heure</td>
 									<td>Enseignant</td>
@@ -63,6 +90,8 @@
 							<tbody id="kids1">
 								<c:forEach items="${matieres}" var="matiere">
 									<tr>
+										<td><input type="text" name="idMatiere_<%=i%>"
+											value="<c:out value="${matiere.id}"/>"></td>
 										<td><input type="text" name="nomMatiere_<%=i%>"
 											value="<c:out value="${matiere.nom}"/>"></td>
 										<td><input type="text" name="coeffMatiere_<%=i%>"
@@ -71,6 +100,8 @@
 											value="<c:out value="${matiere.nbrHeure}"/>"></td>
 										<td><select class="selectfilter filterSrch"
 											name="respFil_<%=i%>" id="respFil">
+											<option value="<c:out value="${matiere.enseignant.id}"/>">${matiere.enseignant.nom}
+														${matiere.enseignant.prenom}</option>
 												<c:forEach items="${enseignants}" var="enseignant">
 													<option value="<c:out value="${enseignant.id}"/>">${enseignant.nom}
 														${enseignant.prenom}</option>
@@ -85,8 +116,11 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<input type="submit" value="Valider" class="submit" /> <input
-							type="submit" value="Annuler" class="submit" />
+						<input type="submit" value="Valider" class="submit" name="valider" />
+						<input type="button" value="Annuler" class="submit"
+							onclick="history.go(-1)"> <input type="text"
+							value="<c:out value="${modification}"/>" name="mode"
+							style="visibility: hidden" />
 					</form>
 				</div>
 			</div>
@@ -126,8 +160,7 @@
 										<td><a>${fil.nom}</a></td>
 										<td>${fil.respFil.nom}</td>
 										<td><button type="submit"
-												value="<c:out value="${fil.id}"/>" name="modify"
-												onclick="afficheModif()">
+												value="<c:out value="${fil.id}"/>" name="modify">
 												<img alt="modify" class="modifyicone" src="CSS/modify.png" />
 											</button></td>
 										<td><button type="submit"
@@ -138,6 +171,8 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						<input type="text" value="<c:out value="${modification}"/>"
+							name="mode" style="visibility: hidden" />
 					</form>
 				</div>
 			</div>
