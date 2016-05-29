@@ -130,6 +130,10 @@ public class DAOFactory {
 	public ClasseDao getClasseDao() {
 
 		return new ClasseDaoImpl(this);
+	}
+	public MatiereDao getMatiereDao() {
+
+		return new MatiereDaoImpl(this);
 
 	}
 

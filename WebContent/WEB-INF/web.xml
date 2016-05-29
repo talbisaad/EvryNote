@@ -30,6 +30,16 @@
 	
 	
 
+	<servlet-mapping>
+		<servlet-name>ServletFiliere</servlet-name>
+		<url-pattern>/ListFil</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ServletFiliere</servlet-name>
+		<url-pattern>/GestionFil</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>

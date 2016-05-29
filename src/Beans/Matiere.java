@@ -2,6 +2,7 @@ package Beans;
 
 public class Matiere {
 	
+	private int id;
 	private String nom;
 	private int coefficient;
 	private int nbrHeure;
@@ -41,9 +42,19 @@ public class Matiere {
 	public void setNbrHeure(int nbrHeure) {
 		this.nbrHeure = nbrHeure;
 	}
-	
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Matiere [nom=" + nom + ", coefficient=" + coefficient + ", nbrHeure=" + nbrHeure + "]";
+	}
 	
 
 }
