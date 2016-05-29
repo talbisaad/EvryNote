@@ -102,8 +102,8 @@ public class DAOFactory {
 
 			/* Méthode chargée de fournir une connexion à la base de données */
 
-			/* package */ java.sql.Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:mysql://localhost/evrynote?user=root&password=root");
+			/* package */ public java.sql.Connection getConnection() throws SQLException {
+		return DriverManager.getConnection("jdbc:mysql://localhost/evrynote?user=root&password");
 
 	}
 
@@ -124,6 +124,12 @@ public class DAOFactory {
 	public EnseignantDao getEnseignantDao() {
 
 		return new EnseignantDaoImpl(this);
+
+	}
+	
+	public ClasseDao getClasseDao() {
+
+		return new ClasseDaoImpl(this);
 
 	}
 

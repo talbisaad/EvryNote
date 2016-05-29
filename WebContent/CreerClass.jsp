@@ -38,7 +38,7 @@
 					<td>:</td>
 					<td><select class="selectfilter filterSrch" name="filiere" id="filtersh">
 					<optgroup label="">
-					<option>1</option>
+					<option>test</option>
 					<option>2</option>
 					<option>3</option>
 					<option>4</option>

@@ -6,8 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Beans.Classe;
+import Dao.ClasseDao;
+import Dao.DAOFactory;
+import Treatment.TreatementClasse;
 
 /**
  * Servlet implementation class ServletClass
@@ -16,19 +20,25 @@ import Beans.Classe;
 public class ServletClass extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	
-	Classe classe ;
+TreatementClasse treaitmentClasse;
+ClasseDao classeDao;
     
+	public void init(){
+		
+		treaitmentClasse= new TreatementClasse();
+		classeDao=  ((DAOFactory) getServletContext().getAttribute("daofactory")).getClasseDao();
+	}
 	
-	
-	
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
+		//treaitmentClasse.CreatClass(request, classeDao);
+	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		public Classe( String nomClasse, String niveau, float moyenne, String anneeUniversitaire,
-//				int idFiliere) 
-		classe= new Classe(request.getParameter("NomClasse"),request.getParameter("niveau"),0,request.getParameter("annee"),request.getParameter("filiere").toString());
-	System.out.println(classe.toString());
+		
+		treaitmentClasse.CreatClass(request, classeDao);
+		this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
+
 	}
 
 }
