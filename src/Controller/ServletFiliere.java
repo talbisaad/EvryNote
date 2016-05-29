@@ -70,6 +70,7 @@ public class ServletFiliere extends HttpServlet {
 			if (request.getParameter("mode").equals("modification")) {
 				if (request.getParameter("valider").equals("Valider")) {
 					treatmentFiliere.modifierFiliere(request, matiereDao, enseignantDao);
+					request.setAttribute("fils", fils);
 					this.getServletContext().getRequestDispatcher("/ListFil.jsp").forward(request, response);
 				}
 			}

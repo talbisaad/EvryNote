@@ -8,25 +8,9 @@
 <script type="text/javascript" src="JS/jquery-ui.js"></script>
 <script type="text/javascript" src="JS/script.js"></script>
 <title>Liste des Filieres</title>
-<script type="text/javascript">
-	var i = 0;
-
-	function addKid1() {
-		if (i < 5) {
-			var newRow = document.createElement('tr');
-
-			newRow.innerHTML = '<td> <input type="text" name="idMatiere_'+i+'" ><td> <input type="text" name="coeffMatiere_'+i+'" ></td><td><input type="text" name="heureMatiere_'+i+'" ></td><td><select class="selectfilter filterSrch" id="enseignant"><option value="enseignant1">enseignant 1</option><option value="enseignant2">enseignant 2</option></select></td><td><input type="button" id="add_kid1()" onClick="addKid1()" value="+" /><input type="button" value="-" onclick="removeKid1(this.parentNode)"></td>';
-
-			document.getElementById('kids1').appendChild(newRow);
-			i++;
-		}
-	}
-
-	function removeKid1(element) {
-		document.getElementById('kids1').removeChild(element.parentNode);
-		i--;
-	}
-</script>
+<%
+	int i = 0;
+%>
 </head>
 
 <body>
@@ -74,9 +58,6 @@
 							</tr>
 						</table>
 						<br> <br>
-						<%
-							int i = 0;
-						%>
 						<table border="1" cellpadding="0" cellspacing="0" class="tabs">
 							<thead>
 								<tr>
@@ -100,8 +81,8 @@
 											value="<c:out value="${matiere.nbrHeure}"/>"></td>
 										<td><select class="selectfilter filterSrch"
 											name="respFil_<%=i%>" id="respFil">
-											<option value="<c:out value="${matiere.enseignant.id}"/>">${matiere.enseignant.nom}
-														${matiere.enseignant.prenom}</option>
+												<option value="<c:out value="${matiere.prof.id}"/>">${matiere.prof.nom}
+													${matiere.prof.prenom}</option>
 												<c:forEach items="${enseignants}" var="enseignant">
 													<option value="<c:out value="${enseignant.id}"/>">${enseignant.nom}
 														${enseignant.prenom}</option>
@@ -109,6 +90,7 @@
 										</select></td>
 										<td><input type="button" id="add_kid1()"
 											onClick="addKid1()" value="+" /></td>
+										<td><input type="button" value="-"></td>
 									</tr>
 									<%
 										i++;
@@ -121,6 +103,28 @@
 							onclick="history.go(-1)"> <input type="text"
 							value="<c:out value="${modification}"/>" name="mode"
 							style="visibility: hidden" />
+						<script type="text/javascript">
+							var i =
+						<%=i%>
+							;
+							function addKid1() {
+								if (i < 8) {
+									var newRow = document.createElement('tr');
+
+									newRow.innerHTML = '<td> <input type="text" name="idMatiere_'+i+'" /></td><td><input type="text" name="nomMatiere_'+i+'" /></td><td> <input type="text" name="coeffMatiere_'+i+'" ></td><td><input type="text" name="heureMatiere_'+i+'" ></td><td><select class="selectfilter filterSrch" id="enseignant"><c:forEach items="${enseignants}" var="enseignant"><option value="<c:out value="${enseignant.id}"/>">${enseignant.nom} ${enseignant.prenom}</option></c:forEach></select></td><td><input type="button" id="add_kid1()" onClick="addKid1()" value="+" /></td><td><input type="button" value="-"></td>';
+
+									document.getElementById('kids1')
+											.appendChild(newRow);
+									i++;
+								}
+							}
+
+							function removeKid1(element) {
+								document.getElementById('kids1').removeChild(
+										element.parentNode);
+								i--;
+							}
+						</script>
 					</form>
 				</div>
 			</div>

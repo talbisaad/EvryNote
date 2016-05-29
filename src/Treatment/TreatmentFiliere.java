@@ -48,7 +48,7 @@ public class TreatmentFiliere {
 				matiere.setNom(request.getParameter("nomMatiere_" + i));
 				matiere.setCoefficient(Integer.parseInt(request.getParameter("coeffMatiere_" + i)));
 				matiere.setNbrHeure(Integer.parseInt(request.getParameter("heureMatiere_" + i)));
-				matiere.setEnseignant(enseignantDao.trouver(Integer.parseInt(request.getParameter("respFil_" + i))));
+				matiere.setProf(enseignantDao.trouver(Integer.parseInt(request.getParameter("respFil_" + i))));
 				matiereDao.ajouter(request.getParameter("nomMatiere_" + i));
 				matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("filiere")));
 			} else {
@@ -85,10 +85,6 @@ public class TreatmentFiliere {
 		ArrayList<Matiere> matieres = new ArrayList<Matiere>();
 		ArrayList<Enseignant> enseignants = new ArrayList<Enseignant>();
 		matieres = trouverMatFil(request, matiereDao, filiereDao);
-		for (Matiere matiere : matieres) {
-			System.out.println("matiere : ");
-			System.out.println(matiere.getEnseignant());
-		}
 		enseignants = enseignantDao.lister();
 		request.setAttribute("enseignants", enseignants);
 		request.setAttribute("matieres", matieres);
@@ -101,25 +97,39 @@ public class TreatmentFiliere {
 		Matiere matiere;
 		while (i < 8) {
 			matiere = new Matiere();
+			
+			System.out.println(request.getParameter("nomMatiere_" + i));
+			System.out.println(request.getParameter("coeffMatiere_" + i));
+			System.out.println(request.getParameter("heureMatiere_" + i));
+			System.out.println(request.getParameter("respMatiere_" + i));
+			System.out.println();
 
-			if (request.getParameter("idMatiere_" + i) != null && request.getParameter("nomMatiere_" + i) != null
-					&& request.getParameter("coeffMatiere_" + i) != null
+			if (request.getParameter("nomMatiere_" + i) != null && request.getParameter("coeffMatiere_" + i) != null
 					&& request.getParameter("heureMatiere_" + i) != null && request.getParameter("respFil_" + i) != null
 					&& request.getParameter("nomMatiere_" + i) != "" && request.getParameter("coeffMatiere_" + i) != ""
-					&& request.getParameter("heureMatiere_" + i) != "" && request.getParameter("respFil_" + i) != ""
-					&& request.getParameter("idMatiere_" + i) != "") {
+					&& request.getParameter("heureMatiere_" + i) != "" && request.getParameter("respFil_" + i) != "") {
 
 				matiere.setId(Integer.parseInt(request.getParameter("idMatiere_" + i)));
 				matiere.setNom(request.getParameter("nomMatiere_" + i));
 				matiere.setCoefficient(Integer.parseInt(request.getParameter("coeffMatiere_" + i)));
 				matiere.setNbrHeure(Integer.parseInt(request.getParameter("heureMatiere_" + i)));
-				matiere.setEnseignant(enseignantDao.trouver(Integer.parseInt(request.getParameter("respFil_" + i))));
+				matiere.setProf(enseignantDao.trouver(Integer.parseInt(request.getParameter("respFil_" + i))));
 				// on test si cette matiere existe dans la liste de la filiere
 				// si oui on va la modifier sinon on va l'ajouter
+				if (!matiereDao.trouverMatFilEns(Integer.parseInt(request.getParameter("idMatiere_" + i)),
+						Integer.parseInt(request.getParameter("idFil")))
+						&& !matiereDao.trouver(Integer.parseInt(request.getParameter("idMatiere_" + i)))) {
+					matiereDao.modifier(Integer.parseInt(request.getParameter("idMatiere_" + i)),
+							request.getParameter("nomMatiere_" + i));
+					matiereDao.modifierMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
+				} else if (matiereDao.trouverMatFilEns(Integer.parseInt(request.getParameter("idMatiere_" + i)),
+						Integer.parseInt(request.getParameter("idFil")))
+						&& matiereDao.trouver(Integer.parseInt(request.getParameter("idMatiere_" + i)))) {
+					System.out.println("aaaaaaaaaaaaaaaa");
+					matiereDao.ajouter(request.getParameter("nomMatiere_" + i));
+					matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
+				}
 
-				matiereDao.modifier(Integer.parseInt(request.getParameter("idMatiere_" + i)),
-						request.getParameter("nomMatiere_" + i));
-				matiereDao.modifierMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
 			} else {
 				System.out.println("la modification de la matiere " + i + " est echouée !!");
 			}
