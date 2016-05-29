@@ -8,7 +8,7 @@ public interface FiliereDao {
 
 	void creer(Filiere filiere) throws DAOException;
 
-	Filiere trouver(String nom) throws DAOException;
+	Filiere trouver(int id) throws DAOException;
 
 	ArrayList<Filiere> lister() throws DAOException;
 	

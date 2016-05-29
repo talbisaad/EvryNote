@@ -23,7 +23,7 @@ public class FiliereDaoImpl implements FiliereDao {
 
 	private static final String SQL_SELECT_LIST_FIL_AVEC_MAT = "SELECT DISTINCT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable FROM filiere, filMatEns WHERE filiere.idFiliere in (SELECT filMatEns.idFiliere FROM filMatEns)";
 	
-	private static final String SQL_SELECT_TROUVER_FIL = "SELECT DINSTINCT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable FROM filiere WHERE filiere.nomFiliere = ?";
+	private static final String SQL_SELECT_TROUVER_FIL = "SELECT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable FROM filiere WHERE filiere.idFiliere = ?";
 	
 	private static EnseignantDao enseignantDao;
 
@@ -78,7 +78,7 @@ public class FiliereDaoImpl implements FiliereDao {
 	}
 
 	@Override
-	public Filiere trouver(String nom) throws DAOException {
+	public Filiere trouver(int id) throws DAOException {
 		Connection connexion = null;
 
 		PreparedStatement preparedStatement = null;
@@ -93,7 +93,7 @@ public class FiliereDaoImpl implements FiliereDao {
 
 			connexion = daoFactory.getConnection();
 
-			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_LIST_FIL, false,nom);
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_TROUVER_FIL, false,id);
 
 			resultSet = preparedStatement.executeQuery();
 

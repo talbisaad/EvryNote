@@ -75,7 +75,7 @@
 
 							<thead>
 								<tr>
-									<td>Code matiere</td>
+									<td>Nom matiere</td>
 									<td>Coefficient matiere</td>
 									<td>Nombre d'heure</td>
 									<td>Enseignant</td>

@@ -6,6 +6,7 @@ public class Matiere {
 	private String nom;
 	private int coefficient;
 	private int nbrHeure;
+	private int idEns;
 	
 	public Matiere() {
 		super();
@@ -49,6 +50,14 @@ public class Matiere {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getIdEns() {
+		return idEns;
+	}
+
+	public void setIdEns(int idEns) {
+		this.idEns = idEns;
 	}
 
 	@Override

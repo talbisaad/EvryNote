@@ -14,11 +14,15 @@ public class MatiereDaoImpl implements MatiereDao {
 		this.daoFactory = daoFactory;
 	}
 
-	private static final String SQL_INSERT_MAT_ENS = "INSERT INTO filMatEns (idMatiere, idFiliere , idResponsable, Coefficient, Nombreheure) VALUES (?, ?, ?, ?, ?)";
+	private static final String SQL_INSERT_MAT_ENS = "INSERT INTO filMatEns (idMatiere, idFiliere , idResponsable, Coefficient, nbrHeure) VALUES (?, ?, ?, ?, ?)";
 
-	private static final String SQL_INSERT_MAT = "INSERT INTO matiere (idMatiere) VALUES (?)";
+	private static final String SQL_UPDATE_MAT_ENS = "UPDATE filMatEns SET idResponsable=? , Coefficient=? , nbrHeure=? WHERE idMatiere=? AND idFiliere = ?";
 
-	private static final String SQL_SELECT_MAT_FIL = "SELECT DISTINCT matiere.idMatiere, matiere.nom, coefficient, nbrHeure FROM filiere , matiere , filMatEns WHERE filiere.idFiliere=filMatEns.idFiliere AND matiere.IdMatiere = filMatEns.idMatiere AND filiere.idFiliere = ? ";
+	private static final String SQL_INSERT_MAT = "INSERT INTO matiere (nom) VALUES (?)";
+
+	private static final String SQL_UPDATE_MAT = "UPDATE matiere SET nom=? WHERE idMatiere=?";
+
+	private static final String SQL_SELECT_MAT_FIL = "SELECT DISTINCT matiere.idMatiere, filMatEns.idResponsable, matiere.nom, coefficient, nbrHeure FROM filiere , matiere , filMatEns WHERE filiere.idFiliere=filMatEns.idFiliere AND matiere.IdMatiere = filMatEns.idMatiere AND filiere.idFiliere = ? ";
 
 	private static final String SQL_UPDATE_MAT_FIL = "UPDATE filMatEns SET coefficient=? , nbrHeure = ? WHERE idMatiere = ? AND idFiliere = ? ";
 
@@ -34,12 +38,14 @@ public class MatiereDaoImpl implements MatiereDao {
 
 		matiere.setNbrHeure(resultSet.getInt("nbrHeure"));
 
+		matiere.setIdEns(resultSet.getInt("idResponsable"));
+
 		return matiere;
 
 	}
 
 	@Override
-	public void ajouterMatEns(Matiere matiere, int idEns, int idFil) throws DAOException {
+	public void ajouterMatEns(Matiere matiere, int idFil) throws DAOException {
 
 		Connection connexion = null;
 
@@ -50,7 +56,7 @@ public class MatiereDaoImpl implements MatiereDao {
 			connexion = daoFactory.getConnection();
 
 			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_MAT_ENS, false,
-					matiere.getNom(), idFil, idEns, matiere.getCoefficient(), matiere.getNbrHeure());
+					matiere.getNom(), idFil, matiere.getIdEns(), matiere.getCoefficient(), matiere.getNbrHeure());
 
 			int statut = preparedStatement.executeUpdate();
 
@@ -73,6 +79,38 @@ public class MatiereDaoImpl implements MatiereDao {
 	}
 
 	@Override
+	public void modifierMatEns(Matiere matiere, int idFil) throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		try {
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_UPDATE_MAT_ENS, false,
+					matiere.getIdEns(), matiere.getCoefficient(), matiere.getNbrHeure(), matiere.getId(), idFil);
+
+			int statut = preparedStatement.executeUpdate();
+
+			if (statut == 0) {
+
+				throw new DAOException("Échec de la modification de la matiere, aucune ligne modifiée dans la table.");
+
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
+
+		}
+	}
+
+	@Override
 	public void ajouter(String matiere) throws DAOException {
 
 		Connection connexion = null;
@@ -89,7 +127,40 @@ public class MatiereDaoImpl implements MatiereDao {
 
 			if (statut == 0) {
 
-				throw new DAOException("aucune ligne ajoutée dans la table filMatEns");
+				throw new DAOException("aucune ligne ajoutée dans la table matiere");
+
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
+
+		}
+
+	}
+
+	@Override
+	public void modifier(int id, String matiere) throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		try {
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_UPDATE_MAT, false, matiere,
+					id);
+
+			int statut = preparedStatement.executeUpdate();
+
+			if (statut == 0) {
+
+				throw new DAOException("aucune ligne modifiée dans la table matiere");
 
 			}
 
@@ -142,15 +213,13 @@ public class MatiereDaoImpl implements MatiereDao {
 		return matieres;
 	}
 
-	@Override
+	/*@Override
 	public void modifierMat(Matiere matiere, String filiere) throws DAOException {
 		Connection connexion = null;
 
 		PreparedStatement preparedStatement = null;
 
 		try {
-
-			/* Récupération d'une connexion depuis la Factory */
 
 			connexion = daoFactory.getConnection();
 
@@ -175,6 +244,6 @@ public class MatiereDaoImpl implements MatiereDao {
 			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
 
 		}
-	}
+	}*/
 
 }

@@ -66,14 +66,20 @@ public class ServletFiliere extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/GestionFil.jsp").forward(request, response);
 		} else if (page.equals("ListFil")) {
 			fils = filiereDao.listerFilAvecMat();
-			treatmentFiliere.modeModifMatFil(request, matiereDao, enseignantDao);
+			treatmentFiliere.modeModifMatFil(request, matiereDao, enseignantDao, filiereDao);
+			if (request.getParameter("mode").equals("modification")) {
+				if (request.getParameter("valider").equals("Valider")) {
+					treatmentFiliere.modifierFiliere(request, matiereDao, enseignantDao);
+					this.getServletContext().getRequestDispatcher("/ListFil.jsp").forward(request, response);
+				}
+			}
 			request.setAttribute("fils", fils);
 			this.getServletContext().getRequestDispatcher("/ListFil.jsp").forward(request, response);
-		} else {
+		} else if (page.equals("CreerFil")){
 			System.out.println(request.getRequestURL());
 			treatmentFiliere.creerFiliere(request, filiereDao, enseignantDao);
 			resps = enseignantDao.listerEns();
-			request.setAttribute("fils", fils);
+			request.setAttribute("resps", resps);
 			this.getServletContext().getRequestDispatcher("/CreerFil.jsp").forward(request, response);
 		}
 	}
