@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Beans.Enseignant;
 import Beans.Filiere;
 
 public class FiliereDaoImpl implements FiliereDao {

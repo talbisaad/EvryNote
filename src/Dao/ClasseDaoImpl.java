@@ -25,7 +25,7 @@ public class ClasseDaoImpl implements ClasseDao {
 		
 		try {
 			connexion = daofactory.getConnection() ;
-			preparedStatement=(PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_CLASSE, false, classe.getNomClasse(),classe.getNiveau(),classe.getMoyenne(),classe.getIdFiliere(),classe.getAnneeUniversitaire());
+			preparedStatement=(PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_CLASSE, false, classe.getNomClasse(),classe.getNiveau(),classe.getMoyenne(),classe.getFiliere().getId(),classe.getAnneeUniversitaire());
 			int statut = preparedStatement.executeUpdate();
 
 			if (statut == 0) {

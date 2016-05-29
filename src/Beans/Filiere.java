@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 public class Filiere implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nom;
 	private ArrayList<Matiere> matieres;
