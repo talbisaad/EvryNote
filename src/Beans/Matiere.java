@@ -1,13 +1,13 @@
 package Beans;
 
 public class Matiere {
-	
+
 	private int id;
 	private String nom;
 	private int coefficient;
 	private int nbrHeure;
-	private Enseignant enseignant;
-	
+	private Enseignant prof;
+
 	public Matiere() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -51,19 +51,18 @@ public class Matiere {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public Enseignant getEnseignant() {
-		return enseignant;
+
+	public Enseignant getProf() {
+		return prof;
 	}
 
-	public void setEnseignant(Enseignant enseignant) {
-		this.enseignant = enseignant;
+	public void setProf(Enseignant prof) {
+		this.prof = prof;
 	}
 
 	@Override
 	public String toString() {
 		return "Matiere [nom=" + nom + ", coefficient=" + coefficient + ", nbrHeure=" + nbrHeure + "]";
 	}
-	
 
 }
