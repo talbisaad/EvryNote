@@ -22,12 +22,15 @@ public class TreatmentFiliere {
 			throws ServletException, IOException {
 		String nomFil = request.getParameter("nomFil");
 		String responsable = request.getParameter("respFil");
+		String niveau = request.getParameter("niveau");
 		Filiere filiere = new Filiere();
-		if (nomFil != null && responsable != null && nomFil != "" && responsable != "") {
+		if (nomFil != null && responsable != null && niveau != null && nomFil != "" && responsable != ""
+				&& niveau != "") {
 			int idResp = Integer.parseInt(responsable);
 			filiere.setNom(nomFil);
-			filiere.setRespFil(enseignantDao.trouver(idResp));
-			enseignantDao.modifierDroit(idResp);
+			filiere.setRespFil(enseignantDao.trouverById(idResp));
+			filiere.setNiveau(niveau);
+			enseignantDao.modifierDroit(idResp, true, false);
 			filiereDao.creer(filiere);
 		} else {
 			System.out.println("la creation du filiere est echouée !!");
@@ -48,9 +51,16 @@ public class TreatmentFiliere {
 				matiere.setNom(request.getParameter("nomMatiere_" + i));
 				matiere.setCoefficient(Integer.parseInt(request.getParameter("coeffMatiere_" + i)));
 				matiere.setNbrHeure(Integer.parseInt(request.getParameter("heureMatiere_" + i)));
-				matiere.setProf(enseignantDao.trouver(Integer.parseInt(request.getParameter("respFil_" + i))));
-				matiereDao.ajouter(request.getParameter("nomMatiere_" + i));
-				matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("filiere")));
+				matiere.setProf(enseignantDao.trouverById(Integer.parseInt(request.getParameter("respFil_" + i))));
+				int idMat = matiereDao.trouveByNom(request.getParameter("nomMatiere_" + i));
+				if (idMat == 0) {
+					matiereDao.ajouter(request.getParameter("nomMatiere_" + i));
+					matiere.setId(matiereDao.trouveByNom(request.getParameter("nomMatiere_" + i)));
+					matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
+				} else if (idMat != 0) {
+					matiere.setId(matiereDao.trouveByNom(request.getParameter("nomMatiere_" + i)));
+					matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("filiere")));
+				}
 			} else {
 				System.out.println("la creation de la matiere " + i + " est echouée !!");
 			}
@@ -70,11 +80,6 @@ public class TreatmentFiliere {
 			}
 			request.setAttribute("filiere", filiere);
 			request.setAttribute("modification", "modification");
-		} else if (request.getParameter("delete") != null && request.getParameter("delete") != "") {
-			int idfiliere = Integer.parseInt(request.getParameter("delete"));
-			if (idfiliere != 0) {
-				matieres = matiereDao.trouverMatFil(idfiliere);
-			}
 		}
 		return matieres;
 	}
@@ -97,11 +102,11 @@ public class TreatmentFiliere {
 		Matiere matiere;
 		while (i < 8) {
 			matiere = new Matiere();
-			
+
 			System.out.println(request.getParameter("nomMatiere_" + i));
 			System.out.println(request.getParameter("coeffMatiere_" + i));
 			System.out.println(request.getParameter("heureMatiere_" + i));
-			System.out.println(request.getParameter("respMatiere_" + i));
+			System.out.println(request.getParameter("respFil_" + i));
 			System.out.println();
 
 			if (request.getParameter("nomMatiere_" + i) != null && request.getParameter("coeffMatiere_" + i) != null
@@ -109,25 +114,37 @@ public class TreatmentFiliere {
 					&& request.getParameter("nomMatiere_" + i) != "" && request.getParameter("coeffMatiere_" + i) != ""
 					&& request.getParameter("heureMatiere_" + i) != "" && request.getParameter("respFil_" + i) != "") {
 
-				matiere.setId(Integer.parseInt(request.getParameter("idMatiere_" + i)));
 				matiere.setNom(request.getParameter("nomMatiere_" + i));
 				matiere.setCoefficient(Integer.parseInt(request.getParameter("coeffMatiere_" + i)));
 				matiere.setNbrHeure(Integer.parseInt(request.getParameter("heureMatiere_" + i)));
-				matiere.setProf(enseignantDao.trouver(Integer.parseInt(request.getParameter("respFil_" + i))));
+				matiere.setProf(enseignantDao.trouverById(Integer.parseInt(request.getParameter("respFil_" + i))));
 				// on test si cette matiere existe dans la liste de la filiere
 				// si oui on va la modifier sinon on va l'ajouter
-				if (!matiereDao.trouverMatFilEns(Integer.parseInt(request.getParameter("idMatiere_" + i)),
-						Integer.parseInt(request.getParameter("idFil")))
-						&& !matiereDao.trouver(Integer.parseInt(request.getParameter("idMatiere_" + i)))) {
-					matiereDao.modifier(Integer.parseInt(request.getParameter("idMatiere_" + i)),
-							request.getParameter("nomMatiere_" + i));
-					matiereDao.modifierMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
-				} else if (matiereDao.trouverMatFilEns(Integer.parseInt(request.getParameter("idMatiere_" + i)),
-						Integer.parseInt(request.getParameter("idFil")))
-						&& matiereDao.trouver(Integer.parseInt(request.getParameter("idMatiere_" + i)))) {
-					System.out.println("aaaaaaaaaaaaaaaa");
-					matiereDao.ajouter(request.getParameter("nomMatiere_" + i));
-					matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
+
+				if (request.getParameter("idMatiere_" + i) != null && request.getParameter("idMatiere_" + i) != "") {
+
+					if (!matiereDao.trouverMatFilEns(Integer.parseInt(request.getParameter("idMatiere_" + i)),
+							Integer.parseInt(request.getParameter("idFil")))
+							&& !matiereDao.trouveById(Integer.parseInt(request.getParameter("idMatiere_" + i)))) {
+
+						matiereDao.modifier(Integer.parseInt(request.getParameter("idMatiere_" + i)),
+								request.getParameter("nomMatiere_" + i));
+						matiereDao.modifierMatEns(matiere, Integer.parseInt(request.getParameter("idFil")),
+								Integer.parseInt(request.getParameter("idMatiere_" + i)));
+
+					}
+				} else if (request.getParameter("idMatiere_" + i) == null
+						|| request.getParameter("idMatiere_" + i) == "") {
+					int idMat = matiereDao.trouveByNom(request.getParameter("nomMatiere_" + i));
+					if (idMat == 0) {
+						matiereDao.ajouter(request.getParameter("nomMatiere_" + i));
+						matiere.setId(matiereDao.trouveByNom(request.getParameter("nomMatiere_" + i)));
+						matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
+					} else if (idMat != 0) {
+						matiere.setId(matiereDao.trouveByNom(request.getParameter("nomMatiere_" + i)));
+						matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
+					}
+
 				}
 
 			} else {
@@ -138,7 +155,15 @@ public class TreatmentFiliere {
 	}
 
 	// la suppression d'une filiere
-	public void supprimerFiliere() {
+	public void supprimerFiliere(HttpServletRequest request, MatiereDao matiereDao, EnseignantDao enseignantDao,
+			FiliereDao filiereDao) {
+		if (request.getParameter("delete") != null && request.getParameter("delete") != "") {
+			int idFiliere = Integer.parseInt(request.getParameter("delete"));
+			Filiere filiere = filiereDao.trouver(idFiliere);
+			filiereDao.supprimerFiliere(idFiliere);
+			matiereDao.supprimerMatieres(idFiliere);
+			enseignantDao.modifierDroit(filiere.getRespFil().getId(), false, false);
+		}
 
 	}
 

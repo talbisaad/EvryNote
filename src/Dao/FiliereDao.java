@@ -15,5 +15,7 @@ public interface FiliereDao {
 	ArrayList<Filiere> listerFilSansMat() throws DAOException;
 	
 	ArrayList<Filiere> listerFilAvecMat() throws DAOException;
+	
+	void supprimerFiliere(int idFiliere) throws DAOException;
 
 }

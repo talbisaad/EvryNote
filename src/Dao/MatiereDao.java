@@ -10,15 +10,19 @@ public interface MatiereDao {
 
 	public void modifier(int id, String matiere) throws DAOException;
 	
-	public boolean trouver(int id) throws DAOException;
+	public boolean trouveById(int id) throws DAOException;
+	
+	public int trouveByNom(String nom) throws DAOException;
 
 	public void ajouterMatEns(Matiere matiere,int idFil) throws DAOException;
 
-	public void modifierMatEns(Matiere matiere,int idFil) throws DAOException;
+	public void modifierMatEns(Matiere matiere,int idFil, int idMat) throws DAOException;
 	
 	public boolean trouverMatFilEns(int idmatiere,int idFil) throws DAOException;
 
 	public ArrayList<Matiere> trouverMatFil(int id) throws DAOException;
+	
+	void supprimerMatieres(int idFiliere) throws DAOException;
 
 	//public void modifierMat(Matiere matiere, String filiere) throws DAOException;
 

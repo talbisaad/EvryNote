@@ -8,7 +8,9 @@ public interface EnseignantDao {
 
 	void creer(Enseignant enseignant) throws DAOException;
 
-	Enseignant trouver(int id) throws DAOException;
+	Enseignant trouverById(int id) throws DAOException;
+	
+	Enseignant trouverByNom(String nom) throws DAOException;
 	
 	Enseignant trouverEnsMat(String matiere) throws DAOException;
 
@@ -18,6 +20,6 @@ public interface EnseignantDao {
 
 	Enseignant modifier(int id) throws DAOException;
 	
-	public void modifierDroit(int id) throws DAOException;
+	public void modifierDroit(int id,boolean RF, boolean CD) throws DAOException;
 
 }

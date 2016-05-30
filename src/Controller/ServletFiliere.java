@@ -58,30 +58,38 @@ public class ServletFiliere extends HttpServlet {
 		// HttpSession session = request.getSession();
 		page = request.getRequestURL().substring(31);
 		if (page.equals("GestionFil")) {
+			
 			enseignants = enseignantDao.lister();
 			fils = filiereDao.listerFilSansMat();
 			treatmentFiliere.ajoutMatiere(request, matiereDao, enseignantDao);
 			request.setAttribute("fils", fils);
 			request.setAttribute("enseignants", enseignants);
 			this.getServletContext().getRequestDispatcher("/GestionFil.jsp").forward(request, response);
+			
 		} else if (page.equals("ListFil")) {
+			
 			fils = filiereDao.listerFilAvecMat();
 			treatmentFiliere.modeModifMatFil(request, matiereDao, enseignantDao, filiereDao);
 			if (request.getParameter("mode").equals("modification")) {
 				if (request.getParameter("valider").equals("Valider")) {
 					treatmentFiliere.modifierFiliere(request, matiereDao, enseignantDao);
-					request.setAttribute("fils", fils);
-					this.getServletContext().getRequestDispatcher("/ListFil.jsp").forward(request, response);
+					fils = filiereDao.listerFilAvecMat();
 				}
+			}else if(request.getParameter("mode").equals("") && request.getParameter("delete") != null){
+				treatmentFiliere.supprimerFiliere(request, matiereDao, enseignantDao, filiereDao);
+				fils = filiereDao.listerFilAvecMat();
 			}
 			request.setAttribute("fils", fils);
 			this.getServletContext().getRequestDispatcher("/ListFil.jsp").forward(request, response);
+			
 		} else if (page.equals("CreerFil")){
+			
 			System.out.println(request.getRequestURL());
 			treatmentFiliere.creerFiliere(request, filiereDao, enseignantDao);
 			resps = enseignantDao.listerEns();
 			request.setAttribute("resps", resps);
 			this.getServletContext().getRequestDispatcher("/CreerFil.jsp").forward(request, response);
+			
 		}
 	}
 

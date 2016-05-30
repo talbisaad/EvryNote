@@ -2,72 +2,78 @@ package Beans;
 
 public class Classe {
 
-	private String NomClasse;
-	private String Niveau;
-	private float Moyenne;
-	private String AnneeUniversitaire;
-	private String IdFiliere;
+	private String nomClasse;
+	private String niveau;
+	private float moyenne;
+	private String anneeUniversitaire;
+	private Filiere filiere;
+//
+//	public String getNomFiliere() {
+//		return nomFiliere;
+//	}
+//
+//	public void setNomFiliere(String nomFiliere) {
+//		this.nomFiliere = nomFiliere;
+//	}
 
 	public Classe() {
 		super();
 		// TODO Auto-generated constructor stub
+		filiere= new Filiere();
 	}
-
-	public Classe( String nomClasse, String niveau, float moyenne, String anneeUniversitaire,
-			String idFiliere) {
-		super();
-		NomClasse = nomClasse;
-		Niveau = niveau;
-		Moyenne = moyenne;
-		AnneeUniversitaire = anneeUniversitaire;
-		IdFiliere = idFiliere;
-	}
-
 
 	public String getNomClasse() {
-		return NomClasse;
+		return nomClasse;
 	}
 
 	public void setNomClasse(String nomClasse) {
-		NomClasse = nomClasse;
+		this.nomClasse = nomClasse;
 	}
 
 	public String getNiveau() {
-		return Niveau;
+		return niveau;
 	}
 
 	public void setNiveau(String niveau) {
-		Niveau = niveau;
+		this.niveau = niveau;
 	}
 
 	public float getMoyenne() {
-		return Moyenne;
+		return moyenne;
 	}
 
 	public void setMoyenne(float moyenne) {
-		Moyenne = moyenne;
+		this.moyenne = moyenne;
 	}
 
 	public String getAnneeUniversitaire() {
-		return AnneeUniversitaire;
+		return anneeUniversitaire;
 	}
 
 	public void setAnneeUniversitaire(String anneeUniversitaire) {
-		AnneeUniversitaire = anneeUniversitaire;
+		this.anneeUniversitaire = anneeUniversitaire;
 	}
-
-	public String getIdFiliere() {
-		return IdFiliere;
-	}
-
-	public void setIdFiliere(String idFiliere) {
-		IdFiliere = idFiliere;
-	}
+//
+//	public int getIdFiliere() {
+//		return idFiliere;
+//	}
+//
+//	public void setIdFiliere(int idFiliere) {
+//		this.idFiliere = idFiliere;
+//	}
 
 	@Override
 	public String toString() {
-		return "Classe [NomClasse=" + NomClasse + ", Niveau=" + Niveau + ", Moyenne=" + Moyenne
-				+ ", AnneeUniversitaire=" + AnneeUniversitaire + ", IdFiliere=" + IdFiliere + "]";
+		return "Classe [nomClasse=" + nomClasse + ", niveau=" + niveau + ", moyenne=" + moyenne
+				+ ", anneeUniversitaire=" + anneeUniversitaire + ", idFiliere=";
 	}
 
+	public Filiere getFiliere() {
+		return filiere;
+	}
+
+	public void setFiliere(Filiere filiere) {
+		this.filiere = filiere;
+	}
+	
 }

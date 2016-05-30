@@ -25,12 +25,12 @@ public class ClasseDaoImpl implements ClasseDao {
 		
 		try {
 			connexion = daofactory.getConnection() ;
-			preparedStatement=(PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_CLASSE, false, classe.getNomClasse(),classe.getNiveau(),classe.getMoyenne(),classe.getIdFiliere(),classe.getAnneeUniversitaire());
+			preparedStatement=(PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_CLASSE, false, classe.getNomClasse(),classe.getNiveau(),classe.getMoyenne(),classe.getFiliere().getId(),classe.getAnneeUniversitaire());
 			int statut = preparedStatement.executeUpdate();
 
 			if (statut == 0) {
 
-				throw new DAOException("échec de la création de la classe, aucune ligne ajoutée dans la table.");
+				throw new DAOException("ï¿½chec de la crï¿½ation de la classe, aucune ligne ajoutï¿½e dans la table.");
 
 			}
 

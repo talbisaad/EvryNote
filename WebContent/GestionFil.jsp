@@ -16,7 +16,7 @@
 		if (i < 8) {
 			var newRow = document.createElement('tr');
 
-			newRow.innerHTML = '<td> <input type="text" name="nomMatiere_'+i+'" ><td> <input type="text" name="coeffMatiere_'+i+'" ></td><td><input type="text" name="heureMatiere_'+i+'" ></td><td><select class="selectfilter filterSrch" name="respFil"id="respFil_'+i+'""><c:forEach items="${enseignants}" var="enseignant"><option value="<c:out value="${enseignant.id}"/>">${enseignant.nom}${enseignant.prenom}</option></c:forEach></select></td><td><input type="button" id="add_kid1()" onClick="addKid1()" value="+" /><input type="button" value="-" onclick="removeKid1(this.parentNode)"></td>';
+			newRow.innerHTML = '<td> <input type="text" name="nomMatiere_'+i+'" ><td> <input type="text" name="coeffMatiere_'+i+'" ></td><td><input type="text" name="heureMatiere_'+i+'" ></td><td><select class="selectfilter filterSrch" id="respFil" name="respFil_'+i+'""><c:forEach items="${enseignants}" var="enseignant"><option value="<c:out value="${enseignant.id}"/>">${enseignant.nom}${enseignant.prenom}</option></c:forEach></select></td><td><input type="button" id="add_kid1()" onClick="addKid1()" value="+" /><input type="button" value="-" onclick="removeKid1(this.parentNode)"></td>';
 			document.getElementById('kids1').appendChild(newRow);
 			i++;
 		}
@@ -45,7 +45,7 @@
 			<br> <span>Choisir une filiere : </span> &nbsp <select
 				class="selectfilter filterSrch" id="filiere" name="filiere">
 				<c:forEach items="${fils}" var="fil">
-					<option value="<c:out value="${fil.id}"/>">${fil.nom}</option>
+					<option value="<c:out value="${fil.id}"/>">${fil.nom} - ${fil.niveau}</option>
 				</c:forEach>
 			</select><br> <br> <br>&nbsp &nbsp &nbsp &nbsp &nbsp <input
 				type="radio" name="saisieFil" value="importFil" checked> <span>Importer

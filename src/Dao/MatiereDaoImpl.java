@@ -26,10 +26,13 @@ public class MatiereDaoImpl implements MatiereDao {
 
 	private static final String SQL_UPDATE_MAT = "UPDATE matiere SET nom=? WHERE idMatiere=?";
 
-	private static final String SQL_SELECT_MAT = "SELECT DISTINCT idMatiere FROM matiere where idMatiere = ?";
+	private static final String SQL_SELECT_MAT_ID = "SELECT DISTINCT idMatiere, nom FROM matiere where idMatiere = ?";
+
+	private static final String SQL_SELECT_MAT_NOM = "SELECT DISTINCT idMatiere, nom FROM matiere where nom = ?";
 
 	private static final String SQL_SELECT_MAT_FIL = "SELECT DISTINCT matiere.idMatiere, filMatEns.idResponsable, matiere.nom, coefficient, nbrHeure FROM filiere , matiere , filMatEns WHERE filiere.idFiliere=filMatEns.idFiliere AND matiere.IdMatiere = filMatEns.idMatiere AND filiere.idFiliere = ? ";
 
+	private static final String SQL_DELETE_MAT_FIL_ENS = "DELETE FROM filMatEns WHERE idFiliere = ?";
 	// private static final String SQL_UPDATE_MAT_FIL = "UPDATE filMatEns SET
 	// coefficient=? , nbrHeure = ? WHERE idMatiere = ? AND idFiliere = ? ";
 
@@ -45,13 +48,24 @@ public class MatiereDaoImpl implements MatiereDao {
 
 		matiere.setNbrHeure(resultSet.getInt("nbrHeure"));
 
-		matiere.setProf(enseignant.trouver(resultSet.getInt("idResponsable")));
+		matiere.setProf(enseignant.trouverById(resultSet.getInt("idResponsable")));
 
 		return matiere;
 
 	}
 
 	private static Matiere map1(ResultSet resultSet) throws SQLException {
+
+		Matiere matiere = new Matiere();
+
+		matiere.setId(resultSet.getInt("idMatiere"));
+		matiere.setNom(resultSet.getString("nom"));
+
+		return matiere;
+
+	}
+
+	private static Matiere map2(ResultSet resultSet) throws SQLException {
 
 		Matiere matiere = new Matiere();
 
@@ -73,8 +87,7 @@ public class MatiereDaoImpl implements MatiereDao {
 			connexion = daoFactory.getConnection();
 
 			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_MAT_ENS, false,
-					matiere.getNom(), idFil, matiere.getProf().getId(), matiere.getCoefficient(),
-					matiere.getNbrHeure());
+					matiere.getId(), idFil, matiere.getProf().getId(), matiere.getCoefficient(), matiere.getNbrHeure());
 
 			int statut = preparedStatement.executeUpdate();
 
@@ -97,7 +110,7 @@ public class MatiereDaoImpl implements MatiereDao {
 	}
 
 	@Override
-	public void modifierMatEns(Matiere matiere, int idFil) throws DAOException {
+	public void modifierMatEns(Matiere matiere, int idFil, int idMat) throws DAOException {
 		Connection connexion = null;
 
 		PreparedStatement preparedStatement = null;
@@ -107,7 +120,7 @@ public class MatiereDaoImpl implements MatiereDao {
 			connexion = daoFactory.getConnection();
 
 			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_UPDATE_MAT_ENS, false,
-					matiere.getProf().getId(), matiere.getCoefficient(), matiere.getNbrHeure(), matiere.getId(), idFil);
+					matiere.getProf().getId(), matiere.getCoefficient(), matiere.getNbrHeure(), idMat, idFil);
 
 			int statut = preparedStatement.executeUpdate();
 
@@ -148,7 +161,7 @@ public class MatiereDaoImpl implements MatiereDao {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				matieres.add(map1(resultSet));
+				matieres.add(map2(resultSet));
 			}
 
 		} catch (SQLException e) {
@@ -231,7 +244,7 @@ public class MatiereDaoImpl implements MatiereDao {
 	}
 
 	@Override
-	public boolean trouver(int idMat) throws DAOException {
+	public boolean trouveById(int idMat) throws DAOException {
 
 		Connection connexion = null;
 
@@ -245,7 +258,7 @@ public class MatiereDaoImpl implements MatiereDao {
 
 			connexion = daoFactory.getConnection();
 
-			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_MAT, false, idMat);
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_MAT_ID, false, idMat);
 
 			resultSet = preparedStatement.executeQuery();
 
@@ -264,6 +277,47 @@ public class MatiereDaoImpl implements MatiereDao {
 		}
 
 		return matieres.isEmpty();
+
+	}
+
+	@Override
+	public int trouveByNom(String nom) throws DAOException {
+
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		ResultSet resultSet = null;
+
+		matieres = new ArrayList<Matiere>();
+
+		try {
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_MAT_NOM, false, nom);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				matieres.add(map1(resultSet));
+			}
+
+			if (matieres.isEmpty()) {
+				return 0;
+			} else {
+				return matieres.get(0).getId();
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
+
+		}
 
 	}
 
@@ -302,6 +356,38 @@ public class MatiereDaoImpl implements MatiereDao {
 		}
 
 		return matieres;
+	}
+
+	@Override
+	public void supprimerMatieres(int idFiliere) throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		try {
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_DELETE_MAT_FIL_ENS, false,
+					idFiliere);
+
+			int statut = preparedStatement.executeUpdate();
+
+			if (statut == 0) {
+
+				throw new DAOException("Échec de la suppression des matieres");
+
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
+
+		}
 	}
 
 	/*

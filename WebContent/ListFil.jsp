@@ -111,7 +111,7 @@
 								if (i < 8) {
 									var newRow = document.createElement('tr');
 
-									newRow.innerHTML = '<td> <input type="text" name="idMatiere_'+i+'" /></td><td><input type="text" name="nomMatiere_'+i+'" /></td><td> <input type="text" name="coeffMatiere_'+i+'" ></td><td><input type="text" name="heureMatiere_'+i+'" ></td><td><select class="selectfilter filterSrch" id="enseignant"><c:forEach items="${enseignants}" var="enseignant"><option value="<c:out value="${enseignant.id}"/>">${enseignant.nom} ${enseignant.prenom}</option></c:forEach></select></td><td><input type="button" id="add_kid1()" onClick="addKid1()" value="+" /></td><td><input type="button" value="-"></td>';
+									newRow.innerHTML = '<td> <input type="text" name="idMatiere_'+i+'" /></td><td><input type="text" name="nomMatiere_'+i+'" /></td><td> <input type="text" name="coeffMatiere_'+i+'" ></td><td><input type="text" name="heureMatiere_'+i+'" ></td><td><select class="selectfilter filterSrch" name="respFil_'+i+'" id="respFil"><c:forEach items="${enseignants}" var="enseignant"><option value="<c:out value="${enseignant.id}"/>">${enseignant.nom} ${enseignant.prenom}</option></c:forEach></select></td><td><input type="button" id="add_kid1()" onClick="addKid1()" value="+" /></td><td><input type="button" value="-"></td>';
 
 									document.getElementById('kids1')
 											.appendChild(newRow);
@@ -153,6 +153,7 @@
 							<thead>
 								<tr>
 									<td>Nom filière</td>
+									<td>Niveau filière</td>
 									<td>Responsable</td>
 									<td>Modifier</td>
 									<td>Supprimer</td>
@@ -161,7 +162,8 @@
 							<tbody>
 								<c:forEach items="${fils}" var="fil">
 									<tr>
-										<td><a>${fil.nom}</a></td>
+										<td>${fil.nom}</td>
+										<td>${fil.niveau}</td>
 										<td>${fil.respFil.nom}</td>
 										<td><button type="submit"
 												value="<c:out value="${fil.id}"/>" name="modify">

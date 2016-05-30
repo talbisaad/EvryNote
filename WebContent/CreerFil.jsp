@@ -20,8 +20,7 @@
 		<div class="opr">
 			<jsp:include page="menuAdmin.jsp"></jsp:include>
 		</div>
-		<br>
-		<br> <span class="ttl">Creer une filiere</span><br>
+		<br> <br> <span class="ttl">Creer une filiere</span><br>
 		<br>
 		<form action="CreerFil" method="POST">
 			<table>
@@ -33,19 +32,27 @@
 					<td><br></td>
 				</tr>
 				<tr>
-					<td><span>Responsable de filiere</span></td>
+					<td><span>Niveau de la filière</span></td>
+					<td><select class="selectfilter filterSrch" name="niveau"
+						id="niveau">
+							<option value="L3">L3</option>
+							<option value="M1">M1</option>
+							<option value="M2">M2</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td><span>Responsable de la filière</span></td>
 					<td><select class="selectfilter filterSrch" name="respFil"
 						id="respFil">
 							<c:forEach items="${resps}" var="resp">
-								<option value="<c:out value="${resp.id}"/>">${resp.nom} ${resp.prenom}
-								</option>
+								<option value="<c:out value="${resp.id}"/>">${resp.nom}
+									${resp.prenom}</option>
 							</c:forEach>
 					</select></td>
 				</tr>
 			</table>
-			<br>
-			<br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit"
-				value="Valider" class="submit" />
+			<br> <br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input
+				type="submit" value="Valider" class="submit" />
 		</form>
 
 	</div>

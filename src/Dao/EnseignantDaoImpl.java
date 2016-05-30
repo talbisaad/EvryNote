@@ -19,8 +19,10 @@ public class EnseignantDaoImpl implements EnseignantDao {
 	private static final String SQL_SELECT_LIST_ENS = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom, droit.CD, droit.RF FROM responsable, droit WHERE responsable.idResponsable = droit.idResponsable AND droit.RF=false";
 	// selectionner l'enseignant avec son id
 	private static final String SQL_SELECT_ENS_ID = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom, droit.CD, droit.RF FROM responsable, droit WHERE responsable.idResponsable = droit.idResponsable AND responsable.idResponsable = ?";
+	// selectionner l'enseignant avec son nom
+	private static final String SQL_SELECT_ENS_NOM = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom, droit.CD, droit.RF FROM responsable, droit WHERE responsable.idResponsable = droit.idResponsable AND responsable.nom = ?";
 	// modifier le droit d'un enseignant
-	private static final String SQL_UPDATE_ENS_DROIT = "UPDATE droit SET RF = true WHERE idResponsable = ? ";
+	private static final String SQL_UPDATE_ENS_DROIT = "UPDATE droit SET RF = ?, CD = ? WHERE idResponsable = ? ";
 	// lister tout les enseignants avec leurs droits
 	private static final String SQL_SELECT_LIST = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom, droit.CD, droit.RF FROM responsable, droit WHERE responsable.idResponsable = droit.idResponsable";
 	// selectionner l'enseignant en mettant en parametre la matiere qui enseigne
@@ -111,7 +113,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
 	}
 
 	@Override
-	public void modifierDroit(int id) throws DAOException {
+	public void modifierDroit(int id, boolean RF , boolean CD) throws DAOException {
 
 		Connection connexion = null;
 
@@ -123,7 +125,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
 
 			connexion = daoFactory.getConnection();
 
-			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_UPDATE_ENS_DROIT, false, id);
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_UPDATE_ENS_DROIT, false, RF, CD, id);
 
 			int statut = preparedStatement.executeUpdate();
 
@@ -146,7 +148,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
 	}
 
 	@Override
-	public Enseignant trouver(int id) throws DAOException {
+	public Enseignant trouverById(int id) throws DAOException {
 		Connection connexion = null;
 
 		PreparedStatement preparedStatement = null;
@@ -241,6 +243,42 @@ public class EnseignantDaoImpl implements EnseignantDao {
 
 			if (resultSet.next()) {
 				enseignant = mapBis(resultSet);
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+
+		}
+		return enseignant;
+	}
+
+	@Override
+	public Enseignant trouverByNom(String nom) throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		ResultSet resultSet = null;
+
+		Enseignant enseignant = null;
+
+		try {
+
+			/* Récupération d'une connexion depuis la Factory */
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_ENS_NOM, false, nom);
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				enseignant = map(resultSet);
 			}
 
 		} catch (SQLException e) {

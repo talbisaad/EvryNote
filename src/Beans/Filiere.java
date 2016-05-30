@@ -5,8 +5,13 @@ import java.util.ArrayList;
 
 public class Filiere implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nom;
+	private String niveau;
 	private ArrayList<Matiere> matieres;
 	private ArrayList<Classe> classes;
 	private Enseignant respFil;
@@ -57,6 +62,14 @@ public class Filiere implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getNiveau() {
+		return niveau;
+	}
+
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Beans.Enseignant;
 import Beans.Filiere;
 
 public class FiliereDaoImpl implements FiliereDao {
@@ -15,16 +14,18 @@ public class FiliereDaoImpl implements FiliereDao {
 
 	private ArrayList<Filiere> filieres;
 
-	private static final String SQL_INSERT_FIL = "INSERT INTO filiere (nomFiliere, idResponsable) VALUES (?, ?)";
+	private static final String SQL_INSERT_FIL = "INSERT INTO filiere (nomFiliere, idResponsable, niveau) VALUES (?, ?, ?)";
 
-	private static final String SQL_SELECT_LIST_FIL = "SELECT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable FROM filiere , responsable WHERE filiere.idResponsable=responsable.idResponsable";
+	private static final String SQL_SELECT_LIST_FIL = "SELECT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable, filiere.niveau FROM filiere , responsable WHERE filiere.idResponsable=responsable.idResponsable";
 
-	private static final String SQL_SELECT_LIST_FIL_SANS_MAT = "SELECT DISTINCT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable FROM filiere, filMatEns WHERE filiere.idFiliere not in (SELECT filMatEns.idFiliere FROM filMatEns)";
+	private static final String SQL_SELECT_LIST_FIL_SANS_MAT = "SELECT DISTINCT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable, filiere.niveau FROM filiere, filMatEns WHERE filiere.idFiliere not in (SELECT filMatEns.idFiliere FROM filMatEns)";
 
-	private static final String SQL_SELECT_LIST_FIL_AVEC_MAT = "SELECT DISTINCT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable FROM filiere, filMatEns WHERE filiere.idFiliere in (SELECT filMatEns.idFiliere FROM filMatEns)";
-	
-	private static final String SQL_SELECT_TROUVER_FIL = "SELECT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable FROM filiere WHERE filiere.idFiliere = ?";
-	
+	private static final String SQL_SELECT_LIST_FIL_AVEC_MAT = "SELECT DISTINCT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable, filiere.niveau FROM filiere, filMatEns WHERE filiere.idFiliere in (SELECT filMatEns.idFiliere FROM filMatEns)";
+
+	private static final String SQL_SELECT_TROUVER_FIL = "SELECT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable, filiere.niveau FROM filiere WHERE filiere.idFiliere = ?";
+
+	private static final String SQL_DELETE_FIL = "DELETE FROM filiere WHERE idFiliere = ?";
+
 	private static EnseignantDao enseignantDao;
 
 	FiliereDaoImpl(DAOFactory daoFactory) {
@@ -38,7 +39,8 @@ public class FiliereDaoImpl implements FiliereDao {
 
 		filiere.setId(resultSet.getInt("idFiliere"));
 		filiere.setNom(resultSet.getString("nomFiliere"));
-		filiere.setRespFil(enseignantDao.trouver(resultSet.getInt("idResponsable")));
+		filiere.setRespFil(enseignantDao.trouverById(resultSet.getInt("idResponsable")));
+		filiere.setNiveau(resultSet.getString("niveau"));
 
 		return filiere;
 
@@ -55,7 +57,7 @@ public class FiliereDaoImpl implements FiliereDao {
 			connexion = daoFactory.getConnection();
 
 			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_INSERT_FIL, false,
-					filiere.getNom(), filiere.getRespFil().getId());
+					filiere.getNom(), filiere.getRespFil().getId(), filiere.getNiveau());
 
 			int statut = preparedStatement.executeUpdate();
 
@@ -93,7 +95,8 @@ public class FiliereDaoImpl implements FiliereDao {
 
 			connexion = daoFactory.getConnection();
 
-			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_TROUVER_FIL, false,id);
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_TROUVER_FIL, false,
+					id);
 
 			resultSet = preparedStatement.executeQuery();
 
@@ -110,7 +113,7 @@ public class FiliereDaoImpl implements FiliereDao {
 			DAOUtilitaire.fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 
 		}
-		
+
 		return filiere;
 
 	}
@@ -226,6 +229,38 @@ public class FiliereDaoImpl implements FiliereDao {
 		}
 
 		return filieres;
+	}
+
+	@Override
+	public void supprimerFiliere(int idFiliere) throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		try {
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_DELETE_FIL, false,
+					idFiliere);
+
+			int statut = preparedStatement.executeUpdate();
+
+			if (statut == 0) {
+
+				throw new DAOException("Échec de la suppression de la filiere");
+
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
+
+		}
 	}
 
 }
