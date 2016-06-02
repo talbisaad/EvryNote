@@ -8,6 +8,8 @@ public class Enseignant implements Serializable{
 	private String nom, prenom;
 	private boolean reponsableFil;
 	private boolean chefDepart;
+	private String login;
+	private String password;
 	
 	public Enseignant(){
 		
@@ -58,6 +60,22 @@ public class Enseignant implements Serializable{
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

@@ -33,19 +33,35 @@
 <body>
 	<div class="header">
 		<ul>
-			<li><a href="#" class="dcnx">Deconnexion</a></li>
+			<li><a href="/EvryNote/Deconnexion" class="dcnx">Deconnexion</a></li>
 		</ul>
 	</div>
 	<div class="inner">
 		<div class="opr">
-			<jsp:include page="menuAdmin.jsp"></jsp:include>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuAdmin.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuProf.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuProfResp.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuCDProf.jsp"></jsp:include>
+			</c:if>
 		</div>
 		<br> <br> <span class="ttl">Gerer une filiere</span><br>
-		<form action="GestionFil" method="POST">
+		<form action="<c:url value="/platform/GestionFil" />" method="POST">
 			<br> <span>Choisir une filiere : </span> &nbsp <select
 				class="selectfilter filterSrch" id="filiere" name="filiere">
 				<c:forEach items="${fils}" var="fil">
-					<option value="<c:out value="${fil.id}"/>">${fil.nom} - ${fil.niveau}</option>
+					<option value="<c:out value="${fil.id}"/>">${fil.nom}-
+						${fil.niveau}</option>
 				</c:forEach>
 			</select><br> <br> <br>&nbsp &nbsp &nbsp &nbsp &nbsp <input
 				type="radio" name="saisieFil" value="importFil" checked> <span>Importer
@@ -56,10 +72,13 @@
 			<div id="importFil">
 				<fieldset>
 					<legend>Importer le fichier</legend>
-					<br> <label for="fichier">Emplacement du fichier <span
-						class="requis">*</span></label> <input type="file" id="fichier"
-						name="fichier" value="" /> <br /> <input type="submit"
-						value="Valider" class="submit" />
+					<br> <label for="fichier">Emplacement du fichier <i>(format
+							CSV obligatoire)</i>*
+					</label>&nbsp &nbsp &nbsp &nbsp &nbsp <input type="file" id="fichier"
+						name="fichier" value="<c:out value="${fichier}"/>" />
+					<c:out value="${fichier}" />
+					<br /> <input type="submit" value="Upload" name="upload"
+						class="submit" accept=".csv" />
 				</fieldset>
 			</div>
 

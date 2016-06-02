@@ -21,6 +21,8 @@ public class EnseignantDaoImpl implements EnseignantDao {
 	private static final String SQL_SELECT_ENS_ID = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom, droit.CD, droit.RF FROM responsable, droit WHERE responsable.idResponsable = droit.idResponsable AND responsable.idResponsable = ?";
 	// selectionner l'enseignant avec son nom
 	private static final String SQL_SELECT_ENS_NOM = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom, droit.CD, droit.RF FROM responsable, droit WHERE responsable.idResponsable = droit.idResponsable AND responsable.nom = ?";
+	// selectionner l'enseignant avec son login
+	private static final String SQL_SELECT_ENS_LOGIN = "SELECT responsable.idResponsable, responsable.nom, responsable.prenom, responsable.login, responsable.password, droit.CD, droit.RF FROM responsable, droit WHERE responsable.idResponsable = droit.idResponsable AND responsable.login = ?";
 	// modifier le droit d'un enseignant
 	private static final String SQL_UPDATE_ENS_DROIT = "UPDATE droit SET RF = ?, CD = ? WHERE idResponsable = ? ";
 	// lister tout les enseignants avec leurs droits
@@ -37,6 +39,28 @@ public class EnseignantDaoImpl implements EnseignantDao {
 		enseignant.setNom(resultSet.getString("nom"));
 
 		enseignant.setPrenom(resultSet.getString("prenom"));
+
+		enseignant.setChefDepart(resultSet.getBoolean("CD"));
+
+		enseignant.setReponsableFil(resultSet.getBoolean("RF"));
+
+		return enseignant;
+
+	}
+	
+	private static Enseignant mapLogin(ResultSet resultSet) throws SQLException {
+
+		Enseignant enseignant = new Enseignant();
+
+		enseignant.setId(resultSet.getInt("idResponsable"));
+
+		enseignant.setNom(resultSet.getString("nom"));
+
+		enseignant.setPrenom(resultSet.getString("prenom"));
+		
+		enseignant.setLogin(resultSet.getString("login"));
+		
+		enseignant.setPassword(resultSet.getString("password"));
 
 		enseignant.setChefDepart(resultSet.getBoolean("CD"));
 
@@ -279,6 +303,42 @@ public class EnseignantDaoImpl implements EnseignantDao {
 
 			if (resultSet.next()) {
 				enseignant = map(resultSet);
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+
+		}
+		return enseignant;
+	}
+
+	@Override
+	public Enseignant trouverByLogin(String login) throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		ResultSet resultSet = null;
+
+		Enseignant enseignant = null;
+
+		try {
+
+			/* Récupération d'une connexion depuis la Factory */
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_SELECT_ENS_LOGIN, false, login);
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				enseignant = mapLogin(resultSet);
 			}
 
 		} catch (SQLException e) {

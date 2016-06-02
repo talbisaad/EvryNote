@@ -12,17 +12,32 @@
 
 <body>
 	<div class="header">
-		<ul>
-			<li><a href="#" class="dcnx">Deconnexion</a></li>
-		</ul>
+			<ul>
+				<li><a href="/EvryNote/Deconnexion" class="dcnx">Deconnexion</a></li>
+			</ul>
 	</div>
 	<div class="inner">
 		<div class="opr">
-			<jsp:include page="menuAdmin.jsp"></jsp:include>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuAdmin.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuProf.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuProfResp.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuCDProf.jsp"></jsp:include>
+			</c:if>
 		</div>
 		<br> <br> <span class="ttl">Creer une filiere</span><br>
 		<br>
-		<form action="CreerFil" method="POST">
+		<form action="<c:url value="/platform/CreerFil" />" method="POST">
 			<table>
 				<tr>
 					<td><span>Nom de la filiere</span></td>
@@ -35,10 +50,15 @@
 					<td><span>Niveau de la filière</span></td>
 					<td><select class="selectfilter filterSrch" name="niveau"
 						id="niveau">
+							<option value="L1">L1</option>
+							<option value="L2">L2</option>
 							<option value="L3">L3</option>
 							<option value="M1">M1</option>
 							<option value="M2">M2</option>
 					</select></td>
+				</tr>
+				<tr>
+					<td><br></td>
 				</tr>
 				<tr>
 					<td><span>Responsable de la filière</span></td>
@@ -51,7 +71,7 @@
 					</select></td>
 				</tr>
 			</table>
-			<br> <br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input
+			<br> <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
 				type="submit" value="Valider" class="submit" />
 		</form>
 

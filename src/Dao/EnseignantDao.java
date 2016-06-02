@@ -12,6 +12,8 @@ public interface EnseignantDao {
 	
 	Enseignant trouverByNom(String nom) throws DAOException;
 	
+	Enseignant trouverByLogin(String login) throws DAOException;
+	
 	Enseignant trouverEnsMat(String matiere) throws DAOException;
 
 	ArrayList<Enseignant> listerEns() throws DAOException;

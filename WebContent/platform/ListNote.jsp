@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,12 +21,27 @@
 <body>
 	<div class="header">
 		<ul>
-			<li><a href="#" class="dcnx">Deconnexion</a></li>
+			<li><a href="/EvryNote/Deconnexion" class="dcnx">Deconnexion</a></li>
 		</ul>
 	</div>
 	<div class="inner">
 		<div class="opr">
-			<jsp:include page="menuAdmin.jsp"></jsp:include>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuAdmin.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuProf.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuProfResp.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuCDProf.jsp"></jsp:include>
+			</c:if>
 		</div>
 		<br> <br> <span class="ttl" hidden>Lister les notes
 			d'une classe</span><br> <br> <br>

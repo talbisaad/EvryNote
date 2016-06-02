@@ -16,12 +16,27 @@
 <body>
 	<div class="header">
 		<ul>
-			<li><a href="#" class="dcnx">Deconnexion</a></li>
+			<li><a href="/EvryNote/Deconnexion" class="dcnx">Deconnexion</a></li>
 		</ul>
 	</div>
 	<div class="inner">
 		<div class="opr">
-			<jsp:include page="menuAdmin.jsp"></jsp:include>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuAdmin.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuProf.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuProfResp.jsp"></jsp:include>
+			</c:if>
+			<c:if
+				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
+				<jsp:include page="menuCDProf.jsp"></jsp:include>
+			</c:if>
 		</div>
 		<c:if test="${modification == 'modification'}">
 			<br>
@@ -30,7 +45,7 @@
 
 			<div id="tableFil">
 				<div class="tables">
-					<form action="ListFil" method="POST">
+					<form action="<c:url value="/platform/ListFil" />" method="POST">
 						<br> <br>
 						<table>
 							<tr>
@@ -148,7 +163,7 @@
 			<br>
 			<div id="listFil">
 				<div class="tables">
-					<form action="ListFil" method="POST">
+					<form action="<c:url value="/platform/ListFil" />" method="POST">
 						<table cellpadding="0" cellspacing="0" class="tabs">
 							<thead>
 								<tr>

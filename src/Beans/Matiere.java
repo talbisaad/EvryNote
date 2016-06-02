@@ -62,7 +62,7 @@ public class Matiere {
 
 	@Override
 	public String toString() {
-		return "Matiere [nom=" + nom + ", coefficient=" + coefficient + ", nbrHeure=" + nbrHeure + "]";
+		return "Matiere [nom=" + nom + ", coefficient=" + coefficient + ", nbrHeure=" + nbrHeure + ", Enseignant= "+ prof +"]";
 	}
 
 }

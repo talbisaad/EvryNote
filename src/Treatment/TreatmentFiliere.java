@@ -1,5 +1,8 @@
 package Treatment;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -56,7 +59,7 @@ public class TreatmentFiliere {
 				if (idMat == 0) {
 					matiereDao.ajouter(request.getParameter("nomMatiere_" + i));
 					matiere.setId(matiereDao.trouveByNom(request.getParameter("nomMatiere_" + i)));
-					matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("idFil")));
+					matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("filiere")));
 				} else if (idMat != 0) {
 					matiere.setId(matiereDao.trouveByNom(request.getParameter("nomMatiere_" + i)));
 					matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("filiere")));
@@ -165,6 +168,56 @@ public class TreatmentFiliere {
 			enseignantDao.modifierDroit(filiere.getRespFil().getId(), false, false);
 		}
 
+	}
+
+	// Partie UPLOAD pour ajouter des matieres automatiquement
+
+	public void upload(String file, HttpServletRequest request, MatiereDao matiereDao, EnseignantDao enseignantDao)
+			throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		String ligne = null;
+		int i = 0;
+		Matiere matiere = new Matiere();
+		while ((ligne = br.readLine()) != null) {
+			// Retourner la ligne dans un tableau
+			String[] data = ligne.split(",");
+
+			// Afficher le contenu du tableau
+			for (String val : data) {
+				switch (i) {
+				case 0:
+					matiere.setNom(val);
+					i++;
+					break;
+				case 1:
+					matiere.setCoefficient(Integer.parseInt(val));
+					i++;
+					break;
+				case 2:
+					matiere.setNbrHeure(Integer.parseInt(val));
+					i++;
+					break;
+				case 3:
+					matiere.setProf(enseignantDao.trouverById(Integer.parseInt(val)));
+					i++;
+					break;
+				}
+				if (i == 4) {
+					int idMat = matiereDao.trouveByNom(matiere.getNom());
+					if (idMat == 0) {
+						matiereDao.ajouter(matiere.getNom());
+						matiere.setId(matiereDao.trouveByNom(matiere.getNom()));
+						matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("filiere")));
+					} else if (idMat != 0) {
+						matiere.setId(matiereDao.trouveByNom(matiere.getNom()));
+						matiereDao.ajouterMatEns(matiere, Integer.parseInt(request.getParameter("filiere")));
+					}
+					matiere = new Matiere();
+					i = 0;
+				}
+			}
+		}
+		br.close();
 	}
 
 }
