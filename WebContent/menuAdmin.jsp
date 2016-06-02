@@ -10,9 +10,9 @@
           </li>
           <li><div class="titleitm">Classe<span class="togl">[ - ]</span></div>
            <ul class="subItm">
-                 <li><a href="/EvryNote/CreerClass.jsp">Creer une classe</a></li>
-                 <li><a href="/EvryNote/ListClass.jsp">Lister les classes</a></li>
-                 <li><a href="/EvryNote/GestionClass.jsp">Gerer une classe</a></li>
+                 <li><a href="/EvryNote/CreerClass">Creer une classe</a></li>
+                 <li><a href="/EvryNote/ListClass">Lister les classes</a></li>
+                 <li><a href="/EvryNote/GestionClass">Gerer une classe</a></li>
                  <li><a href="?page=">Reporting de la classe</a></li>
            </ul>
           <li><div class="titleitm">Enseignant<span class="togl">[ - ]</span></div>

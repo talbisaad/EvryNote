@@ -2,26 +2,28 @@ package Beans;
 
 public class Classe {
 
+	private int idClasse;
 	private String nomClasse;
 	private String niveau;
 	private float moyenne;
 	private String anneeUniversitaire;
 	private Filiere filiere;
-//
-//	public String getNomFiliere() {
-//		return nomFiliere;
-//	}
-//
-//	public void setNomFiliere(String nomFiliere) {
-//		this.nomFiliere = nomFiliere;
-//	}
+	
 
 	public Classe() {
 		super();
 		// TODO Auto-generated constructor stub
 		filiere= new Filiere();
 	}
+	
+	public int getIdClasse() {
+		return idClasse;
+	}
 
+	public void setIdClasse(int idClasse) {
+		this.idClasse = idClasse;
+	}
+	
 	public String getNomClasse() {
 		return nomClasse;
 	}

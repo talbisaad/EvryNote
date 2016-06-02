@@ -17,7 +17,7 @@
 		<servlet-name>ServletFiliere</servlet-name>
 		<url-pattern>/CreerFil</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ServletClass</servlet-name>
 		<servlet-class>Controller.ServletClass</servlet-class>
@@ -29,12 +29,24 @@
 	</servlet-mapping>
 	
 	
+	<servlet-mapping>
+		<servlet-name>ServletClass</servlet-name>
+		<url-pattern>/ListClass</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>ServletClass</servlet-name>
+		<url-pattern>/ModifierClass</url-pattern>
+	</servlet-mapping>
+
+
 
 	<servlet-mapping>
 		<servlet-name>ServletFiliere</servlet-name>
 		<url-pattern>/ListFil</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>ServletFiliere</servlet-name>
 		<url-pattern>/GestionFil</url-pattern>
