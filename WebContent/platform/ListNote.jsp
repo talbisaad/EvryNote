@@ -28,19 +28,19 @@
 		<div class="opr">
 			<c:if
 				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
-				<jsp:include page="menuAdmin.jsp"></jsp:include>
+				<jsp:include page="/menuAdmin.jsp"></jsp:include>
 			</c:if>
 			<c:if
 				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
-				<jsp:include page="menuProf.jsp"></jsp:include>
+				<jsp:include page="/menuProf.jsp"></jsp:include>
 			</c:if>
 			<c:if
 				test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.reponsableFil && !sessionScope.sessionUtilisateur.chefDepart}">
-				<jsp:include page="menuProfResp.jsp"></jsp:include>
+				<jsp:include page="/menuProfResp.jsp"></jsp:include>
 			</c:if>
 			<c:if
 				test="${!empty sessionScope.sessionUtilisateur && !sessionScope.sessionUtilisateur.reponsableFil && sessionScope.sessionUtilisateur.chefDepart}">
-				<jsp:include page="menuCDProf.jsp"></jsp:include>
+				<jsp:include page="/menuCDProf.jsp"></jsp:include>
 			</c:if>
 		</div>
 		<br> <br> <span class="ttl" hidden>Lister les notes

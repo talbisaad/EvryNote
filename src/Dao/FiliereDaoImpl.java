@@ -22,6 +22,8 @@ public class FiliereDaoImpl implements FiliereDao {
 
 	private static final String SQL_SELECT_LIST_FIL_AVEC_MAT = "SELECT DISTINCT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable, filiere.niveau FROM filiere, filMatEns WHERE filiere.idFiliere in (SELECT filMatEns.idFiliere FROM filMatEns)";
 
+	private static final String SQL_SELECT_LIST_FIL_AVEC_MAT_RESP = "SELECT DISTINCT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable, filiere.niveau FROM filiere, filMatEns WHERE filiere.idResponsable = ? AND filiere.idFiliere in (SELECT filMatEns.idFiliere FROM filMatEns)";
+
 	private static final String SQL_SELECT_TROUVER_FIL = "SELECT filiere.idFiliere, filiere.nomFiliere, filiere.idResponsable, filiere.niveau FROM filiere WHERE filiere.idFiliere = ?";
 
 	private static final String SQL_DELETE_FIL = "DELETE FROM filiere WHERE idFiliere = ?";
@@ -261,6 +263,44 @@ public class FiliereDaoImpl implements FiliereDao {
 			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
 
 		}
+	}
+
+	@Override
+	public ArrayList<Filiere> listerFilAvecMatResp(int idResp) throws DAOException {
+		Connection connexion = null;
+
+		PreparedStatement preparedStatement = null;
+
+		ResultSet resultSet = null;
+
+		filieres = new ArrayList<Filiere>();
+
+		try {
+
+			/* Récupération d'une connexion depuis la Factory */
+
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = DAOUtilitaire.initialisationRequetePreparee(connexion,
+					SQL_SELECT_LIST_FIL_AVEC_MAT_RESP, false, idResp);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				filieres.add(map(resultSet));
+			}
+
+		} catch (SQLException e) {
+
+			throw new DAOException(e);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+
+		}
+
+		return filieres;
 	}
 
 }

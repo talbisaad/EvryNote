@@ -8,6 +8,8 @@
 <script type="text/javascript" src="JS/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="JS/jquery-ui.js"></script>
 <script type="text/javascript" src="JS/script.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <title>Liste des classes</title>
 </head>
 <body>
@@ -43,16 +45,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><a></a></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><img alt="modify" class="modifyicone"
-							src="CSS/modify.png"></td>
-						<td><img alt="delete" class="deleteicone"
-							src="CSS/delete.png"></td>
-					</tr>
+					<c:forEach begin="1" end="${ no }" step="1" varStatus="loopCounter" items="${lstBooks}" var="book">
+						<tr>
+
+							<td><c:out value="${book.isbn}" /></td>
+							<td><c:out value="${book.title}" /></td>
+							<td><c:out value="${book.authors}" /></td>
+							<td><c:out value="${book.version}" /></td>
+							<td><img alt="modify" class="modifyicone"
+								src="CSS/modify.png"></td>
+							<td><img alt="delete" class="deleteicone"
+								src="CSS/delete.png"></td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
