@@ -47,7 +47,7 @@ public class ServletClass extends HttpServlet {
 		if (page.equals("CreerClass")) {
 
 			this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
-
+			
 		}
 
 		if (page.equals("ListClass")) {

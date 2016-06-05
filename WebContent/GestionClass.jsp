@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,28 +26,39 @@
 		<br>
 		<fieldset>
 			<legend>Rechercher</legend>
-			<div>
-				<form action="Controle?act=ajouteremp" method="POST">
+			<form action="ServletEtudiant?action=GestionClass" method="POST">
+				<div>
 
 					<table width="70%">
 
 						<tr>
 							<td>Nom classe</td>
 							<td>:</td>
-							<td><input type="text" name="classname" size="20"></td>
+							<td><input type="text" name="NomClasse" size="30"></td>
 
 							<td>Filière</td>
 							<td>:</td>
-							<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+							<td><select class="selectfilter filterSrch" name="filiere"
+								id="filtersh">
+									<c:forEach items="${listfiliere}" var="f">
+										<option>${f.nom}</option>
+									</c:forEach>
+							</select></td>
 						</tr>
 						<tr>
 							<td>Niveau</td>
 							<td>:</td>
-							<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+							<td><select class="selectfilter filterSrch" name="niveau"
+								id="filtersh">
+									<c:forEach items="${ListNiveau}" var="n">
+										<option>${n}</option>
+									</c:forEach>
+							</select></td>
 							<td>Année Universitaire</td>
 							<td>:</td>
-							<td><select class="selectfilter filterSrch" id="filtersh"></select></td>
+							<td><input type="text" name="annee" id="filtersh" /></td>
 						</tr>
+
 
 						<tr>
 							<td></td>
@@ -56,14 +68,13 @@
 						<tr>
 							<td></td>
 							<td></td>
-							<td><input type="submit" name="submit" value="Rechercher"
-								class="submit"> <input type="reset"
-								value="Réinitialiser" class="submit"></td>
+							<td><input type="submit" class="submit" value="Rechercher" />
+							</td>
 						</tr>
 
 					</table>
-				</form>
-			</div>
+				</div>
+			</form>
 		</fieldset>
 		<div id="lign" class="tables">
 			<table cellpadding="0" cellspacing="0" class="tabs">
@@ -77,15 +88,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><img alt="modify" class="modifyicone"
-							src="CSS/modify.png"></td>
-						<td><img alt="delete" class="deleteicone"
-							src="CSS/delete.png"></td>
-					</tr>
+				<c:forEach begin="0" end="${lengh}" step="1" varStatus="loopCounter" items="${listetudiant}" var="e">
+						<tr>
+
+							<td ><c:out  value="${e.ine}"/></td>
+							<td><c:out value="${e.nomEtudiant}"/></td>
+							<td><c:out value="${e.prenomEtudiant}"/></td>
+							<td><form action="ServletClass?action=ModifierClassFromListClass" method="POST"><button style="border:0px solid black; background-color: transparent;" type="submit" name="Modifier"><img alt="modify" class="modifyicone"
+								src="CSS/modify.png"></button>
+								<input type="hidden" name="IdRow" value="${e.ine}"/>
+								</form></td>
+							<td><form action="ServletClass?action=SupprimerClass" method="POST"><button style="border:0px solid black; background-color: transparent;" type="submit" name="Modifier"> <img alt="delete" class="deleteicone"
+								src="CSS/delete.png"></button>
+							  <input type="hidden" name="IdRow" value="${e.ine}"/>
+								</form></td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -94,7 +112,7 @@
 				type="file" id="fichier" name="fichier" value="" />
 		</div>
 		<dir>
-		<jsp:include page="ProfileEtudiant.jsp"></jsp:include>
+			<jsp:include page="ProfileEtudiant.jsp"></jsp:include>
 		</dir>
 	</div>
 </body>

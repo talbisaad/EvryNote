@@ -3,76 +3,116 @@ package Beans;
 import java.util.Date;
 
 public class Etudiant {
-	private int INE ;
-	private String NomEtudiant;
-	private String PrenomEtudiant;
-	private  Date DateDeNaissance;
-	private String EmailEtudiant;
-	private int TelEtud;
-	private String Niveau;
-	
-	public Etudiant(int iNE, String nomEtudiant, String prenomEtudiant, Date dateDeNaissance, String emailEtudiant,
-			int telEtud, String niveau) {
+	private int ine;
+	private String nomEtudiant;
+	private String prenomEtudiant;
+	private Date dateDeNaissance;
+	private String emailEtudiant;
+	private int telEtud;
+	private Classe classe;
+	private String passeword;
+	private String login;
+	private boolean active;
+
+	public Etudiant(int ine, String nomEtudiant, String prenomEtudiant, Date dateDeNaissance, String emailEtudiant,
+			int telEtud, Classe classe, String passeword, String login, boolean active) {
 		super();
-		INE = iNE;
-		NomEtudiant = nomEtudiant;
-		PrenomEtudiant = prenomEtudiant;
-		DateDeNaissance = dateDeNaissance;
-		EmailEtudiant = emailEtudiant;
-		TelEtud = telEtud;
-		Niveau = niveau;
+		this.ine = ine;
+		this.nomEtudiant = nomEtudiant;
+		this.prenomEtudiant = prenomEtudiant;
+		this.dateDeNaissance = dateDeNaissance;
+		this.emailEtudiant = emailEtudiant;
+		this.telEtud = telEtud;
+		this.classe = classe;
+		this.passeword = passeword;
+		this.login = login;
+		this.active = active;
 	}
+
 	public Etudiant() {
 		super();
 		// TODO Auto-generated constructor stub
+		classe=new Classe();
 	}
-	
-	
-	public int getINE() {
-		return INE;
+
+	public int getIne() {
+		return ine;
 	}
-	public void setINE(int iNE) {
-		INE = iNE;
+
+	public void setIne(int ine) {
+		this.ine = ine;
 	}
+
 	public String getNomEtudiant() {
-		return NomEtudiant;
+		return nomEtudiant;
 	}
+
 	public void setNomEtudiant(String nomEtudiant) {
-		NomEtudiant = nomEtudiant;
+		this.nomEtudiant = nomEtudiant;
 	}
+
 	public String getPrenomEtudiant() {
-		return PrenomEtudiant;
+		return prenomEtudiant;
 	}
+
 	public void setPrenomEtudiant(String prenomEtudiant) {
-		PrenomEtudiant = prenomEtudiant;
+		this.prenomEtudiant = prenomEtudiant;
 	}
+
 	public Date getDateDeNaissance() {
-		return DateDeNaissance;
+		return dateDeNaissance;
 	}
+
 	public void setDateDeNaissance(Date dateDeNaissance) {
-		DateDeNaissance = dateDeNaissance;
+		this.dateDeNaissance = dateDeNaissance;
 	}
+
 	public String getEmailEtudiant() {
-		return EmailEtudiant;
+		return emailEtudiant;
 	}
+
 	public void setEmailEtudiant(String emailEtudiant) {
-		EmailEtudiant = emailEtudiant;
+		this.emailEtudiant = emailEtudiant;
 	}
+
 	public int getTelEtud() {
-		return TelEtud;
+		return telEtud;
 	}
+
 	public void setTelEtud(int telEtud) {
-		TelEtud = telEtud;
+		this.telEtud = telEtud;
 	}
-	public String getNiveau() {
-		return Niveau;
+
+	public Classe getClasse() {
+		return classe;
 	}
-	public void setNiveau(String niveau) {
-		Niveau = niveau;
+
+	public void setClasse(Classe classe) {
+		this.classe = classe;
 	}
-	
-	
-	
-	
+
+	public String getPasseword() {
+		return passeword;
+	}
+
+	public void setPasseword(String passeword) {
+		this.passeword = passeword;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 }

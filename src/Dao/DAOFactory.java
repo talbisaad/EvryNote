@@ -136,5 +136,11 @@ public class DAOFactory {
 		return new MatiereDaoImpl(this);
 
 	}
+	
+	public EtudiantDao getEtudiantDao(){
+		return new EtudiantDaoImpl(this);
+	}
+	
+	
 
 }
