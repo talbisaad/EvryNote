@@ -91,7 +91,7 @@
 				<tr>
 					<td>Nom classe</td>
 					<td>:</td>
-					<td><label class="selectfilter filterSrch" id="filtersh"><c:out
+					<td><label class="selectfilter filterSrch" id="filtersh" ><c:out
 								value="${classe.nomClasse}" /></label></td>
 
 					<td>Filière</td>
@@ -118,19 +118,28 @@
 				<tr id="lign">
 					<td></td>
 					<td></td>
-					<!-- <td><a href="/EvryNote/ModifierClass.jsp" class="submit">Modifier</a>
-					</td> -->
 
 				</tr>
 
 			</table>
-
-
 		</form>
-		<form action="ServletClass?action=ModifierClass" method="POST">
-			<input type="submit" name="Modifier" value="Modifier" class="submit" />
-		</form>
+		<table>
+			<tr>
+				<td>
+					<form action="ServletClass?action=ModifierClass" method="POST">
+						<input type="submit" name="Modifier" value="Modifier"
+							class="submit" />
+					</form>
+				</td>
+				<td>
+					<form action="ServletClass?action=Annuler" method="POST">
+						<input type="submit" name="Annuler" value="Annuler"
+							class="submit" />
 
+					</form>
+				</td>
+			</tr>
+		</table>
 	</div>
 
 	<script>

@@ -3,7 +3,6 @@ package Treatment;
 import Beans.Classe;
 import Beans.Filiere;
 import Dao.ClasseDao;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,6 +26,12 @@ public class TreatementClasse {
 		classeDao.CreatClass(classe);
 		DisplayClass(request, classe);
 
+	}
+	
+	public void DeleteClass(HttpServletRequest request,ClasseDao classeDao){
+		classe= new Classe();
+		classe.setIdClasse(Integer.parseInt(request.getParameter("IdRow")));
+		classeDao.DeleteClass(classe);
 	}
 
 	public void UpdateClass(HttpServletRequest request, ClasseDao classeDao, ArrayList<Filiere> listfiliere) {
@@ -66,9 +71,13 @@ public class TreatementClasse {
 	}
 
 	// Affichage de la classe en modification
-	public void DisplayClassForModification(HttpServletRequest request) {
+	public void DisplayClassForModification(HttpServletRequest request, ArrayList<Classe> classelist) {
+		
+		if(request.getParameter("action").equals("ModifierClassFromListClass")){
+			DisplayClass(request, getClasseFromList(classelist,request));
+		}else{
 		DisplayClass(request, classe);
-
+		}
 	}
 
 	// Methode pour trouver l'id de la filiere par son nom
@@ -80,6 +89,27 @@ public class TreatementClasse {
 		}
 		return id;
 	}
+	
+	public Classe getClasseFromList(ArrayList<Classe> classelist,HttpServletRequest request){
+		
+		for(Classe i:classelist){
+			if(i.getIdClasse()==Integer.parseInt(request.getParameter("IdRow"))){
+				return i;
+			}
+		}
+		return null;
+		
+	}
+	
+	public String getFiliereNameById(int id, ArrayList<Filiere> filierelist){
+		
+		for(Filiere i:filierelist){
+			if(i.getId()==id)
+			return i.getNom();
+		}
+		return null;
+		
+	}
 
 	public int getIdClasseByAttributs(Classe classe, ClasseDao classeDao) {
 		int id = 0;
@@ -88,35 +118,34 @@ public class TreatementClasse {
 
 	}
 
-	public ArrayList<Classe> GetClassList(ClasseDao classeDao) {
+	public ArrayList<Classe> GetClassList(ClasseDao classeDao,ArrayList<Filiere> filierelist) {
 
-		ArrayList<Classe> classelist = classeDao.GetClassList();
+		ArrayList<Classe> classelist = classeDao.GetClassList(filierelist);
 		return classelist;
 	}
-	
-	public ArrayList<Classe>  MapResultSetToClasse(ResultSet resultSet){
-		
+
+	public ArrayList<Classe> MapResultSetToClasse(ResultSet resultSet,ArrayList<Filiere> filierelist) {
+
 		ArrayList<Classe> classelist = new ArrayList<>();
-		
-		
+
 		try {
-			while(resultSet.next()){
-				
-				Classe classe= new Classe();
+			while (resultSet.next()) {
+
+				Classe classe = new Classe();
 				classe.setIdClasse(resultSet.getInt("IdClasse"));
 				classe.setNomClasse(resultSet.getString("NomClasse"));
 				classe.setNiveau(resultSet.getString("Niveau"));
 				classe.setMoyenne(resultSet.getFloat("Moyenne"));
-				classe.getFiliere().setId(resultSet.getInt("IdFiliere"));
+				classe.getFiliere().setNom(getFiliereNameById(resultSet.getInt("IdFiliere"), filierelist));
 				classe.setAnneeUniversitaire(resultSet.getString("AnneeUniversitaire"));
 				classelist.add(classe);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return classelist;		
+		return classelist;
 	}
 
 }
