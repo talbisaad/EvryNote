@@ -32,6 +32,13 @@ public class TreatementEtudiant {
 		etudiantDao.UpdateStudent(etudiant);
 
 	}
+	
+	public void DeleteStudent(HttpServletRequest request, EtudiantDao etudiantDao){
+		etudiant = new Etudiant();
+		etudiant.setIne(Integer.parseInt(request.getParameter("IdRow")));
+		etudiantDao.DeleteStudent(etudiant);
+		
+	}
 
 	public void DisplayStudentForModify(HttpServletRequest request, ArrayList<Etudiant> listetudiant) {
 

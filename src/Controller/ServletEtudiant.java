@@ -108,7 +108,19 @@ public class ServletEtudiant extends HttpServlet {
 			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
 			this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
 			break;
-		
+			
+		case "SupprimerEtudiant":
+			treatementEtudiant.DeleteStudent(request, etudiantDao);
+			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao,true);
+			lengh = listetudiant.size();
+			request.setAttribute("listetudiant", listetudiant);
+			request.setAttribute("lengh", lengh);
+			listfiliere = filiereDao.lister();
+			request.setAttribute("listfiliere", listfiliere);
+			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
+			this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
+			break;
 		}
 	}
+	
 }

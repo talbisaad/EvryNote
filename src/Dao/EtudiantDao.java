@@ -10,5 +10,6 @@ public interface EtudiantDao {
 	ArrayList<Etudiant> GetListOfStudent(int idClass)throws DAOException;
 	void AddStudent(Etudiant e)throws DAOException;
 	void UpdateStudent(Etudiant e)throws DAOException;
+	void DeleteStudent(Etudiant e)throws DAOException;
 	
 }
