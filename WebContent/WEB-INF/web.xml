@@ -23,7 +23,6 @@
 		<servlet-name>ServletEtudiant</servlet-name>
 		<servlet-class>Controller.ServletEtudiant</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>ServletClass</servlet-name>
 		<url-pattern>/CreerClass</url-pattern>
@@ -40,7 +39,14 @@
 		<servlet-name>ServletEtudiant</servlet-name>
 		<url-pattern>/GestionClass</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>ServletEtudiant</servlet-name>
+		<url-pattern>/ProfileEtudiant</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletEtudiant</servlet-name>
+		<url-pattern>/DisplayStudentForModify</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletFiliere</servlet-name>
 		<url-pattern>/ListFil</url-pattern>

@@ -105,6 +105,8 @@ public class ServletClass extends HttpServlet {
 			break;
 		case "SupprimerClass":
 			treaitmentClasse.DeleteClass(request, classeDao);
+			listclasse = treaitmentClasse.GetClassList(classeDao, listfiliere);
+			request.setAttribute("listclasse", listclasse);
 			this.getServletContext().getRequestDispatcher("/ListClass.jsp").forward(request, response);
 
 			break;

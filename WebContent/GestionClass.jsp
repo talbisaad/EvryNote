@@ -88,19 +88,31 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach begin="0" end="${lengh}" step="1" varStatus="loopCounter" items="${listetudiant}" var="e">
+					<c:forEach begin="0" end="${lengh}" step="1"
+						varStatus="loopCounter" items="${listetudiant}" var="e">
 						<tr>
 
-							<td ><c:out  value="${e.ine}"/></td>
-							<td><c:out value="${e.nomEtudiant}"/></td>
-							<td><c:out value="${e.prenomEtudiant}"/></td>
-							<td><form action="ServletClass?action=ModifierClassFromListClass" method="POST"><button style="border:0px solid black; background-color: transparent;" type="submit" name="Modifier"><img alt="modify" class="modifyicone"
-								src="CSS/modify.png"></button>
-								<input type="hidden" name="IdRow" value="${e.ine}"/>
+							<td><c:out value="${e.ine}" /></td>
+							<td><c:out value="${e.nomEtudiant}" /></td>
+							<td><c:out value="${e.prenomEtudiant}" /></td>
+							<td><form
+									action="ServletEtudiant?action=ModifierEtudiantFromListEtudiant"
+									method="POST">
+									<button
+										style="border: 0px solid black; background-color: transparent;"
+										type="submit" name="Modifier">
+										<img alt="modify" class="modifyicone" src="CSS/modify.png">
+									</button>
+									<input type="hidden" name="IdRow" value="${e.ine}" />
 								</form></td>
-							<td><form action="ServletClass?action=SupprimerClass" method="POST"><button style="border:0px solid black; background-color: transparent;" type="submit" name="Modifier"> <img alt="delete" class="deleteicone"
-								src="CSS/delete.png"></button>
-							  <input type="hidden" name="IdRow" value="${e.ine}"/>
+							<td><form action="ServletEtudiant?action=SupprimerEtudiant"
+									method="POST">
+									<button
+										style="border: 0px solid black; background-color: transparent;"
+										type="submit" name="Modifier">
+										<img alt="delete" class="deleteicone" src="CSS/delete.png">
+									</button>
+									<input type="hidden" name="IdRow" value="${e.ine}" />
 								</form></td>
 						</tr>
 					</c:forEach>
@@ -108,12 +120,30 @@
 			</table>
 		</div>
 		<div id="lign">
-			<input type="submit" value="Ajouter" class="submit" /> <input
-				type="file" id="fichier" name="fichier" value="" />
+			<input type="hidden" name="listetudiant" value="${listetudiant}" />
+			<input type="button" id="hideshow" value="Ajouter" class="submit" />
+			<input type="file" id="fichier" name="fichier" value="" />
 		</div>
-		<dir>
-			<jsp:include page="ProfileEtudiant.jsp"></jsp:include>
-		</dir>
+		<div id="content" style="display: none">
+			<dir>
+				<jsp:include page="ProfileEtudiant.jsp"></jsp:include>
+			</dir>
+		</div>
 	</div>
+	<script>
+		var button = document.getElementById('hideshow');
+
+		button.onclick = function() {
+			var div = document.getElementById('content');
+			if (div.style.display !== 'none') {
+				div.style.display = 'none';
+				button.value = "Ajouter";
+			} else {
+				button.value = "Annuler";
+				div.style.display = 'block';
+
+			}
+		};
+	</script>
 </body>
 </html>

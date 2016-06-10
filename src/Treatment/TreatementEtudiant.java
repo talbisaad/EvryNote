@@ -2,6 +2,8 @@ package Treatment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,23 +17,56 @@ import Dao.EtudiantDao;
 public class TreatementEtudiant {
 
 	private Classe classe;
+	private Etudiant etudiant;
 	private TreatementClasse treatementclasse;
 
-	public ArrayList<Etudiant> GetListOfStudent(HttpServletRequest request, ArrayList<Filiere> listfiliere, ClasseDao classeDao,
-			EtudiantDao etudiantDao) {
+	public void AddStudent(HttpServletRequest request, EtudiantDao etudiantDao) {
+		etudiant = new Etudiant();
+		etudiant = MapRequestToObject(request);
+		etudiantDao.AddStudent(etudiant);
+	}
 
-		classe = new Classe();
-		treatementclasse= new TreatementClasse();
+	public void UpdateStudent(HttpServletRequest request, EtudiantDao etudiantDao) {
+		etudiant = new Etudiant();
+		etudiant = MapRequestToObject(request);
+		etudiantDao.UpdateStudent(etudiant);
 
-		classe.setNomClasse(request.getParameter("NomClasse"));
-		classe.getFiliere().setNom(request.getParameter("filiere").toString());
-		classe.getFiliere()
-				.setId(treatementclasse.getFiliereByName(request.getParameter("filiere").toString(), listfiliere));
-		classe.setNiveau(request.getParameter("niveau"));
-		classe.setMoyenne(0);
-		classe.setAnneeUniversitaire(request.getParameter("annee"));
-		classe.setIdClasse(treatementclasse.getIdClasseByAttributs(classe, classeDao));
+	}
 
+	public void DisplayStudentForModify(HttpServletRequest request, ArrayList<Etudiant> listetudiant) {
+
+		etudiant = new Etudiant();
+		etudiant = getEtudiantFromList(request, listetudiant);
+		request.setAttribute("etudiant", etudiant);
+
+	}
+
+	public Etudiant getEtudiantFromList(HttpServletRequest request, ArrayList<Etudiant> listetudiant) {
+
+		for (Etudiant i : listetudiant) {
+			if (i.getIne() == Integer.parseInt(request.getParameter("IdRow"))) {
+				return i;
+			}
+		}
+		return null;
+
+	}
+
+	public ArrayList<Etudiant> GetListOfStudent(HttpServletRequest request, ArrayList<Filiere> listfiliere,
+			ClasseDao classeDao, EtudiantDao etudiantDao, Boolean var) {
+		if (!var) {
+			classe = new Classe();
+			treatementclasse = new TreatementClasse();
+
+			classe.setNomClasse(request.getParameter("NomClasse"));
+			classe.getFiliere().setNom(request.getParameter("filiere").toString());
+			classe.getFiliere()
+					.setId(treatementclasse.getFiliereByName(request.getParameter("filiere").toString(), listfiliere));
+			classe.setNiveau(request.getParameter("niveau"));
+			classe.setMoyenne(0);
+			classe.setAnneeUniversitaire(request.getParameter("annee"));
+			classe.setIdClasse(treatementclasse.getIdClasseByAttributs(classe, classeDao));
+		}
 		if (classe.getIdClasse() != 0) {
 			return etudiantDao.GetListOfStudent(classe.getIdClasse());
 		}
@@ -62,4 +97,25 @@ public class TreatementEtudiant {
 		return listetudiant;
 
 	}
+
+	public Etudiant MapRequestToObject(HttpServletRequest request) {
+		etudiant = new Etudiant();
+		etudiant.setIne(Integer.parseInt(request.getParameter("idEtud")));
+
+		try {
+			java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("datenaissance"));
+			etudiant.setDateDeNaissance(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		etudiant.setNomEtudiant(request.getParameter("nomEtud"));
+		etudiant.setPrenomEtudiant(request.getParameter("prenomEtud"));
+		etudiant.setEmailEtudiant(request.getParameter("mailEtud"));
+		etudiant.setTelEtud(Integer.parseInt(request.getParameter("numEtud")));
+		etudiant.getClasse().setIdClasse(classe.getIdClasse());
+		return etudiant;
+	}
+
 }

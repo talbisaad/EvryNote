@@ -15,12 +15,82 @@ public class EtudiantDaoImpl implements EtudiantDao {
 	private DAOFactory daofactory;
 	private TreatementEtudiant treatementetudiant;
 private static final String GET_LISTETUDIANT="select * from etudiant where idClasse= ?"; 
-	public EtudiantDaoImpl(DAOFactory daofactory) {
+private static final String CREAT_STUDENT="INSERT INTO etudiant (`INE`, `NomEtudiant`, `PrenomEtudiant`, `DateDeNaissance`, `TelEtud`, `EmailEtudiant`, `IdClasse`) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+private static final String UPDATE_STUDENT="UPDATE etudiant SET NomEtudiant= ?, PrenomEtudiant= ?, DateDeNaissance= ?, TelEtud= ?, EmailEtudiant= ? WHERE  INE= ?";
+
+
+public EtudiantDaoImpl(DAOFactory daofactory) {
 		// TODO Auto-generated constructor stub
 
 		this.daofactory = daofactory;
 		treatementetudiant= new TreatementEtudiant();
 
+	}
+	
+	@Override
+	public void AddStudent(Etudiant e) throws DAOException {
+		// TODO Auto-generated method stub
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+
+		 java.sql.Date mySqlDate = new java.sql.Date(e.getDateDeNaissance().getTime());
+		
+		try {
+			connexion = daofactory.getConnection();
+			preparedStatement = (PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion,
+					CREAT_STUDENT, false,e.getIne(),e.getNomEtudiant(),e.getPrenomEtudiant(),mySqlDate,e.getTelEtud(),e.getEmailEtudiant(),e.getClasse().getIdClasse());
+			int statut = preparedStatement.executeUpdate();
+
+			if (statut == 0) {
+				throw new DAOException("échec de la création de l'étudiant, aucune ligne ajoutée dans la table.");
+			}
+
+		} catch (SQLException ex) {
+
+			throw new DAOException(ex);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
+
+		}
+		
+	}
+	
+
+	@Override
+	public void UpdateStudent(Etudiant e) throws DAOException {
+		// TODO Auto-generated method stub
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+
+		 java.sql.Date mySqlDate = new java.sql.Date(e.getDateDeNaissance().getTime());
+		
+		try {
+			connexion = daofactory.getConnection();
+			preparedStatement = (PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion,
+					UPDATE_STUDENT, false,e.getNomEtudiant(),e.getPrenomEtudiant(),mySqlDate,e.getTelEtud(),e.getEmailEtudiant(),e.getIne());
+			int statut = preparedStatement.executeUpdate();
+
+			if (statut == 0) {
+				throw new DAOException("échec de la création de l'étudiant, aucune ligne ajoutée dans la table.");
+			}
+
+		} catch (SQLException ex) {
+
+			throw new DAOException(ex);
+
+		} finally {
+
+			DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
+
+		}
+		
+		
+		
+		
 	}
 
 	@Override
@@ -49,5 +119,8 @@ private static final String GET_LISTETUDIANT="select * from etudiant where idCla
 		}		
 				
 	}
+
+
+	
 
 }
