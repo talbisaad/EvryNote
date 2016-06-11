@@ -22,92 +22,42 @@
 		<div class="opr" id="importFil">
 			<jsp:include page="menuAdmin.jsp"></jsp:include>
 		</div>
-
+		
 		<div id="creation">
-			<br> <br> <span class="ttl">Creer une classe</span><br>
-			<br>
+		<br> <br> <span class="ttl">Creer une classe</span><br>
+		<br>
 
 
-			<form action="ServletClass?action=CreerClass" method="POST">
-
-				<table width="70%">
-
-					<tr>
-						<td>Nom classe</td>
-						<td>:</td>
-						<td><input type="text" name="NomClasse" size="30"></td>
-
-						<td>Filière</td>
-						<td>:</td>
-						<td><select class="selectfilter filterSrch" name="filiere"
-							id="filtersh">
-								<c:forEach items="${listfiliere}" var="f">
-									<option>${f.nom}</option>
-								</c:forEach>
-						</select></td>
-					</tr>
-					<tr>
-						<td>Niveau</td>
-						<td>:</td>
-						<td><select class="selectfilter filterSrch" name="niveau"
-							id="filtersh">
-								<c:forEach items="${ListNiveau}" var="n">
-									<option>${n}</option>
-								</c:forEach>
-						</select></td>
-						<td>Année Universitaire</td>
-						<td>:</td>
-						<td><input type="text" name="annee" id="filtersh" /></td>
-					</tr>
-
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr id="lign">
-						<td></td>
-						<td></td>
-						<td><input type="submit" name="valider" value="Valider"
-							class="submit" /> <input type="reset" value="Réinitialiser"
-							class="submit" name="renit" /></td>
-					</tr>
-
-				</table>
-			</form>
-
-		</div>
-	</div>
-
-
-	<!-- Affichage de la classe  -->
-
-
-	<div class="inner" id="affichage" style="display: none">
-		<br> <br> <span class="ttl">Affiche Classe</span><br> <br>
-		<form action="Controle?act=ajouteremp" method="POST">
+		<form action="CreerClass"  method="POST">
 
 			<table width="70%">
+
 				<tr>
 					<td>Nom classe</td>
 					<td>:</td>
-					<td><label class="selectfilter filterSrch" id="filtersh"><c:out
-								value="${classe.nomClasse}" /></label></td>
+					<td><input type="text" name="NomClasse" size="30"></td>
 
 					<td>Filière</td>
 					<td>:</td>
-					<td><label class="selectfilter filterSrch" id="filtersh"><c:out
-								value="${classe.filiere.nom}" /></label></td>
+					<td><select class="selectfilter filterSrch" name="filiere"
+						id="filtersh">
+							<c:forEach items="${listfiliere}" var="f">
+								<option>${f.nom}</option>
+							</c:forEach>
+					</select></td>
 				</tr>
 				<tr>
 					<td>Niveau</td>
 					<td>:</td>
-					<td><label class="selectfilter filterSrch" id="filtersh"><c:out
-								value="${classe.niveau}" /></label></td>
+					<td><select class="selectfilter filterSrch" name="niveau"
+						id="filtersh">
+							<c:forEach items="${ListNiveau}" var="n">
+								<option>${n}</option>
+							</c:forEach>
+					</select></td>
 					<td>Année Universitaire</td>
 					<td>:</td>
-					<td><label class="selectfilter filterSrch" id="filtersh"><c:out
-								value="${classe.anneeUniversitaire}" /></label></td>
+					<td><input type="text" name="annee" id="filtersh" /></td>
 				</tr>
 
 				<tr>
@@ -118,29 +68,71 @@
 				<tr id="lign">
 					<td></td>
 					<td></td>
-					<!-- <td><a href="/EvryNote/ModifierClass.jsp" class="submit">Modifier</a>
-					</td> -->
-
+					<td><input type="submit" name="valider" value="Valider"
+						class="submit" /> <input type="reset" value="Réinitialiser"
+						class="submit" name="renit" /></td>
 				</tr>
 
 			</table>
-
-
-		</form>
-		<form action="ServletClass?action=ModifierClass" method="POST">
-			<input type="submit" name="Modifier" value="Modifier" class="submit" />
 		</form>
 
 	</div>
+		</div>
 
-	<script>
-		<c:if test="${creation eq 'false'}">
-		creation.style.display = "none";
-		</c:if>
-		<c:if test="${affichage eq 'true'}">
-		affichage.style.display = "block";
-		</c:if>
-	</script>
+
+<!-- Affichage de la classe  -->
+
+
+	<div class="inner"  id="affichage" style="display: none">
+		<br> <br> <span class="ttl">Affiche Classe</span><br> <br>
+		<form action="Controle?act=ajouteremp" method="POST">
+
+			<table width="70%">
+				<tr>
+					<td>Nom classe</td>
+					<td>:</td>
+					<td><label class="selectfilter filterSrch" id="filtersh"> <c:out value="${classe.nomClasse}"/></label></td>
+
+					<td>Filière</td>
+					<td>:</td>
+					<td><label class="selectfilter filterSrch" id="filtersh"><c:out value="${classe.filiere.nom}"/></label></td>
+				</tr>
+				<tr>
+					<td>Niveau</td>
+					<td>:</td>
+					<td><label class="selectfilter filterSrch" id="filtersh"><c:out value="${classe.niveau}"/></label></td>
+					<td>Année Universitaire</td>
+					<td>:</td>
+					<td><label class="selectfilter filterSrch" id="filtersh"><c:out value="${classe.anneeUniversitaire}"/></label></td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr id="lign">
+					<td></td>
+					<td></td>
+					<td><a href="/EvryNote/CreerClass.jsp" class="submit">Modifier</a>
+					</td>
+				</tr>
+
+			</table>
+			
+			
+		</form>
+
+	</div>
+	
+ <script>
+ <c:if test="${creation eq 'false'}">
+ creation.style.display="none";
+</c:if>
+<c:if test="${affichage eq 'true'}">
+affichage.style.display="block";
+</c:if>
+ </script>
 
 </body>
 </html>

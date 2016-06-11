@@ -45,17 +45,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach begin="1" end="${ no }" step="1" varStatus="loopCounter" items="${lstBooks}" var="book">
+					<c:forEach begin="0" end="${lengh}" step="1" varStatus="loopCounter" items="${listclasse}" var="c">
 						<tr>
 
-							<td><c:out value="${book.isbn}" /></td>
-							<td><c:out value="${book.title}" /></td>
-							<td><c:out value="${book.authors}" /></td>
-							<td><c:out value="${book.version}" /></td>
-							<td><img alt="modify" class="modifyicone"
-								src="CSS/modify.png"></td>
-							<td><img alt="delete" class="deleteicone"
-								src="CSS/delete.png"></td>
+							<td ><c:out  value="${c.nomClasse}"/></td>
+							<td><c:out value="${c.filiere.nom}"/></td>
+							<td><c:out value="${c.niveau}"/></td>
+							<td><c:out value="${c.anneeUniversitaire}" /></td>
+							<td><form action="ServletClass?action=ModifierClassFromListClass" method="POST"><button style="border:0px solid black; background-color: transparent;" type="submit" name="Modifier"><img alt="modify" class="modifyicone"
+								src="CSS/modify.png"></button>
+								<input type="hidden" name="IdRow" value="${c.idClasse}"/>
+								</form></td>
+							<td><form action="ServletClass?action=SupprimerClass" method="POST"><button style="border:0px solid black; background-color: transparent;" type="submit" name="Modifier"> <img alt="delete" class="deleteicone"
+								src="CSS/delete.png"></button>
+							  <input type="hidden" name="IdRow" value="${c.idClasse}"/>
+								</form></td>
 						</tr>
 					</c:forEach>
 				</tbody>

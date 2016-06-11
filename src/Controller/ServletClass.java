@@ -43,53 +43,74 @@ public class ServletClass extends HttpServlet {
 		listfiliere = filiereDao.lister();
 		request.setAttribute("listfiliere", listfiliere);
 		request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
-		
-		
-		if (page.equals("CreerClass")) {
-			
-			this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
 
-		} else {
+		if (page.equals("CreerClass")) {
+
+			this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
 			
-			listclasse=treaitmentClasse.GetClassList(classeDao);
-			
+		}
+
+		if (page.equals("ListClass")) {
+
+			listclasse = treaitmentClasse.GetClassList(classeDao, listfiliere);
+			int lengh = listclasse.size();
+			request.setAttribute("listclasse", listclasse);
+			request.setAttribute("lengh", lengh);
+
 			this.getServletContext().getRequestDispatcher("/ListClass.jsp").forward(request, response);
 		}
-		 
-
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String action = request.getParameter("action");
-		
+		@SuppressWarnings("unused")
+		String page = request.getRequestURL().substring(31);
+		switch (action) {
 
-	if (action.equals("CreerClass")) {
-		listfiliere = filiereDao.lister();
-		treaitmentClasse.CreatClass(request, classeDao, listfiliere);
-		this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
-
-		} 
-	
-	if(action.equals("ModifierClass")){
-			treaitmentClasse.DisplayClassForModification(request);
+		case "CreerClass":
+			listfiliere = filiereDao.lister();
+			treaitmentClasse.CreatClass(request, classeDao, listfiliere);
+			this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
+			break;
+		case "ModifierClass":
+			listclasse = treaitmentClasse.GetClassList(classeDao, listfiliere);
+			treaitmentClasse.DisplayClassForModification(request, listclasse);
 			request.setAttribute("listfiliere", listfiliere);
 			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
 			this.getServletContext().getRequestDispatcher("/ModifierClass.jsp").forward(request, response);
-			
+			break;
+
+		case "Annuler":
+			listfiliere = filiereDao.lister();
+			request.setAttribute("listfiliere", listfiliere);
+			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
+			this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
+			break;
+
+		case "SaveClass":
+			treaitmentClasse.UpdateClass(request, classeDao, listfiliere);
+			this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
+			break;
+
+		case "ModifierClassFromListClass":
+			listfiliere = filiereDao.lister();
+			listclasse = treaitmentClasse.GetClassList(classeDao, listfiliere);
+			treaitmentClasse.DisplayClassForModification(request, listclasse);
+			request.setAttribute("listfiliere", listfiliere);
+			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
+			this.getServletContext().getRequestDispatcher("/ModifierClass.jsp").forward(request, response);
+			break;
+		case "SupprimerClass":
+			treaitmentClasse.DeleteClass(request, classeDao);
+			listclasse = treaitmentClasse.GetClassList(classeDao, listfiliere);
+			request.setAttribute("listclasse", listclasse);
+			this.getServletContext().getRequestDispatcher("/ListClass.jsp").forward(request, response);
+
+			break;
 		}
-	
-	if(action.equals("SaveClass")){
-		
-		treaitmentClasse.UpdateClass(request, classeDao, listfiliere);
-		this.getServletContext().getRequestDispatcher("/CreerClass.jsp").forward(request, response);
-	
-	}
-	if(action.equals("")){
-		
-	}
-		
 
 	}
 
