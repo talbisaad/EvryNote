@@ -1,6 +1,6 @@
 
   $( document ).ready(function() {
-	  /*get param from url*/
+	  /* get param from url */
       function getUrlParameter(sParam)
      {
     var sPageURL = window.location.search.substring(1);
@@ -36,3 +36,4 @@
 		  return false;
 	  });
 });
+ 

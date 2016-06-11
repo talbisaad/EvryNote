@@ -1,7 +1,5 @@
 package Controller;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,13 +36,12 @@ public class ServletFiliere extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// HttpSession session = request.getSession();
 		page = request.getRequestURL().substring(31);
 		Enseignant enseignant = (Enseignant) request.getSession().getAttribute("sessionUtilisateur");
 
 		if (page.equals("platform/GestionFil") && enseignant.isReponsableFil()) {
 			enseignants = enseignantDao.lister();
-			fils = filiereDao.listerFilSansMat();
+			fils = filiereDao.listerFilSansMat(enseignant.getId());
 			request.setAttribute("fils", fils);
 			request.setAttribute("enseignants", enseignants);
 			this.getServletContext().getRequestDispatcher("/platform/GestionFil.jsp").forward(request, response);
@@ -67,7 +64,7 @@ public class ServletFiliere extends HttpServlet {
 		Enseignant enseignant = (Enseignant) request.getSession().getAttribute("sessionUtilisateur");
 		page = request.getRequestURL().substring(31);
 		if (page.equals("platform/GestionFil") && enseignant.isReponsableFil()) {
-			fils = filiereDao.listerFilSansMat();
+			fils = filiereDao.listerFilSansMat(enseignant.getId());
 
 			if (request.getParameter("upload").equals("Upload")) {
 				treatmentFiliere.upload("/Users/badrzahir/Downloads/" + request.getParameter("fichier"), request,
@@ -82,24 +79,21 @@ public class ServletFiliere extends HttpServlet {
 
 		} else if (page.equals("platform/ListFil") && (enseignant.isChefDepart() || enseignant.isReponsableFil())) {
 
+			treatmentFiliere.modeModifMatFil(request, matiereDao, enseignantDao, filiereDao);
+			if (request.getParameter("mode").equals("modification")) {			
+				if (request.getParameter("valider").equals("Valider")) {
+					treatmentFiliere.modifierFiliere(request, matiereDao, enseignantDao, filiereDao);
+					fils = filiereDao.listerFilAvecMat();
+				}
+
+			} else if (request.getParameter("mode").equals("") && request.getParameter("delete") != null) {
+				treatmentFiliere.supprimerFiliere(request, matiereDao, enseignantDao, filiereDao);
+				fils = filiereDao.listerFilAvecMat();
+			}
 			if (enseignant.isChefDepart()) {
 				fils = filiereDao.listerFilAvecMat();
 			} else if (enseignant.isReponsableFil()) {
 				fils = filiereDao.listerFilAvecMatResp(enseignant.getId());
-			}
-			treatmentFiliere.modeModifMatFil(request, matiereDao, enseignantDao, filiereDao);
-			if (request.getParameter("mode").equals("modification")) {
-				if (request.getParameter("valider").equals("Valider")) {
-					treatmentFiliere.modifierFiliere(request, matiereDao, enseignantDao);
-					fils = filiereDao.listerFilAvecMat();
-				}
-			} else if (request.getParameter("mode").equals("") && request.getParameter("delete") != null) {
-				treatmentFiliere.supprimerFiliere(request, matiereDao, enseignantDao, filiereDao);
-				if (enseignant.isChefDepart()) {
-					fils = filiereDao.listerFilAvecMat();
-				} else if (enseignant.isReponsableFil()) {
-					fils = filiereDao.listerFilAvecMatResp(enseignant.getId());
-				}
 			}
 			request.setAttribute("fils", fils);
 			this.getServletContext().getRequestDispatcher("/platform/ListFil.jsp").forward(request, response);

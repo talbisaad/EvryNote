@@ -37,39 +37,71 @@
 		</div>
 		<br> <br> <span class="ttl">Gerer les enseignants</span><br>
 		<br>
-		<div class="tables">
-			<br>
+		<form action="<c:url value="/platform/ListEns"/>" method="GET">
 			<fieldset class="fieldsetfilter">
 				<legend>Rechercher</legend>
-				<input type="text" name="rechFil" size="20" />&nbsp&nbsp<img
-					alt="Rechercher" class="submitfilter" src="CSS/search.png" />
+				<table>
+					<tr>
+						<td><input type="text" name="rechEns" size="20" /></td>&nbsp;&nbsp;
+						<td><button type="submit" name="search">
+								<img alt="Rechercher" class="submitfilter" src="CSS/search.png" />
+							</button></td>
+					</tr>
+				</table>
 			</fieldset>
-			<br> <br>
-			<table cellpadding="0" cellspacing="0" class="tabs">
-				<thead>
-					<tr>
-						<td>Code enseignant</td>
-						<td>Nom</td>
-						<td>Prenom</td>
-						<td>Responsable</td>
-						<td>Gerer</td>
-						<td>Supprimer</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><a></a></td>
-						<td></td>
-						<td></td>
-						<td><img alt="Responsable" class="cheficone"
-							src="CSS/responsable.png"></td>
-						<td><a><img alt="modify" class="modifyicone"
-								src="CSS/modify.png"></a></td>
-						<td><a><img alt="delete" class="deleteicone"
-								src="CSS/delete.png"></a></td>
-					</tr>
-				</tbody>
-			</table>
+		</form>
+		<br> <br> <br> <br>
+		<div class="tables">
+			<br> <br> <br>
+			<form action="<c:url value="/platform/ListEns"/>" method="POST">
+				<table cellpadding="0" cellspacing="0" class="tabs">
+					<thead>
+						<tr>
+							<td>Code enseignant</td>
+							<td>Nom</td>
+							<td>Prenom</td>
+							<td>Responsable</td>
+							<td>Chef de departement</td>
+							<td>Supprimer</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${enseignants}" var="enseignant">
+							<tr>
+								<td>${enseignant.id}</td>
+								<td>${enseignant.nom}</td>
+								<td>${enseignant.prenom}</td>
+								<c:choose>
+									<c:when test="${enseignant.reponsableFil}">
+										<td><center>
+												<img alt="responsable" class="cheficone"
+													src="CSS/responsable.png" />
+											</center></td>
+									</c:when>
+									<c:otherwise>
+										<td></td>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${enseignant.chefDepart}">
+										<td><center>
+												<img alt="responsable" class="cheficone"
+													src="CSS/responsable.png" />
+											</center></td>
+									</c:when>
+									<c:otherwise>
+										<td></td>
+									</c:otherwise>
+								</c:choose>
+
+								<td><button type="submit"
+										value="<c:out value="${enseignant.id}"/>" name="delete">
+										<img alt="supprimer" class="deleteicone" src="CSS/delete.png" />
+									</button></td>
+							</tr>
+						</c:forEach>
+				</table>
+			</form>
 		</div>
 	</div>
 

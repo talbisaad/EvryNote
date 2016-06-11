@@ -10,20 +10,20 @@
           </li>
           <li><div class="titleitm">Classe<span class="togl">[ - ]</span></div>
            <ul class="subItm">
-                 <li><a href="/EvryNote/CreerClass.jsp">Creer une classe</a></li>
-                 <li><a href="/EvryNote/ListClass.jsp">Lister les classes</a></li>
-                 <li><a href="/EvryNote/GestionClass.jsp">Gerer une classe</a></li>
-                 <li><a href="?page=">Reporting de la classe</a></li>
+                 <li><a href="/EvryNote/CreerClass">Creer une classe</a></li>
+                 <li><a href="/EvryNote/ListClass">Lister les classes</a></li>
+                 <li><a href="/EvryNote/GestionClass">Gerer une classe</a></li>
+                 <li><a href="/EvryNote/platform/Reporting">Reporting de la classe</a></li>
            </ul>
           <li><div class="titleitm">Enseignant<span class="togl">[ - ]</span></div>
            <ul class="subItm">
-                 <li><a href="/EvryNote/platform/ListEns.jsp">Gerer les enseignants</a></li>
+                 <li><a href="/EvryNote/platform/ListEns">Gerer les enseignants</a></li>
            </ul>
           </li>
           <li><div class="titleitm">Saisie des notes<span class="togl">[ - ]</span></div>
            <ul class="subItm">
-                 <li><a href="/EvryNote/platform/SaisieNote.jsp">Saisir les notes</a></li>
-                 <li><a href="/EvryNote/platform/ListNote.jsp">Lister les notes</a></li>
+                 <li><a href="/EvryNote/platform/SaisieNote">Saisir les notes</a></li>
+                 <li><a href="/EvryNote/platform/ListNote">Lister les notes</a></li>
            </ul>
           </li>
       </ul> 

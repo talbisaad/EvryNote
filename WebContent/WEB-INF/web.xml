@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<display-name>EvryNote</display-name>
-
 	<filter>
 		<filter-name>PlatformFilter</filter-name>
 		<filter-class>Controller.PlatformFilter</filter-class>
 	</filter>
+
 	<filter-mapping>
 		<filter-name>PlatformFilter</filter-name>
 		<url-pattern>/platform/*</url-pattern>
@@ -33,19 +34,39 @@
 	</servlet>
 
 	<servlet>
+		<servlet-name>ServletListEnseignant</servlet-name>
+		<servlet-class>Controller.ServletListEnseignant</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ServletEtudiant</servlet-name>
+		<servlet-class>Controller.ServletEtudiant</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ServletNoteMatiere</servlet-name>
+		<servlet-class>Controller.ServletNoteMatiere</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ServletReporting</servlet-name>
+		<servlet-class>Controller.ServletReporting</servlet-class>
+	</servlet>
+
+	<servlet>
 		<servlet-name>ServletDeconnexion</servlet-name>
 		<servlet-class>Controller.ServletDeconnexion</servlet-class>
 	</servlet>
-	
+
+
+	<servlet-mapping>
+		<servlet-name>ServletFiliere</servlet-name>
+		<url-pattern>/platform/CreerFil</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>ServletClass</servlet-name>
 		<url-pattern>/CreerClass</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>ServletClass</servlet-name>
-		<url-pattern>/ListClass</url-pattern>
 	</servlet-mapping>
 
 
@@ -54,12 +75,25 @@
 		<url-pattern>/ModifierClass</url-pattern>
 	</servlet-mapping>
 
-
 	<servlet-mapping>
-		<servlet-name>ServletFiliere</servlet-name>
-		<url-pattern>/platform/CreerFil</url-pattern>
+		<servlet-name>ServletClass</servlet-name>
+		<url-pattern>/ListClass</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>ServletEtudiant</servlet-name>
+		<url-pattern>/GestionClass</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletEtudiant</servlet-name>
+		<url-pattern>/ProfileEtudiant</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletEtudiant</servlet-name>
+		<url-pattern>/DisplayStudentForModify</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>ServletFiliere</servlet-name>
@@ -69,6 +103,26 @@
 	<servlet-mapping>
 		<servlet-name>ServletFiliere</servlet-name>
 		<url-pattern>/platform/GestionFil</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletListEnseignant</servlet-name>
+		<url-pattern>/platform/ListEns</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletNoteMatiere</servlet-name>
+		<url-pattern>/platform/SaisieNote</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletNoteMatiere</servlet-name>
+		<url-pattern>/platform/ListNote</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletReporting</servlet-name>
+		<url-pattern>/platform/Reporting</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

@@ -29,14 +29,6 @@ public class PlatformFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpSession session = request.getSession();
 
-		String chemin = request.getRequestURI().substring(request.getContextPath().length());
-		if (chemin.startsWith("/CSS")) {
-			chain.doFilter(request, response);
-		}
-		if (chemin.startsWith("/JS")) {
-			chain.doFilter(request, response);
-		}
-
 		if (session.getAttribute(ATT_SESSION_USER) == null) {
 			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
 		} else {

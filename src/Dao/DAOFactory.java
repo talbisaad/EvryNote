@@ -100,9 +100,9 @@ public class DAOFactory {
 
 	}
 
-			/* Méthode chargée de fournir une connexion à la base de données */
+	/* Méthode chargée de fournir une connexion à la base de données */
 
-			/* package */ public java.sql.Connection getConnection() throws SQLException {
+	/* package */ public java.sql.Connection getConnection() throws SQLException {
 		return DriverManager.getConnection("jdbc:mysql://localhost/evrynote?user=root&password=root");
 
 	}
@@ -131,10 +131,23 @@ public class DAOFactory {
 
 		return new ClasseDaoImpl(this);
 	}
+
 	public MatiereDao getMatiereDao() {
 
 		return new MatiereDaoImpl(this);
 
 	}
+
+	public NoteMatiereDao getNoteMatiereDao() {
+
+		return new NoteMatiereDaoImpl(this);
+
+	}
+	
+	public EtudiantDao getEtudiantDao(){
+		return new EtudiantDaoImpl(this);
+	}
+	
+	
 
 }

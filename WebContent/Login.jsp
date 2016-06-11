@@ -16,7 +16,7 @@
 
 
 		<form name="loginForm" method="post" action="<c:url value="/Login" />"
-			style="background-image: url(CSS/evry.jpg); background-repeat: no-repeat; background-position: 50% 0%">
+			style="background-image: url(CSS/evry.png); background-repeat: no-repeat; background-position: 50% 0%">
 			<input type="hidden" name="dispatch">
 			<fieldset>
 				<br> <br> <br> <br> <br> <br> <br>
@@ -87,6 +87,10 @@
 				<br> <br>
 			</fieldset>
 		</form>
+		
+		<c:if test="${!empty sessionScope.sessionUtilisateur}">
+
+		</c:if>
 	</div>
 
 </body>

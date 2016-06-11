@@ -13,13 +13,13 @@
 			Enseignant<span class="togl">[ - ]</span>
 		</div>
 		<ul class="subItm">
-			<li><a href="/EvryNote/platform/ListEns.jsp">Gerer les enseignants</a></li>
+			<li><a href="/EvryNote/platform/ListEns">Gerer les enseignants</a></li>
 		</ul></li>
 	<li><div class="titleitm">
 			Saisie des notes<span class="togl">[ - ]</span>
 		</div>
 		<ul class="subItm">
-			<li><a href="/EvryNote/platform/SaisieNote.jsp">Saisir les notes</a></li>
-			<li><a href="/EvryNote/platform/ListNote.jsp">Lister les notes</a></li>
+			<li><a href="/EvryNote/platform/SaisieNote">Saisir les notes</a></li>
+			<li><a href="/EvryNote/platform/ListNote">Lister les notes</a></li>
 		</ul></li>
 </ul>

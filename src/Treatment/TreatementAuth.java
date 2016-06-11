@@ -33,7 +33,7 @@ public class TreatementAuth {
 			return null;
 		}
 		
-		resultat = "Bonjour Mr. "+enseignant.getNom() +" "+ enseignant.getPrenom();
+		resultat = "Bonjour Mr. "+enseignant.getNom() + enseignant.getPrenom();
 		request.setAttribute("resultat", resultat);
 
 		return enseignant;

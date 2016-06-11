@@ -23,8 +23,7 @@ public class ServletAuth extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
-
+			this.getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +42,7 @@ public class ServletAuth extends HttpServlet {
 		request.setAttribute("treatementAuth", treatementAuth);
 		request.setAttribute("enseignant", enseignant);
 
-		this.getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+		response.sendRedirect("/EvryNote/Login");
 
 	}
 

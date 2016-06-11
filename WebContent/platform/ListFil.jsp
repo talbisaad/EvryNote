@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
@@ -8,9 +8,7 @@
 <script type="text/javascript" src="JS/jquery-ui.js"></script>
 <script type="text/javascript" src="JS/script.js"></script>
 <title>Liste des Filieres</title>
-<%
-	int i = 0;
-%>
+
 </head>
 
 <body>
@@ -47,33 +45,52 @@
 				<div class="tables">
 					<form action="<c:url value="/platform/ListFil" />" method="POST">
 						<br> <br>
-						<table>
-							<tr>
-								<td><span>Nom de la filiere</span></td>
-								<td><input class="inpt" type="text"
-									value="<c:out value="${filiere.nom}"/>" name="nomFil" /></td>
-								<td><input class="inpt" type="text"
-									value="<c:out value="${filiere.id}"/>" name="idFil"
-									style="visibility: hidden" /></td>
-							</tr>
-							<tr>
-								<td><br></td>
-							</tr>
-							<tr>
-								<td><span>Responsable de filiere</span></td>
-								<td><select class="selectfilter filterSrch" name="respFil"
-									id="respFil">
-										<option value="<c:out value="${filiere.respFil.id}"/>">${filiere.respFil.nom}
-											${filiere.respFil.prenom}</option>
-										<c:forEach items="${resps}" var="resp">
-											<option value="<c:out value="${resp.id}"/>">${resp.nom}
-												${resp.prenom}</option>
-										</c:forEach>
-								</select></td>
-							</tr>
-						</table>
-						<br> <br>
-						<table border="1" cellpadding="0" cellspacing="0" class="tabs">
+						<c:if
+							test="${!empty sessionScope.sessionUtilisateur && sessionScope.sessionUtilisateur.chefDepart}">
+							<table>
+								<tr>
+									<td><span>Nom de la filiere</span></td>
+									<td><input class="inpt" type="text"
+										value="<c:out value="${filiere.nom}"/>" name="nomFil" /></td>
+									<td><span>Niveau de la filière</span></td>
+									<td><select class="selectfilter filterSrch" name="niveau"
+										id="niveau">
+											<option value="<c:out value="${filiere.niveau}"/>">${filiere.niveau}</option>
+											<option value="L1">L1</option>
+											<option value="L2">L2</option>
+											<option value="L3">L3</option>
+											<option value="M1">M1</option>
+											<option value="M2">M2</option>
+									</select></td>
+								</tr>
+								<tr>
+									<td><br></td>
+								</tr>
+								<tr>
+									<td><span>Responsable de filiere</span></td>
+									<td><select class="selectfilter filterSrch"
+										name="respFilN" id="respFil">
+											<option value="<c:out value="${filiere.respFil.id}"/>">${filiere.respFil.nom}
+												${filiere.respFil.prenom}</option>
+											<c:forEach items="${resps}" var="resp">
+												<option value="<c:out value="${resp.id}"/>">${resp.nom}
+													${resp.prenom}</option>
+											</c:forEach>
+									</select></td>
+									<td><input name="respFilO" type="hidden"
+										value="<c:out value="${filiere.respFil.id}"/>"></td>
+								</tr>
+							</table>
+							<br>
+							<br>
+						</c:if>
+						<input class="inpt" type="hidden"
+							value="<c:out value="${filiere.id}"/>" name="idFil" />
+						<%
+							int i = 0, j = 0;
+						%>
+						<table border="1" cellpadding="0" cellspacing="0" class="tabs"
+							id="table">
 							<thead>
 								<tr>
 									<td>Code matiere</td>
@@ -85,9 +102,9 @@
 							</thead>
 							<tbody id="kids1">
 								<c:forEach items="${matieres}" var="matiere">
-									<tr>
+									<tr id="kid_<%=i%>">
 										<td><input type="text" name="idMatiere_<%=i%>"
-											value="<c:out value="${matiere.id}"/>"></td>
+											value="<c:out value="${matiere.id}"/>" readonly></td>
 										<td><input type="text" name="nomMatiere_<%=i%>"
 											value="<c:out value="${matiere.nom}"/>"></td>
 										<td><input type="text" name="coeffMatiere_<%=i%>"
@@ -105,41 +122,69 @@
 										</select></td>
 										<td><input type="button" id="add_kid1()"
 											onClick="addKid1()" value="+" /></td>
-										<td><input type="button" value="-"></td>
+										<td><input type="button" id="deleteMat_<%=i%>" value="-"
+											name="deleteMat_<%=i%>" onclick="supprimer(<%=i%>)" /></td>
 									</tr>
 									<%
-										i++;
+										i = i + 1;
+									%>
+
+								</c:forEach>
+							</tbody>
+						</table>
+
+						<!-- hidden table -->
+						<table>
+							<tbody id="kids1">
+								<c:forEach items="${matieres}" var="matiere">
+									<tr id="kid_<%=j%>">
+										<td><input type="hidden" name="idMatiere_<%=j%>"
+											value="<c:out value="${matiere.id}"/>"></td>
+										<td><input type="hidden" name="nomMatiere_<%=j%>"
+											value="<c:out value="${matiere.nom}"/>"></td>
+										<td><input type="hidden" name="coeffMatiere_<%=j%>"
+											value="<c:out value="${matiere.coefficient}"/>"></td>
+										<td><input type="hidden" name="heureMatiere_<%=j%>"
+											value="<c:out value="${matiere.nbrHeure}"/>"></td>
+										<td><input type="hidden" name="respFil_<%=j%>"
+											value="<c:out value="${matiere.prof.id}"/>"></td>
+										<td><input type="hidden" name="delete_<%=j%>"
+											id="delete_<%=j%>" value="" /></td>
+									</tr>
+									<%
+										j = j + 1;
 									%>
 								</c:forEach>
 							</tbody>
 						</table>
+
+						<script type="text/javascript">
+							var j =
+						<%=i%>
+							;
+
+							function addKid1() {
+								if (j < 8) {
+									var newRow = document.createElement('tr');
+
+									newRow.innerHTML = '<td><input type="text" name="idMatiere_'+j+'" readonly/></td><td><input type="text" name="nomMatiere_'+j+'" /></td><td> <input type="text" name="coeffMatiere_'+j+'" ></td><td><input type="text" name="heureMatiere_'+j+'" ></td><td><select class="selectfilter filterSrch" name="respFil_'+j+'" id="respFil"><c:forEach items="${enseignants}" var="enseignant"><option value="<c:out value="${enseignant.id}"/>">${enseignant.nom} ${enseignant.prenom}</option></c:forEach></select></td><td><input type="button" id="add_kid1()" onClick="addKid1()" value="+" /></td><td><input type="button" value="-" id="deleteMat_"'+j+'" name="deleteMat_"'+j+'" onClick="supprimer("'+j+'")"/></td>';
+									j++;
+									document.getElementById('kids1')
+											.appendChild(newRow);
+
+								}
+							}
+
+							function supprimer(i) {							
+								document.getElementById('kids1').removeChild(document.getElementById('kid_'+i));
+								document.getElementById('delete_'+i).value="supprimer";
+							}
+						</script>
 						<input type="submit" value="Valider" class="submit" name="valider" />
 						<input type="button" value="Annuler" class="submit"
 							onclick="history.go(-1)"> <input type="text"
 							value="<c:out value="${modification}"/>" name="mode"
 							style="visibility: hidden" />
-						<script type="text/javascript">
-							var i =
-						<%=i%>
-							;
-							function addKid1() {
-								if (i < 8) {
-									var newRow = document.createElement('tr');
-
-									newRow.innerHTML = '<td> <input type="text" name="idMatiere_'+i+'" /></td><td><input type="text" name="nomMatiere_'+i+'" /></td><td> <input type="text" name="coeffMatiere_'+i+'" ></td><td><input type="text" name="heureMatiere_'+i+'" ></td><td><select class="selectfilter filterSrch" name="respFil_'+i+'" id="respFil"><c:forEach items="${enseignants}" var="enseignant"><option value="<c:out value="${enseignant.id}"/>">${enseignant.nom} ${enseignant.prenom}</option></c:forEach></select></td><td><input type="button" id="add_kid1()" onClick="addKid1()" value="+" /></td><td><input type="button" value="-"></td>';
-
-									document.getElementById('kids1')
-											.appendChild(newRow);
-									i++;
-								}
-							}
-
-							function removeKid1(element) {
-								document.getElementById('kids1').removeChild(
-										element.parentNode);
-								i--;
-							}
-						</script>
 					</form>
 				</div>
 			</div>
@@ -150,15 +195,6 @@
 			<span class="ttl">Liste des filieres</span>
 			<br>
 			<br>
-			<div class="rechwidth">
-				<fieldset>
-					<legend>Rechercher</legend>
-					<form>
-						<input type="text" name="rechFil" size="20" />&nbsp&nbsp<img
-							alt="Rechercher" class="submitfilter" src="CSS/search.png" />
-					</form>
-				</fieldset>
-			</div>
 			<br>
 			<br>
 			<div id="listFil">
@@ -201,4 +237,5 @@
 	</div>
 </body>
 </html>
+
 

@@ -2,17 +2,17 @@ package Beans;
 
 import java.io.Serializable;
 
-public class Enseignant implements Serializable{
-	
+public class Enseignant implements Serializable {
+
 	private int id;
 	private String nom, prenom;
 	private boolean reponsableFil;
 	private boolean chefDepart;
 	private String login;
 	private String password;
-	
-	public Enseignant(){
-		
+
+	public Enseignant() {
+
 	}
 
 	public Enseignant(int id, String nom, String prenom) {
@@ -80,9 +80,8 @@ public class Enseignant implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Enseignant [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", reponsableFil=" +reponsableFil+ ", chefDepar ="+chefDepart+"]";
+		return "Enseignant [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", reponsableFil=" + reponsableFil
+				+ ", chefDepar =" + chefDepart + "]";
 	}
-	
-	
 
 }
