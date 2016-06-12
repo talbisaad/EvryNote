@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import com.mysql.jdbc.PreparedStatement;
 
 import Beans.Etudiant;
+import Beans.Filiere;
+import Beans.Matiere;
 import Treatment.TreatementEtudiant;
 
 public class EtudiantDaoImpl implements EtudiantDao {
@@ -17,7 +19,11 @@ public class EtudiantDaoImpl implements EtudiantDao {
 	private static final String GET_LISTETUDIANT = "select * from etudiant where idClasse= ?";
 	private static final String CREAT_STUDENT = "INSERT INTO etudiant (`INE`, `NomEtudiant`, `PrenomEtudiant`, `DateDeNaissance`, `TelEtud`, `EmailEtudiant`, `IdClasse`) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_STUDENT = "UPDATE etudiant SET NomEtudiant= ?, PrenomEtudiant= ?, DateDeNaissance= ?, TelEtud= ?, EmailEtudiant= ? WHERE  INE= ?";
-	private static final String DELETE_STUDENT="DELETE FROM `evrynote`.`etudiant` WHERE `etudiant`.`INE` = ?";
+	private static final String DELETE_STUDENT = "DELETE FROM `evrynote`.`etudiant` WHERE `etudiant`.`INE` = ?";
+	private static final String GET_MATIERES_FOR_SIMULATE = "SELECT  filmatens.coefficient, matiere.nom from matiere,filmatens "
+			+ "where matiere.idMatiere=filmatens.idMatiere AND idFiliere=(SELECT distinct filiere.idFiliere from filiere,filmatens where filmatens.idFiliere=filiere.idFiliere "
+			+ "AND filiere.nomFiliere=? and filiere.niveau=?)";
+
 	public EtudiantDaoImpl(DAOFactory daofactory) {
 		// TODO Auto-generated constructor stub
 
@@ -89,21 +95,18 @@ public class EtudiantDaoImpl implements EtudiantDao {
 		}
 
 	}
-	
 
 	@Override
 	public void DeleteStudent(Etudiant e) throws DAOException {
 		// TODO Auto-generated method stub
-		
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 
-
 		try {
 			connexion = daofactory.getConnection();
 			preparedStatement = (PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion,
-					DELETE_STUDENT, false,e.getIne());
+					DELETE_STUDENT, false, e.getIne());
 			int statut = preparedStatement.executeUpdate();
 
 			if (statut == 0) {
@@ -120,7 +123,6 @@ public class EtudiantDaoImpl implements EtudiantDao {
 
 		}
 
-		
 	}
 
 	@Override
@@ -148,6 +150,53 @@ public class EtudiantDaoImpl implements EtudiantDao {
 
 		}
 
+	}
+
+	@Override
+	public ArrayList<Matiere> GetMatiereForSimulate(Filiere filiere) throws DAOException {
+		// TODO Auto-generated method stub
+				Connection connexion = null;
+				PreparedStatement preparedStatement = null;
+
+				try {
+					connexion = daofactory.getConnection();
+					preparedStatement = (PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion,
+							GET_MATIERES_FOR_SIMULATE, false, filiere.getNom(),filiere.getNiveau());
+					ResultSet result = preparedStatement.executeQuery();
+
+					return MapForSimulation(result);
+
+				} catch (SQLException e) {
+
+					throw new DAOException(e);
+
+				} finally {
+
+					DAOUtilitaire.fermeturesSilencieuses(preparedStatement, connexion);
+
+				}
+	}
+	
+	public ArrayList<Matiere> MapForSimulation(ResultSet resultset){
+		ArrayList<Matiere> listmatiere = new ArrayList<Matiere>();
+		if(resultset!=null){
+			
+			try {
+				while(resultset.next()){
+					Matiere matiere = new Matiere();
+					matiere.setNom(resultset.getString("nom"));
+					matiere.setCoefficient(resultset.getInt("coefficient"));
+					listmatiere.add(matiere);
+				}
+				return listmatiere;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return null;
+		
 	}
 
 }

@@ -14,6 +14,15 @@ public class Filiere implements Serializable {
 	private ArrayList<Matiere> matieres;
 	private ArrayList<Classe> classes;
 	private Enseignant respFil;
+	private String niveau;
+
+	public String getNiveau() {
+		return niveau;
+	}
+
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
+	}
 
 	public Filiere() {
 	}

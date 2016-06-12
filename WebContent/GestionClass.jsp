@@ -34,7 +34,7 @@
 						<tr>
 							<td>Nom classe</td>
 							<td>:</td>
-							<td><input type="text" name="NomClasse" size="30"></td>
+							<td><input type="text" class="inpt" name="NomClasse" size="30"></td>
 
 							<td>Filière</td>
 							<td>:</td>
@@ -56,7 +56,7 @@
 							</select></td>
 							<td>Année Universitaire</td>
 							<td>:</td>
-							<td><input type="text" name="annee" id="filtersh" /></td>
+							<td><input type="text" name="annee" class="inpt" id="filtersh" /></td>
 						</tr>
 
 

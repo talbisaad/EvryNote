@@ -3,6 +3,8 @@ package Treatment;
 import Beans.Classe;
 import Beans.Filiere;
 import Dao.ClasseDao;
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class TreatementClasse {
 	Classe classe;
-
 	public void CreatClass(HttpServletRequest request, ClasseDao classeDao, ArrayList<Filiere> listfiliere) {
 
 		classe = new Classe();
@@ -60,6 +61,7 @@ public class TreatementClasse {
 		DisplayClass(request, classe);
 
 	}
+	
 
 	// Affichage de la classe en synthese
 	public void DisplayClass(HttpServletRequest request, Classe classe) {

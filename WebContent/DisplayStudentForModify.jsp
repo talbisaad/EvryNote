@@ -23,6 +23,8 @@
 		</div>
 	
 	<div class="modif" id="lign">
+		<br> <br> <span class="ttl">Modification de l'étudiant</span><br>
+		<br>
 		<fieldset>
 			<legend>Etudiant</legend>
 			<form action="ServletEtudiant?action=UpdateStudent" method="POST">

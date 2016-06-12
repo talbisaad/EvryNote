@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import Beans.Classe;
 import Beans.Etudiant;
 import Beans.Filiere;
+import Beans.Matiere;
 import Dao.ClasseDao;
 import Dao.EtudiantDao;
 
@@ -18,6 +19,7 @@ public class TreatementEtudiant {
 
 	private Classe classe;
 	private Etudiant etudiant;
+	private Filiere filiere;
 	private TreatementClasse treatementclasse;
 
 	public void AddStudent(HttpServletRequest request, EtudiantDao etudiantDao) {
@@ -32,12 +34,23 @@ public class TreatementEtudiant {
 		etudiantDao.UpdateStudent(etudiant);
 
 	}
-	
-	public void DeleteStudent(HttpServletRequest request, EtudiantDao etudiantDao){
+
+	public void DeleteStudent(HttpServletRequest request, EtudiantDao etudiantDao) {
 		etudiant = new Etudiant();
 		etudiant.setIne(Integer.parseInt(request.getParameter("IdRow")));
 		etudiantDao.DeleteStudent(etudiant);
-		
+
+	}
+
+	public ArrayList<Matiere> GetMatiereForSimulate(HttpServletRequest request, EtudiantDao etudiantDao, Boolean var) {
+		if (!var) {
+			filiere = new Filiere();
+			filiere.setNom(request.getParameter("filiere"));
+			filiere.setNiveau(request.getParameter("niveau"));
+		}
+
+		return etudiantDao.GetMatiereForSimulate(filiere);
+
 	}
 
 	public void DisplayStudentForModify(HttpServletRequest request, ArrayList<Etudiant> listetudiant) {
@@ -104,7 +117,7 @@ public class TreatementEtudiant {
 		return listetudiant;
 
 	}
-
+	
 	public Etudiant MapRequestToObject(HttpServletRequest request) {
 		etudiant = new Etudiant();
 		etudiant.setIne(Integer.parseInt(request.getParameter("idEtud")));
@@ -124,5 +137,8 @@ public class TreatementEtudiant {
 		etudiant.getClasse().setIdClasse(classe.getIdClasse());
 		return etudiant;
 	}
+	
+	
 
+	
 }

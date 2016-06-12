@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import Beans.Classe;
 import Beans.Etudiant;
 import Beans.Filiere;
+import Beans.Matiere;
 import Dao.ClasseDao;
 import Dao.DAOFactory;
 import Dao.EtudiantDao;
@@ -29,6 +31,7 @@ public class ServletEtudiant extends HttpServlet {
 	private EtudiantDao etudiantDao;
 	private ArrayList<Filiere> listfiliere;
 	private ArrayList<Etudiant> listetudiant;
+	private ArrayList<Matiere> listmatiere;
 	private TreatementEtudiant treatementEtudiant;
 	private Classe c;
 	private int lengh;
@@ -39,18 +42,24 @@ public class ServletEtudiant extends HttpServlet {
 		this.filiereDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getFiliereDao();
 		this.etudiantDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getEtudiantDao();
 		listetudiant = new ArrayList<Etudiant>();
-		c= new Classe();
-		
-		
+		listmatiere = new ArrayList<Matiere>();
+		c = new Classe();
+
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String page = request.getRequestURL().substring(31);
 
 		listfiliere = filiereDao.lister();
 		request.setAttribute("listfiliere", listfiliere);
 		request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
-		this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
+
+		if (page.equals("Simulation")) {
+			this.getServletContext().getRequestDispatcher("/Simulation.jsp").forward(request, response);
+		} else {
+			this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
+		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,10 +67,10 @@ public class ServletEtudiant extends HttpServlet {
 		String action = request.getParameter("action");
 		listfiliere = filiereDao.lister();
 
-		switch(action){
-		
+		switch (action) {
+
 		case "GestionClass":
-			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao,false);
+			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao, false);
 			lengh = listetudiant.size();
 			request.setAttribute("listetudiant", listetudiant);
 			request.setAttribute("lengh", lengh);
@@ -74,10 +83,10 @@ public class ServletEtudiant extends HttpServlet {
 			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
 			this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
 			break;
-			
+
 		case "AddStudent":
 			treatementEtudiant.AddStudent(request, etudiantDao);
-			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao,true);
+			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao, true);
 			lengh = listetudiant.size();
 			request.setAttribute("listetudiant", listetudiant);
 			request.setAttribute("lengh", lengh);
@@ -86,20 +95,21 @@ public class ServletEtudiant extends HttpServlet {
 			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
 			this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
 			break;
-			
+
 		case "ModifierEtudiantFromListEtudiant":
-			//On set les attributs de la classe pour qu'on puisse savoir la classe en question
+			// On set les attributs de la classe pour qu'on puisse savoir la
+			// classe en question
 			request.setAttribute("NomClasse", c.getNomClasse());
 			request.setAttribute("filiere", c.getFiliere().getNom());
 			request.setAttribute("niveau", c.getNiveau());
 			request.setAttribute("annee", c.getAnneeUniversitaire());
 			treatementEtudiant.DisplayStudentForModify(request, listetudiant);
 			this.getServletContext().getRequestDispatcher("/DisplayStudentForModify.jsp").forward(request, response);
-		break;
-		
+			break;
+
 		case "UpdateStudent":
 			treatementEtudiant.UpdateStudent(request, etudiantDao);
-			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao,true);
+			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao, true);
 			lengh = listetudiant.size();
 			request.setAttribute("listetudiant", listetudiant);
 			request.setAttribute("lengh", lengh);
@@ -108,10 +118,10 @@ public class ServletEtudiant extends HttpServlet {
 			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
 			this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
 			break;
-			
+
 		case "SupprimerEtudiant":
 			treatementEtudiant.DeleteStudent(request, etudiantDao);
-			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao,true);
+			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao, true);
 			lengh = listetudiant.size();
 			request.setAttribute("listetudiant", listetudiant);
 			request.setAttribute("lengh", lengh);
@@ -120,7 +130,50 @@ public class ServletEtudiant extends HttpServlet {
 			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
 			this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
 			break;
+
+		case "SearchMatiere":
+			listfiliere = filiereDao.lister();
+			request.setAttribute("listfiliere", listfiliere);
+			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
+			listmatiere = treatementEtudiant.GetMatiereForSimulate(request, etudiantDao,false);
+			if (listmatiere != null) {
+				request.setAttribute("listmatiere", listmatiere);
+				request.setAttribute("lengh", listmatiere.size());
+				this.getServletContext().getRequestDispatcher("/Simulation.jsp").forward(request, response);
+			}
+			break;
+		case"Calculate":
+			HashMap<String, Float> listresult = new HashMap<String,Float>();
+			listfiliere = filiereDao.lister();
+			request.setAttribute("listfiliere", listfiliere);
+			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
+			listmatiere = treatementEtudiant.GetMatiereForSimulate(request, etudiantDao,true);
+			if (listmatiere != null) {
+				listresult=Simulate(request,listmatiere);
+				request.setAttribute("sumcoeff", listresult.get("sumcoeff"));
+				request.setAttribute("result",	listresult.get("result"));
+				request.setAttribute("listmatiere", listmatiere);
+				request.setAttribute("lengh", listmatiere.size());
+			this.getServletContext().getRequestDispatcher("/Simulation.jsp").forward(request, response);
 		}
+			break;
+		}
+		}
+	private HashMap<String, Float> Simulate(HttpServletRequest request, ArrayList<Matiere> listmatiere) {
+		HashMap<String, Float> resultMap = new HashMap<String, Float>();
+		float tmp = 0;
+		int sumcoeff = 0;
+		float result = 0;
+		for (int i = 0; i < listmatiere.size(); i++) {
+			tmp += listmatiere.get(i).getCoefficient() * Float.parseFloat(request.getParameter("" + i));
+			sumcoeff += listmatiere.get(i).getCoefficient();
+		}
+		result=tmp/sumcoeff;
+		resultMap.put("sumcoeff", (float) sumcoeff);
+		resultMap.put("result", result);
+		return resultMap;
+		
+		
 	}
-	
+
 }
