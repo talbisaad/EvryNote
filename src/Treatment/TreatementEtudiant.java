@@ -107,6 +107,7 @@ public class TreatementEtudiant {
 				etudiant.setTelEtud(resultSet.getInt("TelEtud"));
 				etudiant.setEmailEtudiant(resultSet.getString("EmailEtudiant"));
 				etudiant.getClasse().setIdClasse(resultSet.getInt("IdClasse"));
+				etudiant.setActive(resultSet.getBoolean("Active"));
 				listetudiant.add(etudiant);
 
 			}

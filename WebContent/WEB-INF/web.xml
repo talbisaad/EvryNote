@@ -20,6 +20,10 @@
     <servlet-name>ServletEtudiant</servlet-name>
     <servlet-class>Controller.ServletEtudiant</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ServletInscription</servlet-name>
+    <servlet-class>Controller.ServletInscription</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>ServletClass</servlet-name>
     <url-pattern>/CreerClass</url-pattern>
@@ -47,6 +51,10 @@
   <servlet-mapping>
     <servlet-name>ServletEtudiant</servlet-name>
     <url-pattern>/Simulation</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>ServletInscription</servlet-name>
+    <url-pattern>/InscriptionEtudiant</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ServletFiliere</servlet-name>

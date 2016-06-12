@@ -140,6 +140,9 @@ public class DAOFactory {
 	public EtudiantDao getEtudiantDao(){
 		return new EtudiantDaoImpl(this);
 	}
+	public InscriptionDao getInscriptionDao(){
+		return new InscriptionDaoImpl(this);
+	}
 	
 	
 

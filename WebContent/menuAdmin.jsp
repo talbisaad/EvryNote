@@ -28,4 +28,10 @@
                  <li><a href="/EvryNote/Simulation">Simulation</a></li>
            </ul>
           </li>
+           <li><div class="titleitm">Inscription<span class="togl">[ - ]</span></div>
+           <ul class="subItm">
+                 <li><a href="/EvryNote/InscriptionEtudiant">Etudiant</a></li>
+                 <li><a href="/EvryNote/ListNote.jsp">Responsable</a></li>
+           </ul>
+          </li>
       </ul> 

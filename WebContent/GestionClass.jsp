@@ -34,7 +34,8 @@
 						<tr>
 							<td>Nom classe</td>
 							<td>:</td>
-							<td><input type="text" class="inpt" name="NomClasse" size="30"></td>
+							<td><input type="text" class="inpt" name="NomClasse"
+								size="30"></td>
 
 							<td>Filière</td>
 							<td>:</td>
@@ -56,7 +57,8 @@
 							</select></td>
 							<td>Année Universitaire</td>
 							<td>:</td>
-							<td><input type="text" name="annee" class="inpt" id="filtersh" /></td>
+							<td><input type="text" name="annee" class="inpt"
+								id="filtersh" /></td>
 						</tr>
 
 
@@ -83,6 +85,7 @@
 						<td>INE Etudiant</td>
 						<td>Nom</td>
 						<td>Prénom</td>
+						<td>Inscrit</td>
 						<td>Modifier</td>
 						<td>Supprimer</td>
 					</tr>
@@ -95,6 +98,14 @@
 							<td><c:out value="${e.ine}" /></td>
 							<td><c:out value="${e.nomEtudiant}" /></td>
 							<td><c:out value="${e.prenomEtudiant}" /></td>
+							<c:choose>
+								<c:when test="${e.active  eq 'true'}">
+									<td><img alt="modify" class="modifyicone" src="CSS/ok.png"></td>
+								</c:when>
+								<c:when test="${e.active  eq 'false'}">
+									<td><img alt="modify" class="modifyicone" src="CSS/no.png"></td>
+								</c:when>
+							</c:choose>
 							<td><form
 									action="ServletEtudiant?action=ModifierEtudiantFromListEtudiant"
 									method="POST">
