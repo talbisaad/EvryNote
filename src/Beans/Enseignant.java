@@ -4,8 +4,33 @@ import java.io.Serializable;
 
 public class Enseignant implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nom, prenom;
+	private String login;
+	private String motdepasse;
+	
+	
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getMotdepasse() {
+		return motdepasse;
+	}
+
+	public void setMotdepasse(String motdepasse) {
+		this.motdepasse = motdepasse;
+	}
+
 	private boolean reponsableFil;
 	private boolean chefDepart;
 	

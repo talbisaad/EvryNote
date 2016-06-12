@@ -5,12 +5,14 @@ import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 
+import Beans.Enseignant;
 import Beans.Etudiant;
 import Dao.InscriptionDao;
 
 public class TreatementInscription {
 
 	Etudiant etudiant;
+	Enseignant e;
 
 	public Etudiant SearchStudent(HttpServletRequest request, InscriptionDao inscriptionDao) {
 		etudiant = new Etudiant();
@@ -38,6 +40,30 @@ public class TreatementInscription {
 		etudiant.setTelEtud(Integer.parseInt(request.getParameter("numEtud")));
 		etudiant.setPasseword(request.getParameter("password"));
 		inscriptionDao.UpdateStudent(etudiant);
+
+	}
+
+	public void InsertResponsable(HttpServletRequest request, InscriptionDao inscriptionDao) {
+		e = new Enseignant();
+
+		e.setNom(request.getParameter("nom"));
+		e.setPrenom(request.getParameter("prenom"));
+		e.setLogin(request.getParameter("login"));
+		e.setMotdepasse(request.getParameter("password"));
+
+		String[] list = request.getParameterValues("droit");
+
+		for (int i = 0; i < list.length; i++) {
+			if (list[i].equals("CD")) {
+				e.setChefDepart(true);
+			} 
+
+			if (list[i].equals("RF")) {
+				e.setReponsableFil(true);
+			}
+		}
+
+		inscriptionDao.InsertResponsable(e);
 
 	}
 

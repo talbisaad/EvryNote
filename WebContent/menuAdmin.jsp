@@ -31,7 +31,7 @@
            <li><div class="titleitm">Inscription<span class="togl">[ - ]</span></div>
            <ul class="subItm">
                  <li><a href="/EvryNote/InscriptionEtudiant">Etudiant</a></li>
-                 <li><a href="/EvryNote/ListNote.jsp">Responsable</a></li>
+                 <li><a href="/EvryNote/InscriptionResponsable">Responsable</a></li>
            </ul>
           </li>
       </ul> 

@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +31,17 @@ public class ServletInscription extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.getServletContext().getRequestDispatcher("/InscriptionEtudiant.jsp").forward(request, response);
+		String page = request.getRequestURL().substring(31);
+		
+		if(page.equals("InscriptionEtudiant")){
+			this.getServletContext().getRequestDispatcher("/InscriptionEtudiant.jsp").forward(request, response);
+			
+		}else{
+			
+			this.getServletContext().getRequestDispatcher("/InscriptionResponsable.jsp").forward(request, response);
+		}
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,8 +61,14 @@ public class ServletInscription extends HttpServlet {
 			treatementInscription.UpdateStudent(request, inscriptionDao);
 			this.getServletContext().getRequestDispatcher("/InscriptionEtudiant.jsp").forward(request, response);
 			break;
+		
+		case "SaveResponsable":	
 			
-			
+			treatementInscription.InsertResponsable(request, inscriptionDao);
+			this.getServletContext().getRequestDispatcher("/InscriptionResponsable.jsp").forward(request, response);
+			break;
+			}
+		
 		
 		}
 		
@@ -65,4 +82,4 @@ public class ServletInscription extends HttpServlet {
 		
 	}
 
-}
+

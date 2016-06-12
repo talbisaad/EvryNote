@@ -56,6 +56,10 @@
     <servlet-name>ServletInscription</servlet-name>
     <url-pattern>/InscriptionEtudiant</url-pattern>
   </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>ServletInscription</servlet-name>
+    <url-pattern>/InscriptionResponsable</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ServletFiliere</servlet-name>
     <url-pattern>/ListFil</url-pattern>
