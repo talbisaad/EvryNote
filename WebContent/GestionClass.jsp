@@ -133,7 +133,10 @@
 		<div id="lign">
 			<input type="hidden" name="listetudiant" value="${listetudiant}" />
 			<input type="button" id="hideshow" value="Ajouter" class="submit" />
-			<input type="file" id="fichier" name="fichier" value="" />
+			
+		<form action="ServletEtudiant?action=upload" method="POST" enctype="multipart/form-data"><input type="file" id="fichier" name="file"/>
+		 <input type="submit" />
+		</form>	
 		</div>
 		<div id="content" style="display: none">
 			<dir>

@@ -1,14 +1,19 @@
 package Controller;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import Beans.Classe;
 import Beans.Etudiant;
 import Beans.Filiere;
@@ -19,11 +24,13 @@ import Dao.EtudiantDao;
 import Dao.FiliereDao;
 import Treatment.EvryNoteUtils;
 import Treatment.TreatementEtudiant;
+import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * Servlet implementation class ServletGestionClass
  */
 @WebServlet("/ServletEtudiant")
+@MultipartConfig
 public class ServletEtudiant extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ClasseDao classeDao;
@@ -157,6 +164,17 @@ public class ServletEtudiant extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/Simulation.jsp").forward(request, response);
 		}
 			break;
+		case "upload":
+			Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+		    String fileName =getSubmittedFileName(filePart);
+		    File file = (File) filePart;
+		    String path=file.getAbsolutePath();
+		    CSVReader reader = new CSVReader(new FileReader(path));
+		    String [] nextLine;
+		     while ((nextLine = reader.readNext()) != null) {
+		        // nextLine[] is an array of values from the line
+		        System.out.println(nextLine[0] + nextLine[1] + "etc...");
+		     }
 		}
 		}
 	private HashMap<String, Float> Simulate(HttpServletRequest request, ArrayList<Matiere> listmatiere) {
@@ -174,6 +192,15 @@ public class ServletEtudiant extends HttpServlet {
 		return resultMap;
 		
 		
+	}
+	private static String getSubmittedFileName(Part part) {
+	    for (String cd : part.getHeader("content-disposition").split(";")) {
+	        if (cd.trim().startsWith("filename")) {
+	            String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+	            return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
+	        }
+	    }
+	    return null;
 	}
 
 }

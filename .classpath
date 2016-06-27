@@ -12,5 +12,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Saâd TALBI/Downloads/Compressed/apache-tomcat-7.0.68/lib/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Saâd TALBI/Downloads/Compressed/apache-tomcat-7.0.68/lib/standard-1.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saâd TALBI/Downloads/Compressed/Load_CSV_Database_Java_example/lib/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Saâd TALBI/Downloads/Compressed/Load_CSV_Database_Java_example/lib/opencsv-2.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
