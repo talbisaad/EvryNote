@@ -50,17 +50,24 @@ public class TreatementInscription {
 		e.setPrenom(request.getParameter("prenom"));
 		e.setLogin(request.getParameter("login"));
 		e.setMotdepasse(request.getParameter("password"));
-
 		String[] list = request.getParameterValues("droit");
 
+		if(list!=null &&list.length!=0){
 		for (int i = 0; i < list.length; i++) {
+			
+			
+			
 			if (list[i].equals("CD")) {
 				e.setChefDepart(true);
-			} 
+			}
 
 			if (list[i].equals("RF")) {
 				e.setReponsableFil(true);
 			}
+			if (list[i].equals("AD")) {
+				e.setAdministratif(true);
+			}
+		}
 		}
 
 		inscriptionDao.InsertResponsable(e);

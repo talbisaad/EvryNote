@@ -17,7 +17,7 @@ public class InscriptionDaoImpl implements InscriptionDao {
 	private static final String UPDATE_STUDENT = "UPDATE etudiant SET NomEtudiant= ?, PrenomEtudiant= ?, DateDeNaissance= ?, TelEtud= ?, EmailEtudiant= ?, Password= ?,Active= 1  WHERE  INE= ?";
 	private static final String ADD_RESPONSABLE="INSERT INTO `evrynote`.`responsable` (`nom`, `prenom`, `login`, `password`) VALUES (?, ?, ?, ?);";
 	private static final String GET_ID_RESPONSABLE="SELECT distinct IdResponsable from responsable WHERE nom=? AND  prenom=?  AND login=? AND  password= ?";
-	private static final String INSERT_ROLE="INSERT INTO `evrynote`.`droit` (`IdResponsable`, `CD`, `RF`) VALUES (?, ?, ?);";
+	private static final String INSERT_ROLE="INSERT INTO `evrynote`.`droit` (`IdResponsable`, `CD`, `RF`, `AD`) VALUES (?, ?, ?, ?);";
 	public InscriptionDaoImpl(DAOFactory daoFactory) {
 		
 		this.daofactory = daoFactory;
@@ -177,7 +177,7 @@ public class InscriptionDaoImpl implements InscriptionDao {
 		try {
 			connexion = daofactory.getConnection();
 			preparedStatement = (PreparedStatement) DAOUtilitaire.initialisationRequetePreparee(connexion,
-					INSERT_ROLE, false, enseignant.getId(),enseignant.isChefDepart(),enseignant.isReponsableFil());
+					INSERT_ROLE, false, enseignant.getId(),enseignant.isChefDepart(),enseignant.isReponsableFil(),enseignant.isAdministratif());
 			int statut = preparedStatement.executeUpdate();
 
 			if (statut == 0) {

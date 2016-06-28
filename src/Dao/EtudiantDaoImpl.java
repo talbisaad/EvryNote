@@ -17,7 +17,7 @@ public class EtudiantDaoImpl implements EtudiantDao {
 	private DAOFactory daofactory;
 	private TreatementEtudiant treatementetudiant;
 	private static final String GET_LISTETUDIANT = "select * from etudiant where idClasse= ?";
-	private static final String CREAT_STUDENT = "INSERT INTO etudiant (`INE`, `NomEtudiant`, `PrenomEtudiant`, `DateDeNaissance`, `TelEtud`, `EmailEtudiant`, `IdClasse`) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+	private static final String CREAT_STUDENT = "INSERT INTO etudiant (`INE`, `NomEtudiant`, `PrenomEtudiant`, `DateDeNaissance`, `TelEtud`, `EmailEtudiant`, `IdClasse`, `Active`) VALUES ( ?, ?, ?, ?, ?, ?, ?,false)";
 	private static final String UPDATE_STUDENT = "UPDATE etudiant SET NomEtudiant= ?, PrenomEtudiant= ?, DateDeNaissance= ?, TelEtud= ?, EmailEtudiant= ? WHERE  INE= ?";
 	private static final String DELETE_STUDENT = "DELETE FROM `evrynote`.`etudiant` WHERE `etudiant`.`INE` = ?";
 	private static final String GET_MATIERES_FOR_SIMULATE = "SELECT  filmatens.coefficient, matiere.nom from matiere,filmatens "
@@ -196,6 +196,21 @@ public class EtudiantDaoImpl implements EtudiantDao {
 			
 		}
 		return null;
+		
+	}
+
+	@Override
+	public void Upload(ArrayList<Etudiant> listetudiant) throws DAOException {
+		// TODO Auto-generated method stub
+		
+		for(Etudiant e:listetudiant){
+			AddStudent(e);
+		}
+		
+		
+		
+		
+		
 		
 	}
 

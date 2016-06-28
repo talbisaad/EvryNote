@@ -49,6 +49,8 @@
 							département</td>
 						<td><input type="checkbox" name="droit" value="RF"/>Résponsable de
 							filiere</td>
+							<td><input type="checkbox" name="droit" value="AD"/>Administatif</td>
+							
 						
 					</tr>
 

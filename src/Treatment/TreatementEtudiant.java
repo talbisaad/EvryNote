@@ -1,12 +1,16 @@
 package Treatment;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import Beans.Classe;
 import Beans.Etudiant;
@@ -14,6 +18,7 @@ import Beans.Filiere;
 import Beans.Matiere;
 import Dao.ClasseDao;
 import Dao.EtudiantDao;
+import au.com.bytecode.opencsv.CSVReader;
 
 public class TreatementEtudiant {
 
@@ -26,6 +31,51 @@ public class TreatementEtudiant {
 		etudiant = new Etudiant();
 		etudiant = MapRequestToObject(request);
 		etudiantDao.AddStudent(etudiant);
+	}
+
+	public void Upload(HttpServletRequest request, EtudiantDao etudiantDao) {
+		ArrayList<Etudiant> etudiantlist = new ArrayList<Etudiant>();
+		
+		Part filePart;
+		try {
+			filePart = request.getPart("file");
+			String fileName = getSubmittedFileName(filePart);
+			@SuppressWarnings("resource")
+			CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Saâd TALBI\\Desktop\\" + fileName));
+			String[] nextLine;
+			while ((nextLine = reader.readNext()) != null) {
+				etudiant = new Etudiant();
+				etudiant.setIne(Integer.parseInt(nextLine[0]));
+				etudiant.setNomEtudiant(nextLine[1]);
+				etudiant.setPrenomEtudiant(nextLine[2]);
+				try {
+					java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(nextLine[3]);
+					etudiant.setDateDeNaissance(date);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				etudiant.setTelEtud(Integer.parseInt(nextLine[4]));
+				etudiant.setEmailEtudiant(nextLine[5]);
+				etudiant.getClasse().setIdClasse(Integer.parseInt(nextLine[6]));
+				 System.out.println(nextLine[0] + nextLine[1] + nextLine[2] + nextLine[3] + nextLine[4] + nextLine[5]);
+				
+				etudiantlist.add(etudiant);
+			}
+			
+			
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // Retrieves <input type="file" name="file">
+
+		 etudiantDao.Upload(etudiantlist);
 	}
 
 	public void UpdateStudent(HttpServletRequest request, EtudiantDao etudiantDao) {
@@ -118,7 +168,7 @@ public class TreatementEtudiant {
 		return listetudiant;
 
 	}
-	
+
 	public Etudiant MapRequestToObject(HttpServletRequest request) {
 		etudiant = new Etudiant();
 		etudiant.setIne(Integer.parseInt(request.getParameter("idEtud")));
@@ -138,8 +188,16 @@ public class TreatementEtudiant {
 		etudiant.getClasse().setIdClasse(classe.getIdClasse());
 		return etudiant;
 	}
-	
-	
 
-	
+	private static String getSubmittedFileName(Part part) {
+		for (String cd : part.getHeader("content-disposition").split(";")) {
+			if (cd.trim().startsWith("filename")) {
+				String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+				return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE
+																													// fix.
+			}
+		}
+		return null;
+	}
+
 }

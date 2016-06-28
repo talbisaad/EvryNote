@@ -14,5 +14,6 @@ public interface EtudiantDao {
 	void UpdateStudent(Etudiant e)throws DAOException;
 	void DeleteStudent(Etudiant e)throws DAOException;
 	ArrayList<Matiere> GetMatiereForSimulate(Filiere filiere)throws DAOException;
+	void Upload(ArrayList<Etudiant> listetudiant)throws DAOException;
 	
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Beans.Classe;
+import Beans.Enseignant;
 import Beans.Filiere;
 import Dao.ClasseDao;
 import Dao.DAOFactory;
@@ -38,7 +39,7 @@ public class ServletClass extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		Enseignant enseignant = (Enseignant) request.getSession().getAttribute("sessionUtilisateur");
 		String page = request.getRequestURL().substring(31);
 		listfiliere = filiereDao.lister();
 		request.setAttribute("listfiliere", listfiliere);
@@ -64,7 +65,6 @@ public class ServletClass extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String action = request.getParameter("action");
 		@SuppressWarnings("unused")
 		String page = request.getRequestURL().substring(31);

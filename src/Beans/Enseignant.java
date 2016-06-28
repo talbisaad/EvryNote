@@ -33,7 +33,16 @@ public class Enseignant implements Serializable{
 
 	private boolean reponsableFil;
 	private boolean chefDepart;
+	private boolean administratif;
 	
+	public boolean isAdministratif() {
+		return administratif;
+	}
+
+	public void setAdministratif(boolean administratif) {
+		this.administratif = administratif;
+	}
+
 	public Enseignant(){
 		
 	}

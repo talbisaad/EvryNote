@@ -165,16 +165,16 @@ public class ServletEtudiant extends HttpServlet {
 		}
 			break;
 		case "upload":
-			Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-		    String fileName =getSubmittedFileName(filePart);
-		    File file = (File) filePart;
-		    String path=file.getAbsolutePath();
-		    CSVReader reader = new CSVReader(new FileReader(path));
-		    String [] nextLine;
-		     while ((nextLine = reader.readNext()) != null) {
-		        // nextLine[] is an array of values from the line
-		        System.out.println(nextLine[0] + nextLine[1] + "etc...");
-		     }
+			treatementEtudiant.Upload(request, etudiantDao);
+			listetudiant = treatementEtudiant.GetListOfStudent(request, listfiliere, classeDao, etudiantDao, true);
+			lengh = listetudiant.size();
+			request.setAttribute("listetudiant", listetudiant);
+			request.setAttribute("lengh", lengh);
+			listfiliere = filiereDao.lister();
+			request.setAttribute("listfiliere", listfiliere);
+			request.setAttribute("ListNiveau", EvryNoteUtils.ListNiveau);
+			this.getServletContext().getRequestDispatcher("/GestionClass.jsp").forward(request, response);
+			break;
 		}
 		}
 	private HashMap<String, Float> Simulate(HttpServletRequest request, ArrayList<Matiere> listmatiere) {
@@ -192,15 +192,6 @@ public class ServletEtudiant extends HttpServlet {
 		return resultMap;
 		
 		
-	}
-	private static String getSubmittedFileName(Part part) {
-	    for (String cd : part.getHeader("content-disposition").split(";")) {
-	        if (cd.trim().startsWith("filename")) {
-	            String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-	            return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
-	        }
-	    }
-	    return null;
 	}
 
 }
