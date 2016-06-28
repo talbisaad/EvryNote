@@ -74,7 +74,6 @@
 						<tr>
 							<td><span>Mot de passe</span></td>
 							<td><input class="inpt" type="password" name="password" /></td>
-							<td></td>
 							<td><span>Confirmer mot de passe</span></td>
 							<td><input class="inpt" type="password" name="numEtud" /></td>
 

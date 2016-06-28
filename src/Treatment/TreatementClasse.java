@@ -3,7 +3,6 @@ package Treatment;
 import Beans.Classe;
 import Beans.Filiere;
 import Dao.ClasseDao;
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

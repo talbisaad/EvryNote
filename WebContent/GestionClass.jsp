@@ -130,34 +130,42 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="lign">
+		</select><br> <br> <br>&nbsp &nbsp &nbsp &nbsp &nbsp <input
+				type="radio" name="saisieFil" value="importFil" checked> <span>Importer
+				la liste des étudiants </span> &nbsp &nbsp
+			&nbsp &nbsp &nbsp <input type="radio" name="saisieFil"
+				value="tableFil"> <span>Ajouter manuellement les
+				étudiants </span><br> <br>
+		
+		<%-- <div id="lign">
 			<input type="hidden" name="listetudiant" value="${listetudiant}" />
 			<input type="button" id="hideshow" value="Ajouter" class="submit" />
-			
+			</div> --%>
+		<div id="importFil">	
+		<fieldset>
+					<legend>Importer les étudiants</legend>
 		<form action="ServletEtudiant?action=upload" method="POST" enctype="multipart/form-data"><input type="file" id="fichier" name="file"/>
 		 <input type="submit" />
 		</form>	
+		</fieldset>
 		</div>
-		<div id="content" style="display: none">
+		<div id="tableFil">
 			<dir>
 				<jsp:include page="ProfileEtudiant.jsp"></jsp:include>
 			</dir>
 		</div>
 	</div>
 	<script>
-		var button = document.getElementById('hideshow');
-
-		button.onclick = function() {
-			var div = document.getElementById('content');
-			if (div.style.display !== 'none') {
-				div.style.display = 'none';
-				button.value = "Ajouter";
-			} else {
-				button.value = "Annuler";
-				div.style.display = 'block';
-
-			}
-		};
-	</script>
+			$(document).ready(function() {
+				var $tableFil = $("#tableFil");
+				$tableFil.hide();
+				$('input[name=saisieFil]:radio').click(function() {
+					$("#importFil").hide();
+					$tableFil.hide();
+					var divId = $(this).val();
+					$("#" + divId).show();
+				});
+			});
+		</script>
 </body>
 </html>

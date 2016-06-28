@@ -57,9 +57,7 @@ public class TreatementEtudiant {
 				}
 				etudiant.setTelEtud(Integer.parseInt(nextLine[4]));
 				etudiant.setEmailEtudiant(nextLine[5]);
-				etudiant.getClasse().setIdClasse(Integer.parseInt(nextLine[6]));
-				 System.out.println(nextLine[0] + nextLine[1] + nextLine[2] + nextLine[3] + nextLine[4] + nextLine[5]);
-				
+				etudiant.getClasse().setIdClasse(Integer.parseInt(nextLine[6]));				
 				etudiantlist.add(etudiant);
 			}
 			
@@ -193,8 +191,7 @@ public class TreatementEtudiant {
 		for (String cd : part.getHeader("content-disposition").split(";")) {
 			if (cd.trim().startsWith("filename")) {
 				String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-				return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE
-																													// fix.
+				return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); 
 			}
 		}
 		return null;

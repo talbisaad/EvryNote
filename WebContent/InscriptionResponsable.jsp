@@ -60,7 +60,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td><input type="submit" class="submit" value="Rechercher"
+						<td><input type="submit" class="submit" value="Ajouter"
 							id="hideshow" /></td>
 					</tr>
 
